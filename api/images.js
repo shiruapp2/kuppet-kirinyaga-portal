@@ -3,34 +3,16 @@ import path from 'path';
 
 export default function handler(req, res) {
   try {
-    // Vercel mounts files differently depending on the build environment.
-    // This array forces the script to check all known Vercel internal paths.
-    const possiblePaths = [
-      path.join(process.cwd(), 'images'),
-      path.join(__dirname, 'images'),
-      path.join(__dirname, '../images'),
-      path.resolve('./images')
-    ];
-
-    let imagesDir = null;
-    let testedPaths = [];
-
-    for (let p of possiblePaths) {
-      const exists = fs.existsSync(p);
-      testedPaths.push({ path: p, exists });
-      if (exists) {
-        imagesDir = p;
-        break;
-      }
-    }
-
-    // Diagnostic output if Vercel still cannot locate the files
-    if (!imagesDir) {
+    // Vercel standard path for included root folders
+    const imagesDir = path.join(process.cwd(), 'images');
+    
+    // Safety check: If it still can't find it, tell us exactly where it looked
+    if (!fs.existsSync(imagesDir)) {
       return res.status(200).json({ 
-          displayPhotos: [], 
-          committees: {}, 
-          error: "Directory absolutely not found by serverless function.",
-          debugPaths: testedPaths
+        error: "Folder missing", 
+        searchedPath: imagesDir,
+        displayPhotos: [], 
+        committees: {} 
       });
     }
 
