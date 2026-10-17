@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Reporting</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --gold: #D4AF37;
+            --green: #2E7D32;
+            --green-dark: #1B5E20;
+            --white: #FFFFFF;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+            --input-bg: #fcfcfc;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+        body { 
+            background: linear-gradient(rgba(245, 246, 250, 0.95), rgba(245, 246, 250, 0.95)), 
+                        url('https://i.ibb.co/TqdTXZvh/logo.jpg') center/cover fixed;
+            color: var(--text-main); display: flex; justify-content: center; min-height: 100vh; 
+        }
+        
+        /* Expanded container for desktop */
+        .app-container { width: 100%; max-width: 900px; padding: 40px 20px; position: relative; }
+
+        /* --- ENLARGED HEADER --- */
+        header { text-align: center; margin-bottom: 45px; }
+        .logo { 
+            width: 110px; height: 110px; 
+            border-radius: 50%; border: 3px solid var(--gold); 
+            margin-bottom: 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            background: var(--white); padding: 4px;
+        }
+        
+        .header-title { 
+            display: flex; align-items: center; justify-content: center; gap: 12px; 
+            color: var(--green-dark); font-size: 2.2rem; font-weight: 700; margin-top: 5px; letter-spacing: -0.5px;
+        }
+        .detective-icon { color: var(--gold); width: 36px; height: 36px; }
+        .subtitle { font-size: 1.1rem; color: var(--text-muted); margin-top: 8px; font-weight: 500; }
+
+        /* Screens */
+        .screen { display: none; animation: fadeIn 0.4s ease; }
+        .screen.active { display: block; }
+
+        /* Form Wrapper to keep inputs from stretching too wide on desktop */
+        .form-wrapper { max-width: 600px; margin: 0 auto; }
+
+        /* Main Menu Buttons Desktop Grid */
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 20px; }
+        @media (min-width: 768px) {
+            .menu-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .menu-btn {
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px 25px;
+            width: 100%; text-align: left; display: flex; align-items: center; gap: 18px;
+            cursor: pointer; transition: 0.3s; color: var(--text-main); box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border-top: 4px solid transparent;
+        }
+        .menu-btn:hover { border-top-color: var(--gold); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15); transform: translateY(-3px); }
+        .menu-btn svg { width: 45px; height: 45px; color: var(--green); flex-shrink: 0; }
+        .menu-text h3 { font-size: 1.2rem; margin-bottom: 6px; color: var(--green-dark); font-weight: 700; }
+        .menu-text p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* Forms & Cards */
+        .card { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.04); margin-bottom: 20px; border-top: 4px solid var(--gold); }
+        label { display: block; font-size: 0.9rem; margin-bottom: 8px; color: var(--green-dark); font-weight: 600; }
+        input, select, textarea {
+            width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #ccc; background: var(--input-bg); 
+            color: var(--text-main); font-size: 0.95rem; margin-bottom: 20px; transition: 0.3s;
+            -webkit-appearance: none;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 5px rgba(212, 175, 55, 0.3); background: #fff; }
+
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 10px; font-weight: 600; font-size: 1.05rem; cursor: pointer; transition: 0.3s; }
+        .btn-primary { background: var(--green); color: var(--white); display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-primary:active { background: var(--green-dark); transform: scale(0.98); }
+        .btn-secondary { background: transparent; color: var(--text-muted); border: 1px solid #ccc; margin-top: 10px; }
+        .btn-secondary:active { background: #f0f0f0; }
+
+        /* Code Display & Warnings */
+        .warning-box { background: rgba(212, 175, 55, 0.1); border-left: 4px solid var(--gold); border-radius: 4px; padding: 15px; font-size: 0.85rem; color: #555; margin-bottom: 20px; display: flex; gap: 12px; align-items: center; }
+        .warning-box svg { flex-shrink: 0; color: var(--gold); }
+        .big-code { font-size: 2.8rem; text-align: center; font-weight: 700; letter-spacing: 6px; color: var(--green-dark); padding: 25px; background: rgba(46, 125, 50, 0.05); border: 2px dashed var(--green); border-radius: 12px; margin: 25px 0; }
+
+        /* Status Result Box */
+        .result-box { display: none; background: #f8fafc; padding: 20px; border-radius: 10px; border-left: 4px solid var(--green); border: 1px solid #e2e8f0; margin-top: 20px; font-size: 0.95rem; white-space: pre-wrap; color: #334155; line-height: 1.6; }
+        .result-box strong { color: var(--green-dark); font-size: 1rem; }
+
+        /* Admin Layout & Accordions */
+        .admin-link { position: absolute; bottom: 20px; right: 20px; opacity: 0.2; cursor: pointer; transition: 0.3s; color: var(--text-muted); }
+        .admin-link:hover { opacity: 1; color: var(--gold); }
+        
+        .case-wrapper { margin-bottom: 15px; border: 1px solid var(--border-color); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .accordion-header {
+            background: var(--card-bg); padding: 18px 20px; border-radius: 10px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 5px solid #ccc; transition: 0.3s; user-select: none;
+        }
+        .accordion-header:hover { background: #fafafa; }
+        .accordion-header.pending { border-left-color: var(--gold); }
+        .accordion-header.responded { border-left-color: var(--green); }
+        
+        .case-meta { display: flex; flex-direction: column; gap: 4px; }
+        .case-meta strong { font-size: 1.1rem; color: var(--text-main); }
+        .case-meta span { font-size: 0.8rem; color: #888; }
+        
+        .status-badge { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; font-weight: 600; }
+        .chevron { transition: transform 0.3s ease; color: #888; }
+        
+        .accordion-body {
+            display: none; padding: 20px; background: #fafafa;
+            border-top: 1px solid var(--border-color);
+            border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;
+            animation: slideDown 0.3s ease;
+        }
+        .accordion-body.open { display: block; }
+        .accordion-header.open .chevron { transform: rotate(180deg); }
+        .accordion-header.open { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+
+        .case-body-text { font-size: 0.9rem; margin-bottom: 20px; white-space: pre-wrap; color: #334155; background: #fff; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px; line-height: 1.6;}
+
+        /* Loader Modal */
+        .loader-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.9); z-index:1000; display:none; justify-content:center; align-items:center; flex-direction:column; }
+        .spinner { border: 4px solid #e2e8f0; border-top: 4px solid var(--green); border-radius: 50%; width: 45px; height: 45px; animation: spin 1s linear infinite; }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="loader-overlay" id="loader">
+        <div class="spinner"></div>
+        <div style="margin-top:15px; color:var(--green-dark); font-weight:600; font-size:1rem;">Processing...</div>
+    </div>
+
+    <div class="app-container">
+        
+        <header>
+            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="Logo" class="logo">
+            <h2 class="header-title">
+                <!-- Detective Icon -->
+                <svg class="detective-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 11h18"></path>
+                    <path d="M19 11v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="7" cy="16" r="3"></circle>
+                    <circle cx="17" cy="16" r="3"></circle>
+                    <line x1="10" y1="16" x2="14" y2="16"></line>
+                </svg>
+                Anonymous Reporting
+            </h2>
+            <p class="subtitle">Secure • Untracked • Highly Confidential</p>
+        </header>
+
+        <!-- MAIN MENU SCREEN -->
+        <div id="screen-home" class="screen active">
+            <div class="menu-grid form-wrapper">
+                <button class="menu-btn" onclick="nav('screen-report')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    <div class="menu-text">
+                        <h3>Submit a Report</h3>
+                        <p>File a secure and entirely anonymous case.</p>
+                    </div>
+                </button>
+
+                <button class="menu-btn" onclick="nav('screen-status')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <div class="menu-text">
+                        <h3>Check Response</h3>
+                        <p>Track progress using your unique generation code.</p>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Discreet Admin Icon (Padlock) -->
+            <div class="admin-link" onclick="nav('screen-admin-login')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+        </div>
+
+        <!-- REPORT SCREEN -->
+        <div id="screen-report" class="screen">
+            <div class="card form-wrapper">
+                <div class="warning-box">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <span>Do not include identifying details (names or TSC numbers) if you wish to remain entirely anonymous.</span>
+                </div>
+                
+                <label>Category</label>
+                <select id="rep-category">
+                    <option value="Welfare Issue">Welfare Issue</option>
+                    <option value="Financial Inquiry">Financial Inquiry</option>
+                    <option value="Leadership Feedback">Leadership Feedback</option>
+                    <option value="Suggestion">Suggestion / Other</option>
+                </select>
+
+                <label>Urgency Level</label>
+                <select id="rep-urgency">
+                    <option value="Standard Review">Standard Review</option>
+                    <option value="High Priority / Urgent">High Priority / Urgent</option>
+                </select>
+
+                <label>Detailed Description</label>
+                <textarea id="rep-details" rows="6" placeholder="Describe the issue in detail..."></textarea>
+
+                <button class="btn btn-primary" onclick="submitReport()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11h18"></path><path d="M19 11v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="7" cy="16" r="3"></circle><circle cx="17" cy="16" r="3"></circle><line x1="10" y1="16" x2="14" y2="16"></line></svg>
+                    Submit Securely
+                </button>
+                <button class="btn btn-secondary" onclick="nav('screen-home')">Cancel</button>
+            </div>
+        </div>
+
+        <!-- SUCCESS / CODE SCREEN -->
+        <div id="screen-success" class="screen">
+            <div class="card form-wrapper" style="text-align:center;">
+                <h3 style="color:var(--green); font-size: 1.5rem;">Report Submitted</h3>
+                <p style="font-size:0.95rem; margin-top:10px; color:#555; line-height: 1.5;">Your anonymous report has been securely saved. Below is your unique tracking code.</p>
+                
+                <div class="big-code" id="generated-code">----</div>
+                
+                <div class="warning-box" style="justify-content:center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <strong>Do not lose this code!</strong> You will need it to check for official responses.
+                </div>
+
+                <button class="btn btn-primary" onclick="resetApp()">I Have Saved My Code</button>
+            </div>
+        </div>
+
+        <!-- STATUS CHECK SCREEN -->
+        <div id="screen-status" class="screen">
+            <div class="card form-wrapper">
+                <label style="text-align:center; font-size:1rem; margin-bottom: 15px;">Enter Your 4-Character Tracking Code</label>
+                <input type="text" id="status-code" placeholder="e.g. A9B2" style="text-transform:uppercase; letter-spacing:4px; font-weight:700; text-align:center; font-size:1.4rem;">
+                
+                <button class="btn btn-primary" onclick="checkStatus()">Search Record</button>
+                <button class="btn btn-secondary" onclick="nav('screen-home')">Back</button>
+
+                <div id="status-result" class="result-box"></div>
+            </div>
+        </div>
+
+        <!-- ADMIN LOGIN SCREEN -->
+        <div id="screen-admin-login" class="screen">
+            <div class="card form-wrapper">
+                <h3 style="color:var(--green-dark); margin-bottom:20px; text-align:center; font-size: 1.4rem;">Admin Portal Login</h3>
+                <input type="password" id="admin-pass" placeholder="Enter System Password" style="text-align:center; font-size:1.1rem; letter-spacing:2px;">
+                <button class="btn btn-primary" onclick="adminLogin()">Access Database</button>
+                <button class="btn btn-secondary" onclick="nav('screen-home')">Exit</button>
+            </div>
+        </div>
+
+        <!-- ADMIN DASHBOARD -->
+        <div id="screen-admin-dash" class="screen">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;">
+                <h3 style="color:var(--green-dark); font-size: 1.5rem;">Case Database</h3>
+                <button class="btn btn-secondary" style="margin:0; width:auto; padding:10px 20px; font-size:0.9rem;" onclick="nav('screen-home')">Log Out</button>
+            </div>
+            
+            <div id="admin-cases-container"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // PASTE YOUR NEW APP SCRIPT URL BELOW
+        // ==========================================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyD3-yDHUm3sO4DK1XKijC6Z1JSY_osUNY4d4ff9G3NdZ1nDDjuPEL6aNa46nPJXA3-/exec';
+        let adminPasswordToken = '';
+
+        function nav(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            
+            document.getElementById('status-result').style.display = 'none';
+            document.getElementById('status-code').value = '';
+            document.getElementById('admin-pass').value = '';
+        }
+
+        function resetApp() {
+            document.getElementById('rep-details').value = '';
+            nav('screen-home');
+        }
+
+        function toggleLoader(show) {
+            document.getElementById('loader').style.display = show ? 'flex' : 'none';
+        }
+
+        // --- User Functions ---
+        async function submitReport() {
+            const cat = document.getElementById('rep-category').value;
+            const urg = document.getElementById('rep-urgency').value;
+            const det = document.getElementById('rep-details').value;
+
+            if (!det.trim()) { alert("Please provide details for the report."); return; }
+
+            toggleLoader(true);
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', 'submitReport');
+                formData.append('category', cat);
+                formData.append('urgency', urg);
+                formData.append('details', det);
+
+                const res = await fetch(API_URL, { method: 'POST', body: formData });
+                const data = await res.json();
+                toggleLoader(false);
+
+                if (data.success) {
+                    document.getElementById('generated-code').innerText = data.code;
+                    nav('screen-success');
+                } else { alert("Failed to save report."); }
+            } catch (err) { toggleLoader(false); alert("Connection error."); }
+        }
+
+        async function checkStatus() {
+            const code = document.getElementById('status-code').value;
+            if (code.length !== 4) { alert("Code must be 4 characters."); return; }
+
+            toggleLoader(true);
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', 'checkStatus');
+                formData.append('code', code);
+
+                const res = await fetch(API_URL, { method: 'POST', body: formData });
+                const data = await res.json();
+                toggleLoader(false);
+
+                const resBox = document.getElementById('status-result');
+                if (data.success) {
+                    resBox.innerHTML = `<strong>Date:</strong> ${data.timestamp}<br><br><strong>Original Report:</strong><br>${data.details}<br><br><strong>Office Response:</strong><br><span style="color:var(--text-main); font-weight: 500;">${data.response}</span>`;
+                    resBox.style.display = 'block';
+                } else {
+                    resBox.innerHTML = `<span style="color:red; font-weight: 600;">Error: ${data.message}</span>`;
+                    resBox.style.display = 'block';
+                }
+            } catch (err) { toggleLoader(false); alert("Connection error."); }
+        }
+
+        // --- Admin Functions ---
+        async function adminLogin() {
+            const pass = document.getElementById('admin-pass').value || adminPasswordToken;
+            if(!pass) return;
+
+            toggleLoader(true);
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', 'adminLogin');
+                formData.append('password', pass);
+
+                const res = await fetch(API_URL, { method: 'POST', body: formData });
+                const data = await res.json();
+                toggleLoader(false);
+
+                if (data.success) {
+                    adminPasswordToken = pass;
+                    renderAdminCases(data.cases);
+                    nav('screen-admin-dash');
+                } else { alert("Incorrect Password"); }
+            } catch (err) { toggleLoader(false); alert("Connection error."); }
+        }
+
+        function renderAdminCases(cases) {
+            const container = document.getElementById('admin-cases-container');
+            container.innerHTML = '';
+
+            if (cases.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888; font-size: 1.1rem; padding: 20px;">No cases recorded yet.</p>';
+                return;
+            }
+
+            // SMART SORTING: Pending action first, then Responded
+            let pendingCases = cases.filter(c => !c.response);
+            let respondedCases = cases.filter(c => c.response);
+            let sortedCases = [...pendingCases, ...respondedCases];
+
+            sortedCases.forEach(c => {
+                let isPending = !c.response;
+                let statusColor = isPending ? 'var(--gold)' : 'var(--green)';
+                let statusText = isPending ? 'Pending Action' : 'Responded';
+                let headerClass = isPending ? 'pending' : 'responded';
+
+                container.innerHTML += `
+                    <div class="case-wrapper">
+                        <!-- Clickable Accordion Dropdown -->
+                        <div class="accordion-header ${headerClass}" id="header-${c.code}" onclick="toggleAccordion('${c.code}')">
+                            <div class="case-meta">
+                                <strong>${c.code}</strong>
+                                <span>${c.timestamp}</span>
+                            </div>
+                            <div class="status-badge" style="color:${statusColor};">
+                                ${statusText}
+                                <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Hidden Body Details -->
+                        <div class="accordion-body" id="body-${c.code}">
+                            <div class="case-body-text">${c.details}</div>
+                            <label style="color:${statusColor}; margin-top:10px; font-size: 0.95rem;">Office Response</label>
+                            <textarea id="resp-${c.code}" rows="4" placeholder="Type official response...">${c.response || ''}</textarea>
+                            <button class="btn btn-primary" style="padding:12px; font-size:1rem;" onclick="submitResponse('${c.code}')">Save Response</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function toggleAccordion(code) {
+            const header = document.getElementById('header-' + code);
+            const body = document.getElementById('body-' + code);
+            
+            if (body.classList.contains('open')) {
+                body.classList.remove('open');
+                header.classList.remove('open');
+            } else {
+                // Optional: Close others before opening this one
+                document.querySelectorAll('.accordion-body').forEach(el => el.classList.remove('open'));
+                document.querySelectorAll('.accordion-header').forEach(el => el.classList.remove('open'));
+                
+                body.classList.add('open');
+                header.classList.add('open');
+            }
+        }
+
+        async function submitResponse(code) {
+            const responseText = document.getElementById(`resp-${code}`).value;
+            
+            toggleLoader(true);
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', 'submitResponse');
+                formData.append('password', adminPasswordToken);
+                formData.append('code', code);
+                formData.append('response', responseText);
+
+                const res = await fetch(API_URL, { method: 'POST', body: formData });
+                const data = await res.json();
+                toggleLoader(false);
+
+                if (data.success) {
+                    alert("Response saved successfully!");
+                    adminLogin(); 
+                } else { alert("Error saving response: " + data.message); }
+            } catch (err) { toggleLoader(false); alert("Connection error."); }
+        }
+    </script>
+</body>
+</html>

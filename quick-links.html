@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Quick Links | BBF</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --gold: #D4AF37;
+            --green: #2E7D32;
+            --green-dark: #1B5E20;
+            --white: #FFFFFF;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+        body { 
+            background: linear-gradient(rgba(245, 246, 250, 0.95), rgba(245, 246, 250, 0.95)), 
+                        url('https://i.ibb.co/TqdTXZvh/logo.jpg') center/cover fixed;
+            color: var(--text-main); 
+            display: flex; 
+            justify-content: center; 
+            min-height: 100vh; 
+        }
+        
+        .app-container { width: 100%; max-width: 1200px; padding: 40px 20px; position: relative; }
+
+        /* --- HEADER --- */
+        header { text-align: center; margin-bottom: 50px; animation: fadeIn 0.5s ease; }
+        .logo { 
+            width: 110px; height: 110px; 
+            border-radius: 50%; border: 3px solid var(--gold); 
+            margin-bottom: 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            background: var(--white); padding: 4px;
+        }
+        .header-title { 
+            color: var(--green-dark); font-size: 2.4rem; font-weight: 700; margin-top: 5px; letter-spacing: -0.5px;
+        }
+        .subtitle { font-size: 1.1rem; color: var(--text-muted); margin-top: 8px; font-weight: 500; }
+
+        /* --- CATEGORY HEADERS --- */
+        .category-title {
+            font-size: 1.5rem; color: var(--green-dark); font-weight: 700;
+            margin: 40px 0 20px 0; padding-bottom: 10px; border-bottom: 2px solid var(--gold);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .category-title svg { color: var(--gold); width: 28px; height: 28px; }
+
+        /* --- GRID LAYOUT --- */
+        .links-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; 
+        }
+
+        /* --- LINK CARDS --- */
+        .card { 
+            background: var(--card-bg); border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.04); 
+            display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none; color: var(--text-main);
+        }
+        .card:hover {
+            transform: translateY(-5px); box-shadow: 0 12px 30px rgba(212, 175, 55, 0.2);
+            border-color: var(--gold);
+        }
+
+        /* Image Preview Wrapper */
+        .card-preview {
+            width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden;
+            background: #e0e0e0; border-bottom: 3px solid var(--green);
+        }
+        .card-preview img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+        }
+        .card:hover .card-preview img { transform: scale(1.05); }
+        
+        .card-preview::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.05), rgba(27, 94, 32, 0.3));
+        }
+
+        .card-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 1.2rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; }
+        .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+        
+        /* Action Button inside Card */
+        .btn-visit {
+            background: #f8fafc; border: 1px solid var(--border-color); color: var(--green-dark);
+            padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;
+            display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .card:hover .btn-visit { background: var(--green); color: var(--white); border-color: var(--green); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header>
+            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="Logo" class="logo">
+            <h1 class="header-title">Teacher Quick Links</h1>
+            <p class="subtitle">Direct access to essential TSC, KNEC, and Government portals.</p>
+        </header>
+
+        <!-- SECTION 1: EMPLOYMENT & HR (TSC) -->
+        <h2 class="category-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            Employment & HR Management
+        </h2>
+        <div class="links-grid">
+            
+            <a href="https://tpay.tsc.go.ke/" target="_blank" class="card">
+                <div class="card-preview">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="TPAY Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">T-PAY Portal</div>
+                    <div class="card-desc">Access your monthly payslips, P9 forms, and manage your financial loan deductions.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+
+            <a href="https://tpad2.tsc.go.ke/" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Performance/Appraisal -->
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="TPAD Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">TPAD 2 System</div>
+                    <div class="card-desc">Teacher Performance Appraisal and Development. Update your termly appraisal data here.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+
+            <a href="https://hrmis.tsc.go.ke/tm-app/apply_leave" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Calendar/Time Off -->
+                    <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=600&q=80" alt="Leave Application Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Apply for Leave</div>
+                    <div class="card-desc">Submit applications for Annual, Maternity, Paternity, or Sick leave directly to the HRMIS.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+
+            <a href="https://hrmis.tsc.go.ke/tm-app/apply_transfer" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Map/Location/Transfer -->
+                    <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=600&q=80" alt="Online Transfer Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Online Transfer</div>
+                    <div class="card-desc">Request regional or inter-county job transfers through the official TSC HR portal.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+
+            <a href="https://hrmis.tsc.go.ke/tm-app/HOI" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Leadership/Institution -->
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80" alt="HOI Portal Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">HOI Portal</div>
+                    <div class="card-desc">Head of Institution Portal. For Principals and Headteachers to manage school staffing and HR.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+
+            <a href="https://www.tsc.go.ke/index.php/downloads-b/category/25-forms" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Forms/Documents -->
+                    <img src="https://images.unsplash.com/photo-1618044733300-9472054094ee?auto=format&fit=crop&w=600&q=80" alt="TSC Forms Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">TSC Form Downloads</div>
+                    <div class="card-desc">Download official manual forms, claim sheets, and policy documents from the TSC index.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+        </div>
+
+        <!-- SECTION 2: EXAMS & ASSESSMENTS -->
+        <h2 class="category-title" style="margin-top: 50px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            Assessments & Placement
+        </h2>
+        <div class="links-grid">
+            
+            <a href="https://cp2.knec.ac.ke/" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Examination/Pen/Paper -->
+                    <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=600&q=80" alt="CP2 KNEC Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">CP2 KNEC Login</div>
+                    <div class="card-desc">KNEC Contracted Professionals Portal for examiners, invigilators, and center managers.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+
+            <a href="https://selection-placement.kemis.go.ke/" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Students/Classroom -->
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=600&q=80" alt="KEMIS Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">KEMIS: Grade 10 Placement</div>
+                    <div class="card-desc">Ministry of Education portal for tracking student selection and Senior School placements.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+        </div>
+
+        <!-- SECTION 3: GOVERNMENT & WELFARE -->
+        <h2 class="category-title" style="margin-top: 50px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            Government & Welfare
+        </h2>
+        <div class="links-grid">
+            
+            <a href="https://afyayangu.go.ke/" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Medical/Health -->
+                    <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=600&q=80" alt="Afya Yangu Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Afya Yangu / SHA</div>
+                    <div class="card-desc">Social Health Authority Portal. Register and manage your national health insurance and benefits.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+
+            <a href="https://itax.kra.go.ke/KRA-Portal/" target="_blank" class="card">
+                <div class="card-preview">
+                    <!-- Preview Image: Taxes/Calculator -->
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80" alt="KRA iTax Preview">
+                </div>
+                <div class="card-content">
+                    <div class="card-title">KRA iTax Portal</div>
+                    <div class="card-desc">File your annual tax returns, generate payment slips, and apply for PIN certificates.</div>
+                    <div class="btn-visit">Access Portal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                </div>
+            </a>
+            
+        </div>
+
+    </div>
+
+</body>
+</html>

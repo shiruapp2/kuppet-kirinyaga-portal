@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BBF Case Reporting Portal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E29F;
+            --green: #2E7D32;
+            --green-dark: #1B5E20;
+            --white: #FFFFFF;
+            --gray: #f5f6fa;
+            --text: #333333;
+            --red: #d32f2f;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background: linear-gradient(rgba(245, 246, 250, 0.92), rgba(245, 246, 250, 0.92)), 
+                        url('https://i.ibb.co/TqdTXZvh/logo.jpg') center/cover fixed;
+            color: var(--text);
+        }
+
+        /* Desktop Blocker */
+        #desktop-block { display: none; }
+        @media (min-width: 768px) {
+            #mobile-app, #custom-modal { display: none !important; }
+            #desktop-block {
+                display: flex; height: 100vh; width: 100vw;
+                background-color: var(--green); color: var(--white);
+                flex-direction: column; align-items: center; justify-content: center;
+                text-align: center; padding: 20px;
+            }
+            #desktop-block h1 { color: var(--gold); margin-bottom: 10px; }
+        }
+
+        /* Mobile Layout */
+        #mobile-app { width: 100%; max-width: 100%; padding: 20px; overflow-x: hidden; }
+
+        /* --- ENLARGED HEADER --- */
+        header { text-align: center; margin-bottom: 35px; animation: fadeIn 0.5s ease; }
+        .logo { 
+            width: 110px; height: 110px; 
+            border-radius: 50%; box-shadow: 0 6px 15px rgba(0,0,0,0.15); 
+            margin-bottom: 15px; border: 3px solid var(--gold); 
+        }
+        h2 { 
+            color: var(--green-dark); 
+            font-size: 2.2rem; 
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+        .welcome-msg { 
+            font-size: 1.05rem; 
+            color: #555; 
+            font-weight: 500;
+        }
+        .stats-badge {
+            display: inline-block; background: var(--gold); color: var(--green-dark);
+            padding: 6px 18px; border-radius: 20px; font-weight: 600; margin-top: 12px; font-size: 0.9rem;
+        }
+
+        .card { background: var(--white); border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border-top: 4px solid var(--green); }
+        
+        .form-group { margin-bottom: 15px; position: relative; }
+        label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 6px; color: var(--green-dark); }
+        .required { color: var(--red); margin-left: 3px; } 
+
+        input:not([type="checkbox"]), select, textarea {
+            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem;
+            transition: all 0.3s;
+            -webkit-appearance: none; 
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 5px var(--gold-light); }
+        
+        /* Contact Office Link */
+        .help-link { display: block; text-align: right; font-size: 0.8rem; color: var(--green); margin-top: 5px; cursor: pointer; font-weight: 600; text-decoration: underline; }
+
+        /* Custom Dropdown Styling */
+        .custom-dropdown {
+            position: absolute; top: 100%; left: 0; width: 100%; max-height: 200px;
+            overflow-y: auto; background: var(--white); border: 1px solid var(--gold-light);
+            border-radius: 8px; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: none; margin-top: 5px;
+        }
+        .dropdown-item { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.95rem; color: var(--text); }
+        .dropdown-item:last-child { border-bottom: none; }
+        .dropdown-item:active { background-color: var(--gray); }
+
+        .btn {
+            width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem;
+            cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-primary { background: var(--green); color: var(--white); }
+        .btn-primary:active { background: var(--green-dark); }
+        .btn-whatsapp { background: #25D366; color: white; margin-bottom: 10px; }
+        .btn-sms { background: var(--gold); color: var(--green-dark); }
+
+        /* Fixed Checkbox Styling */
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; font-size: 0.85rem; margin-top: 10px; cursor: pointer; }
+        .checkbox-group input[type="checkbox"] { 
+            width: 20px; height: 20px; margin-top: 2px; cursor: pointer; accent-color: var(--green); 
+        }
+        .checkbox-group label { margin-bottom: 0; font-weight: 400; color: var(--text); cursor: pointer; }
+
+        /* Loader */
+        .loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.9); z-index: 1000;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .spinner {
+            border: 5px solid var(--gray); border-top: 5px solid var(--green);
+            border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;
+        }
+        .loader-text { margin-top: 15px; font-weight: 600; color: var(--green); }
+
+        /* Custom Smart Alert Modal */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.show { display: flex; opacity: 1; }
+        .modal-card {
+            background: var(--white); width: 90%; max-width: 380px;
+            border-radius: 16px; padding: 25px 20px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: scale(0.8); transition: transform 0.3s ease;
+        }
+        .modal-overlay.show .modal-card { transform: scale(1); }
+        .modal-icon {
+            width: 65px; height: 65px; margin: 0 auto 15px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: white;
+        }
+        .modal-icon.success { background: #25D366; }
+        .modal-icon.error { background: var(--red); }
+        .modal-icon.info { background: var(--gold); }
+        .modal-title { font-size: 1.3rem; color: var(--text); margin-bottom: 10px; font-weight: 700; }
+        .modal-text { font-size: 0.95rem; color: #666; margin-bottom: 25px; line-height: 1.5; }
+        .modal-btn { background: var(--green); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; width: 100%; cursor: pointer; font-size: 1rem; }
+
+        /* Animations */
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .shake { animation: shake 0.4s ease-in-out; border-color: red !important; background: #ffe6e6; }
+        
+        .history-item { background: var(--gray); padding: 12px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid var(--gold); font-size: 0.85rem; }
+        .history-item strong { color: var(--green); }
+
+        #step-2, #step-3 { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Desktop Blocker -->
+    <div id="desktop-block">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px;">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        <h1>Mobile Access Required</h1>
+        <p>Please access this portal via a mobile device to report a case.</p>
+    </div>
+
+    <!-- Smart Modal Alert -->
+    <div class="modal-overlay" id="custom-modal">
+        <div class="modal-card">
+            <div class="modal-icon" id="modal-icon"></div>
+            <h3 class="modal-title" id="modal-title">Notice</h3>
+            <p class="modal-text" id="modal-text">Message goes here.</p>
+            <button class="modal-btn" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- Loader -->
+    <div class="loader-overlay" id="loader">
+        <div class="spinner"></div>
+        <div class="loader-text" id="loader-msg">Processing...</div>
+    </div>
+
+    <!-- Mobile Application -->
+    <div id="mobile-app">
+        <header>
+            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="BBF Logo" class="logo">
+            <h2>BBF Case Portal</h2>
+            <p class="welcome-msg">Warm greetings! Securely report your cases below.</p>
+            <div class="stats-badge" id="cases-count">Fetching server data...</div>
+        </header>
+
+        <!-- Step 1: Authentication -->
+        <div class="card" id="step-1">
+            <h3 style="margin-bottom: 15px; color: var(--green);">Member Validation</h3>
+            
+            <div class="form-group">
+                <label>Full Name<span class="required">*</span></label>
+                <input type="text" id="member-name" placeholder="Start typing your name..." autocomplete="off">
+                <div id="name-dropdown" class="custom-dropdown"></div>
+                <!-- Contact Office Link -->
+                <a class="help-link" onclick="contactOffice()">Can't find your name? Contact Office</a>
+            </div>
+            
+            <div class="form-group">
+                <label>TSC Number (Security Pin)<span class="required">*</span></label>
+                <input type="number" id="tsc-number" placeholder="Enter 6+ digit TSC Number">
+                <small id="tsc-error" style="color: red; display: none; margin-top: 5px;">Invalid TSC Number. Try again.</small>
+            </div>
+            
+            <button class="btn btn-primary" onclick="verifyMember()">Authenticate & Continue</button>
+        </div>
+
+        <!-- Step 2: History -->
+        <div class="card" id="step-2">
+            <h3 style="margin-bottom: 10px; color: var(--green);">Past Case Summaries</h3>
+            <div id="history-container"></div>
+            <button class="btn btn-primary" style="margin-top: 15px;" onclick="showNewCaseForm()">+ Add New Case</button>
+        </div>
+
+        <!-- Step 3: New Case Form -->
+        <div class="card" id="step-3">
+            <h3 style="margin-bottom: 15px; color: var(--green);">Case Details</h3>
+            
+            <div class="form-group">
+                <label>Mobile Number<span class="required">*</span></label>
+                <input type="tel" id="form-phone" placeholder="e.g. 07... or 01..." pattern="^(07|01)\d{8}\$">
+            </div>
+            
+            <div class="form-group">
+                <label>School Name<span class="required">*</span></label>
+                <input type="text" id="form-school" placeholder="Enter current school">
+            </div>
+            
+            <div class="form-group">
+                <label>Sub County<span class="required">*</span></label>
+                <select id="form-subcounty">
+                    <option value="" disabled selected>Select Sub County...</option>
+                    <option value="Kirinyaga East">Kirinyaga East</option>
+                    <option value="Kirinyaga West">Kirinyaga West</option>
+                    <option value="Kirinyaga Central">Kirinyaga Central</option>
+                    <option value="Mwea West">Mwea West</option>
+                    <option value="Mwea East">Mwea East</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>BBF Case Category<span class="required">*</span></label>
+                <select id="form-case">
+                    <option value="" disabled selected>Select Applicable Category...</option>
+                    <option value="Principal Contributor (50000)">Principal Contributor – Ksh 50,000</option>
+                    <option value="Spouse (30000)">Spouse – Ksh 30,000</option>
+                    <option value="Biological Father (10000)">Biological Father – Ksh 10,000</option>
+                    <option value="Biological Mother (10000)">Biological Mother – Ksh 10,000</option>
+                    <option value="Parent in Law Father (10000)">Parent in Law (Father) – Ksh 10,000</option>
+                    <option value="Parent in Law Mother (10000)">Parent in Law (Mother) – Ksh 10,000</option>
+                    <option value="Child (25000)">Child – Ksh 25,000</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Details<span class="required">*</span></label>
+                <textarea id="form-details" rows="3" placeholder="Provide dates of demise, nature of support, etc."></textarea>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="form-terms">
+                <label for="form-terms">I certify that the information provided above is true and accurate. I understand that fraudulent claims may lead to disciplinary action.<span class="required">*</span></label>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <button class="btn btn-whatsapp" onclick="processSubmission('whatsapp')">Submit via WhatsApp</button>
+                <button class="btn btn-sms" onclick="processSubmission('sms')">Submit via SMS Text</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // CONFIGURATION - PASTE APP SCRIPT URL BELOW
+        // ==========================================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwXBX_WSQtAJ2K0U8FXoex_DKSommmSPl9E9AJs9E34ALO6XUGCfL8Cm1TNPGJsNhShmQ/exec';
+        const OFFICE_PHONE = '254716443524';
+
+        let allNamesList = []; 
+        let modalCallback = null;
+
+        // SVGs for Custom Modals
+        const icons = {
+            success: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
+            error: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
+            info: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.innerWidth >= 768) return; 
+            restoreAutosave();
+            setupAutosaveListeners();
+            setupCustomDropdown();
+            fetchInitialData();
+        });
+
+        // --- Custom Alert Logic ---
+        function showSmartAlert(title, message, type, callback = null) {
+            const overlay = document.getElementById('custom-modal');
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = message;
+            
+            const iconEl = document.getElementById('modal-icon');
+            iconEl.className = 'modal-icon ' + type;
+            iconEl.innerHTML = icons[type];
+
+            modalCallback = callback;
+            overlay.classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.remove('show');
+            if (modalCallback) {
+                modalCallback();
+                modalCallback = null;
+            }
+        }
+
+        // --- Contact Office Quick Action ---
+        function contactOffice() {
+            const text = encodeURIComponent("Hello, my name is not appearing on the BBF Case Portal when I try to report a case. Please assist.");
+            window.location.href = `whatsapp://send?phone=${OFFICE_PHONE}&text=${text}`;
+        }
+
+        function showLoader(msg) {
+            document.getElementById('loader-msg').innerText = msg;
+            document.getElementById('loader').style.display = 'flex';
+        }
+        function hideLoader() { document.getElementById('loader').style.display = 'none'; }
+
+        async function fetchInitialData() {
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', 'getInitialData');
+                const response = await fetch(API_URL, { method: 'POST', body: formData });
+                const data = await response.json();
+                document.getElementById('cases-count').innerText = `${data.totalCases} Cases Handled`;
+                allNamesList = data.names; 
+            } catch (err) {
+                document.getElementById('cases-count').innerText = "System Ready (Offline mode)";
+            }
+        }
+
+        function setupCustomDropdown() {
+            const inputEl = document.getElementById('member-name');
+            const dropdownEl = document.getElementById('name-dropdown');
+
+            inputEl.addEventListener('input', function() {
+                const val = this.value.toLowerCase();
+                dropdownEl.innerHTML = '';
+                
+                if (!val) {
+                    dropdownEl.style.display = 'none';
+                    return;
+                }
+
+                if (allNamesList.length === 0) {
+                    dropdownEl.innerHTML = '<div class="dropdown-item" style="color:#888;">Fetching names...</div>';
+                    dropdownEl.style.display = 'block';
+                    return;
+                }
+
+                const filtered = allNamesList.filter(n => n.toLowerCase().includes(val)).slice(0, 10);
+                
+                if (filtered.length > 0) {
+                    filtered.forEach(name => {
+                        const div = document.createElement('div');
+                        div.className = 'dropdown-item';
+                        div.innerText = name;
+                        div.onclick = function() {
+                            inputEl.value = name;
+                            dropdownEl.style.display = 'none';
+                            localStorage.setItem('bbf_member-name', name); 
+                        };
+                        dropdownEl.appendChild(div);
+                    });
+                    dropdownEl.style.display = 'block';
+                } else {
+                    // Show helpful message inside dropdown when no matches exist
+                    dropdownEl.innerHTML = `<div class="dropdown-item" style="color:var(--text); text-align:center;">
+                        No matches found.<br>
+                        <a onclick="contactOffice()" style="color:var(--green); text-decoration:underline; font-weight:600; display:inline-block; margin-top:5px; cursor:pointer;">Contact Office for Help</a>
+                    </div>`;
+                    dropdownEl.style.display = 'block';
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (e.target !== inputEl) {
+                    dropdownEl.style.display = 'none';
+                }
+            });
+        }
+
+        async function verifyMember() {
+            const name = document.getElementById('member-name').value;
+            const tsc = document.getElementById('tsc-number').value;
+            const tscInput = document.getElementById('tsc-number');
+            const errorTxt = document.getElementById('tsc-error');
+
+            if (!name || tsc.length < 6) {
+                triggerShake(tscInput, errorTxt, 'Ensure name is selected and TSC is 6+ digits.');
+                return;
+            }
+
+            showLoader('Verifying Secure Credentials...');
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', 'login');
+                formData.append('name', name);
+                formData.append('tsc', tsc);
+
+                const response = await fetch(API_URL, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                hideLoader();
+
+                if (result.success) {
+                    document.getElementById('step-1').style.display = 'none';
+                    if (result.history && result.history.length > 0) {
+                        renderHistory(result.history);
+                        document.getElementById('step-2').style.display = 'block';
+                    } else {
+                        showNewCaseForm();
+                    }
+                } else {
+                    triggerShake(tscInput, errorTxt, result.message);
+                }
+            } catch (err) {
+                hideLoader();
+                showSmartAlert('Connection Error', 'A network error occurred. Please try again.', 'error');
+            }
+        }
+
+        function renderHistory(historyArray) {
+            const container = document.getElementById('history-container');
+            container.innerHTML = '';
+            historyArray.reverse().forEach(record => {
+                container.innerHTML += `
+                    <div class="history-item">
+                        <strong>${record.caseType}</strong><br>
+                        School: ${record.school} | Date: ${record.timestamp}<br>
+                        <em>${record.details || 'No extra remarks'}</em>
+                    </div>
+                `;
+            });
+        }
+
+        function showNewCaseForm() {
+            document.getElementById('step-2').style.display = 'none';
+            document.getElementById('step-3').style.display = 'block';
+        }
+
+        function triggerShake(element, errorElement, msg) {
+            element.classList.remove('shake');
+            void element.offsetWidth; 
+            element.classList.add('shake');
+            errorElement.innerText = msg;
+            errorElement.style.display = 'block';
+            setTimeout(() => { element.classList.remove('shake'); }, 400);
+        }
+
+        function setupAutosaveListeners() {
+            const inputs = ['member-name', 'form-phone', 'form-school', 'form-subcounty', 'form-case', 'form-details'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) { el.addEventListener('input', () => { localStorage.setItem('bbf_' + id, el.value); }); }
+            });
+        }
+
+        function restoreAutosave() {
+            const inputs = ['member-name', 'form-phone', 'form-school', 'form-subcounty', 'form-case', 'form-details'];
+            inputs.forEach(id => {
+                const val = localStorage.getItem('bbf_' + id);
+                if (val && document.getElementById(id)) { document.getElementById(id).value = val; }
+            });
+        }
+
+        function clearAutosave() {
+            const inputs = ['form-phone', 'form-school', 'form-subcounty', 'form-case', 'form-details'];
+            inputs.forEach(id => localStorage.removeItem('bbf_' + id));
+        }
+
+        async function processSubmission(method) {
+            const name = document.getElementById('member-name').value;
+            const tsc = document.getElementById('tsc-number').value;
+            const phone = document.getElementById('form-phone').value;
+            const school = document.getElementById('form-school').value;
+            const subCounty = document.getElementById('form-subcounty').value;
+            const caseType = document.getElementById('form-case').value;
+            const details = document.getElementById('form-details').value; 
+            const terms = document.getElementById('form-terms').checked;
+
+            if (!phone || !school || !subCounty || !caseType || !details || !terms) {
+                showSmartAlert('Missing Information', 'Please fill all mandatory fields (including Additional Details) and agree to the Terms and Conditions.', 'info');
+                return;
+            }
+
+            const caseData = { phone: phone, school: school, subCounty: subCounty, caseType: caseType, details: details };
+            showLoader('Smart Queueing... Saving Record to Cloud Server...');
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', 'submitCase');
+                formData.append('name', name);
+                formData.append('tsc', tsc);
+                formData.append('caseData', JSON.stringify(caseData));
+
+                const response = await fetch(API_URL, { method: 'POST', body: formData });
+                const result = await response.json();
+
+                hideLoader();
+
+                if (result.success) {
+                    clearAutosave();
+                    executeRedirect(method, name, tsc, caseData);
+                } else {
+                    showSmartAlert('Submission Failed', result.message, 'error');
+                }
+            } catch (err) {
+                hideLoader();
+                showSmartAlert('Connection Error', 'Network communication error. Please check your internet and try again.', 'error');
+            }
+        }
+
+        function executeRedirect(method, name, tsc, data) {
+            const messageText = `*New BBF Case Report*\n\nName: ${name}\nTSC: ${tsc}\nPhone: ${data.phone}\nSchool: ${data.school}\nSub-County: ${data.subCounty}\nCase Category: ${data.caseType}\nDetails: ${data.details}\n\n_Auto-generated via BBF Portal_`;
+            const encodedText = encodeURIComponent(messageText);
+
+            if (method === 'whatsapp') {
+                showSmartAlert('Success!', 'Your data has been saved. Tap OK to be redirected to WhatsApp to send the summary.', 'success', () => {
+                    window.location.href = `whatsapp://send?phone=${OFFICE_PHONE}&text=${encodedText}`;
+                    setTimeout(() => { window.location.reload(); }, 6000);
+                });
+            } else {
+                showSmartAlert('Success!', 'Your data has been saved. Tap OK to be redirected to your SMS app to send the summary.', 'success', () => {
+                    window.location.href = `sms:+${OFFICE_PHONE}?body=${encodedText}`;
+                    setTimeout(() => { window.location.reload(); }, 6000);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
