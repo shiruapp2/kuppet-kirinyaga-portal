@@ -3,10 +3,35 @@ import path from 'path';
 
 export default function handler(req, res) {
   try {
-    const imagesDir = path.join(process.cwd(), 'images');
-    
-    if (!fs.existsSync(imagesDir)) {
-      return res.status(200).json({ displayPhotos: [], committees: {} });
+    // Vercel mounts files differently depending on the build environment.
+    // This array forces the script to check all known Vercel internal paths.
+    const possiblePaths = [
+      path.join(process.cwd(), 'images'),
+      path.join(__dirname, 'images'),
+      path.join(__dirname, '../images'),
+      path.resolve('./images')
+    ];
+
+    let imagesDir = null;
+    let testedPaths = [];
+
+    for (let p of possiblePaths) {
+      const exists = fs.existsSync(p);
+      testedPaths.push({ path: p, exists });
+      if (exists) {
+        imagesDir = p;
+        break;
+      }
+    }
+
+    // Diagnostic output if Vercel still cannot locate the files
+    if (!imagesDir) {
+      return res.status(200).json({ 
+          displayPhotos: [], 
+          committees: {}, 
+          error: "Directory absolutely not found by serverless function.",
+          debugPaths: testedPaths
+      });
     }
 
     const files = fs.readdirSync(imagesDir);
@@ -14,26 +39,21 @@ export default function handler(req, res) {
     const committees = {};
 
     files.forEach((file) => {
-      // Ignore non-image files
       if (!/\.(jpg|jpeg|png|webp|gif|svg)\$/i.test(file)) return;
 
       const ext = path.extname(file);
       const nameWithoutExt = path.basename(file, ext);
 
-      // --- 1. Parse Display Photos (Display_photo_#_Title) ---
       if (file.startsWith('Display_photo_')) {
         const parts = nameWithoutExt.split('_');
-        // Extract title after 'Display_photo_#'
         const title = parts.slice(3).join(' ') || parts.slice(2).join(' ') || 'Kirinyaga Kuppet Branch';
         displayPhotos.push({
           src: `/images/${file}`,
           title: title
         });
       } 
-      // --- 2. Parse Committee Photos (Committee_Title_Hierarchy_Name_Phone_Email_Message) ---
       else if (file.includes('_')) {
         const parts = nameWithoutExt.split('_');
-        
         if (parts.length >= 4) {
           const rawCommittee = parts[0].trim();
           const role = parts[1] ? parts[1].trim() : '';
@@ -43,7 +63,6 @@ export default function handler(req, res) {
           const email = parts[5] ? parts[5].trim() : '';
           const message = parts.slice(6).join(' ').trim() || '';
 
-          // Format readable committee title mapping
           let committeeKey = rawCommittee.toUpperCase();
           if (committeeKey === 'B.E.C' || committeeKey === 'BEC') committeeKey = 'B.E.C (Branch Executive Committee)';
           else if (committeeKey === 'B.G.C' || committeeKey === 'BGC') committeeKey = 'B.G.C (Branch Governing Council)';
@@ -67,7 +86,6 @@ export default function handler(req, res) {
       }
     });
 
-    // Sort each committee by hierarchy (1 = Chairman/Leader first, 2, 3...)
     Object.keys(committees).forEach((key) => {
       committees[key].sort((a, b) => a.hierarchy - b.hierarchy);
     });
