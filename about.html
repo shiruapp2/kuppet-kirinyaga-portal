@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | KUPPET Kirinyaga</title>
+    
+    <!-- Favicon & Meta -->
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/TqdTXZvh/logo.jpg">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
         :root {
             --gold: #D4AF37;
+            --gold-light: #F4E29F;
             --green: #2E7D32;
             --green-dark: #1B5E20;
             --white: #FFFFFF;
@@ -31,67 +36,96 @@
             min-height: 100vh; 
         }
 
-        /* --- NAVIGATION HEADER --- */
-        nav {
-            background: var(--green-dark);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        /* --- MOTHER HEADER NAVIGATION --- */
+        header.mother-header {
+            background: var(--white);
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
-            width: 100%;
         }
-        .nav-brand {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            white-space: nowrap;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
+            justify-content: space-between;
             flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand-logo-title {
+            display: flex;
             align-items: center;
-        }
-        .nav-links a {
-            color: var(--white);
+            gap: 12px;
             text-decoration: none;
-            font-size: 0.9rem;
+        }
+
+        .brand-logo-title img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+
+        .brand-text h1 {
+            font-size: 1.3rem;
+            color: var(--green-dark);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
             font-weight: 500;
-            transition: 0.3s;
         }
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-        
-        .app-container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 40px 20px; flex-grow: 1; }
 
-        /* --- ENLARGED HEADER --- */
-        header { text-align: center; margin-bottom: 45px; animation: fadeIn 0.5s ease; }
-        .logo { 
-            width: 110px; height: 110px; 
-            border-radius: 50%; border: 3px solid var(--gold); 
-            margin-bottom: 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            background: var(--white); padding: 4px;
+        nav.nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
-        .header-title { color: var(--green-dark); font-size: 2.4rem; font-weight: 700; margin-top: 5px; letter-spacing: -0.5px; }
-        .subtitle { font-size: 1.1rem; color: var(--text-muted); margin-top: 8px; font-weight: 500; }
 
-        /* --- COMMITTEES CSS --- */
-        .committee-group { margin-bottom: 50px; }
+        .nav-btn {
+            padding: 7px 15px;
+            background: #fafbfc;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--green-dark);
+            color: var(--white);
+            border-color: var(--green-dark);
+            box-shadow: 0 4px 10px rgba(27, 94, 32, 0.2);
+        }
+
+        .app-container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 35px 20px; flex-grow: 1; }
+
+        .page-header { text-align: center; margin-bottom: 40px; }
+        .page-header h2 { font-size: 2.2rem; color: var(--green-dark); font-weight: 700; }
+        .page-header p { font-size: 1rem; color: var(--text-muted); margin-top: 5px; }
+
+        /* --- COMMITTEES SHOWCASE --- */
+        .committee-group { margin-bottom: 45px; }
         .committee-title-badge {
             display: inline-block; background: var(--green-dark); color: var(--white);
-            padding: 8px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: 700;
+            padding: 8px 22px; border-radius: 30px; font-size: 1.1rem; font-weight: 700;
             margin-bottom: 25px; border-left: 4px solid var(--gold); box-shadow: 0 4px 12px rgba(27, 94, 32, 0.2);
         }
+
         .committee-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        
         .member-card {
             background: var(--white); border-radius: 16px; border: 1px solid var(--border-color);
             box-shadow: 0 6px 20px rgba(0,0,0,0.04); overflow: hidden; display: flex; flex-direction: column;
@@ -100,40 +134,43 @@
         .member-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-color: var(--gold); }
         .member-card.rank-hero { grid-column: 1 / -1; display: flex; flex-direction: row; border-top: 5px solid var(--gold); background: linear-gradient(to right, #ffffff, #f0fdf4); }
         @media (max-width: 768px) { .member-card.rank-hero { flex-direction: column; } }
+        
         .rank-hero .member-img-wrapper { width: 280px; height: 280px; flex-shrink: 0; }
         @media (max-width: 768px) { .rank-hero .member-img-wrapper { width: 100%; height: 260px; } }
+        
         .member-img-wrapper { width: 100%; height: 220px; position: relative; background: #ffffff; overflow: hidden; }
         .member-img-wrapper img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+        
         .member-details { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
         .member-role { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--gold); background: var(--green-dark); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px; width: max-content; }
         .member-name { font-size: 1.2rem; font-weight: 700; color: var(--green-dark); margin-bottom: 12px; }
         .chairman-message-box { background: #f0fdf4; border-left: 4px solid var(--green); padding: 15px; border-radius: 8px; margin-top: 10px; margin-bottom: 15px; font-size: 0.9rem; font-style: italic; color: #1b5e20; line-height: 1.5; }
+        
         .contact-actions { display: flex; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); }
         .action-icon-btn { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: #fafbfc; color: var(--green-dark); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s; }
         .action-icon-btn:hover { background: var(--green); color: var(--white); border-color: var(--green); }
         .action-icon-btn.whatsapp-btn:hover { background: #25D366; color: var(--white); border-color: #25D366; }
         .action-icon-btn svg { width: 18px; height: 18px; }
 
-        /* --- DESKTOP GRID LAYOUT --- */
-        .vision-mission-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-bottom: 30px; }
+        /* --- VISION & MISSION --- */
+        .vision-mission-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-bottom: 35px; }
         @media (min-width: 850px) { .vision-mission-grid { grid-template-columns: 1fr 1fr; } }
 
         .card { 
             background: var(--card-bg); padding: 30px; border-radius: 16px; 
             border: 1px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.04); 
             border-top: 4px solid var(--gold); display: flex; flex-direction: column;
-            animation: slideUp 0.5s ease;
         }
-        .card-green-top { border-top-color: var(--green); }
+        .card-green-top { border-top-color: var(--green-dark); }
         .card-title { 
-            font-size: 1.4rem; color: var(--green-dark); font-weight: 700; 
-            margin-bottom: 20px; display: flex; align-items: center; gap: 12px; 
-            padding-bottom: 15px; border-bottom: 1px solid var(--border-color);
+            font-size: 1.35rem; color: var(--green-dark); font-weight: 700; 
+            margin-bottom: 18px; display: flex; align-items: center; gap: 12px; 
+            padding-bottom: 12px; border-bottom: 1px solid var(--border-color);
         }
-        .card-title svg { color: var(--gold); width: 28px; height: 28px; flex-shrink: 0; }
+        .card-title svg { color: var(--gold); width: 26px; height: 26px; flex-shrink: 0; }
         .card-text { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); text-align: justify; }
 
-        /* Core Values Creative Boxes */
+        /* --- CORE VALUES BOXES --- */
         .core-values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 10px; }
         .value-box {
             background: var(--white); border: 1px solid var(--border-color); padding: 20px 15px;
@@ -142,99 +179,106 @@
         }
         .value-box:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15); }
         .value-icon { 
-            width: 50px; height: 50px; border-radius: 50%; background: var(--light-green); 
+            width: 48px; height: 48px; border-radius: 50%; background: var(--light-green); 
             display: flex; align-items: center; justify-content: center; color: var(--green-dark);
             transition: 0.3s ease;
         }
         .value-box:hover .value-icon { background: var(--green-dark); color: var(--white); }
-        .value-icon svg { width: 24px; height: 24px; }
-        .value-name { font-weight: 600; color: var(--green-dark); font-size: 1rem; }
+        .value-icon svg { width: 22px; height: 22px; }
+        .value-name { font-weight: 600; color: var(--green-dark); font-size: 0.95rem; }
 
-        /* --- CONSTITUTION ACCORDION --- */
+        /* --- EXTENDABLE MASTER CONSTITUTION SECTION --- */
         .master-constitution-wrapper { margin-top: 40px; }
         .master-details {
             background: var(--white); border: 2px solid var(--gold);
             border-radius: 16px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.05);
         }
         .master-summary {
-            padding: 25px; font-weight: 700; font-size: 1.4rem; color: var(--green-dark);
+            padding: 22px 25px; font-weight: 700; font-size: 1.3rem; color: var(--green-dark);
             cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
             background: #fafbfc; user-select: none;
         }
         .master-summary::-webkit-details-marker { display: none; }
         .master-summary::after {
-            content: '▼'; font-size: 1.2rem; color: var(--gold); transition: transform 0.3s ease;
+            content: '▼'; font-size: 1.1rem; color: var(--gold); transition: transform 0.3s ease;
         }
         .master-details[open] .master-summary::after { transform: rotate(180deg); }
         .master-details[open] .master-summary { border-bottom: 2px solid var(--gold); background: var(--white); }
         
-        .master-inner { padding: 30px; background: var(--bg-color); }
+        .master-inner { padding: 25px; background: var(--bg-color); }
         
         details.sub-details {
             background: var(--white); border: 1px solid var(--border-color);
-            border-radius: 10px; margin-bottom: 15px; overflow: hidden;
+            border-radius: 10px; margin-bottom: 12px; overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.3s;
         }
-        details.sub-details:hover { border-color: var(--green); }
+        details.sub-details:hover { border-color: var(--green-dark); }
         details.sub-details summary {
-            padding: 18px 20px; font-weight: 600; font-size: 1.05rem; color: var(--green-dark);
+            padding: 16px 20px; font-weight: 600; font-size: 1rem; color: var(--green-dark);
             cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
             background: var(--white); user-select: none;
         }
         details.sub-details summary::-webkit-details-marker { display: none; }
-        details.sub-details summary::after { content: '+'; font-size: 1.5rem; color: var(--green); transition: transform 0.3s ease; }
+        details.sub-details summary::after { content: '+'; font-size: 1.4rem; color: var(--green-dark); transition: transform 0.3s ease; }
         details.sub-details[open] summary::after { content: '−'; transform: rotate(180deg); }
         details.sub-details[open] summary { border-bottom: 1px solid var(--border-color); background: #fafbfc; }
         
         .details-content {
-            padding: 25px; font-size: 0.9rem; line-height: 1.7; color: var(--text-muted);
+            padding: 22px; font-size: 0.9rem; line-height: 1.7; color: var(--text-muted);
             background: var(--white); max-height: 500px; overflow-y: auto;
         }
-        .details-content h4 { color: var(--green); margin: 20px 0 10px 0; font-size: 1rem; }
+        .details-content h4 { color: var(--green-dark); margin: 18px 0 8px 0; font-size: 0.98rem; }
         .details-content h4:first-child { margin-top: 0; }
         .details-content ul { padding-left: 20px; margin-bottom: 15px; }
-        .details-content li { margin-bottom: 8px; }
-        .details-content::-webkit-scrollbar { width: 6px; }
-        .details-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        .details-content li { margin-bottom: 6px; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        /* Universal Footer */
+        footer.universal-footer {
+            background: var(--green-dark); color: var(--white); text-align: center;
+            padding: 20px; font-size: 0.9rem; font-weight: 500; border-top: 3px solid var(--gold); margin-top: auto;
+        }
 
-        /* Footer */
-        footer { background: var(--green-dark); color: var(--white); text-align: center; padding: 20px; font-size: 0.9rem; margin-top: 60px; border-top: 3px solid var(--gold); }
-        @media (max-width: 768px) { nav { flex-direction: column; gap: 10px; text-align: center; } .nav-links { justify-content: center; } }
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; text-align: center; }
+            nav.nav-links { justify-content: center; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Header -->
-    <nav>
-        <a href="index.html" class="nav-brand">
-            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="Logo" style="width:30px; height:30px; border-radius:50%; border:1px solid #D4AF37;">
-            KUPPET Kirinyaga
-        </a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="case-reporting.html">BBF Portal</a>
-            <a href="wellness.html">Wellness</a>
-            <a href="anonymous.html">Anonymous</a>
-            <a href="quick-links.html">Quick Links</a>
-            <a href="contact.html">Contact</a>
+    <!-- Mother Navigation Header -->
+    <header class="mother-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo-title">
+                <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="KUPPET Logo">
+                <div class="brand-text">
+                    <h1>KUPPET Kirinyaga</h1>
+                    <p>Kenya Union of Post Primary Education Teachers</p>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="about.html" class="nav-btn active">About Us</a>
+                <a href="quick-links.html" class="nav-btn">Quick Links</a>
+                <a href="wellness.html" class="nav-btn">Wellness Portal</a>
+                <a href="case-reporting.html" class="nav-btn">BBF Case Portal</a>
+                <a href="anonymous.html" class="nav-btn">Anonymous Report</a>
+                <a href="contact.html" class="nav-btn">Contact Us</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <div class="app-container">
         
-        <header>
-            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="Logo" class="logo">
-            <h1 class="header-title">About Us</h1>
-            <p class="subtitle">Kenya Union of Post Primary Education Teachers (KUPPET) - Kirinyaga Branch</p>
-        </header>
+        <div class="page-header">
+            <h2>About Us</h2>
+            <p>Kenya Union of Post Primary Education Teachers (KUPPET) - Kirinyaga Branch</p>
+        </div>
 
-        <!-- Committee Showcase (Moved from Homepage) -->
+        <!-- Committee Showcase -->
         <div id="committees-container">
-            <div style="text-align: center; padding: 40px; color: var(--text-muted);">Fetching committee leadership data...</div>
+            <div style="text-align: center; padding: 30px; color: var(--text-muted);">Fetching committee leadership data...</div>
         </div>
 
         <!-- Vision & Mission Grid -->
@@ -260,7 +304,7 @@
             </div>
         </div>
 
-        <!-- Core Values Section (Redesigned as Boxes) -->
+        <!-- Core Values Section -->
         <div class="card" style="margin-bottom: 40px;">
             <div class="card-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -280,18 +324,18 @@
             </div>
         </div>
 
-        <!-- EXTENDABLE MASTER CONSTITUTION SECTION -->
+        <!-- Master Constitution Dropdown -->
         <div class="master-constitution-wrapper">
             <details class="master-details">
                 <summary class="master-summary">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="30" height="30"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="28" height="28"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                         KUPPET Constitution & Rules
                     </div>
                 </summary>
                 
                 <div class="master-inner">
-                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">Explore the guiding principles, structures, and regulations of the Kenya Union of Post Primary Education Teachers.</p>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">Explore the guiding principles, structures, and regulations of the Kenya Union of Post Primary Education Teachers.</p>
 
                     <!-- Accordion 1 -->
                     <details class="sub-details">
@@ -331,8 +375,8 @@
                             <p>To be a strong National progressive post primary teachers’ union...</p>
                         </div>
                     </details>
-                    
-                    <!-- Include other Accordions similarly using class="sub-details" -->
+
+                    <!-- Accordion 3 -->
                     <details class="sub-details">
                         <summary>Article 7.0: Membership</summary>
                         <div class="details-content">
@@ -343,14 +387,17 @@
                             </ul>
                         </div>
                     </details>
-                    
-                     <details class="sub-details">
+
+                    <!-- Accordion 4 -->
+                    <details class="sub-details">
                         <summary>Article 8.0: Organs of the Union</summary>
                         <div class="details-content">
                             <h4>8.0 There is established the organs of the UNION namely:</h4>
                             <ul>
                                 <li>Annual Delegates’ Conference (ADC)</li>
                                 <li>National Advisory Council (NAC)</li>
+                                <li>National Governing Council (NGC)</li>
+                                <li>National Executive Board (NEB)</li>
                             </ul>
                         </div>
                     </details>
@@ -360,19 +407,16 @@
 
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>Mwalimu Productions &copy; 2026 - 2027. All Rights Reserved.</p>
+    <!-- Official Universal Footer -->
+    <footer class="universal-footer">
+        A product of Kirinyaga Kuppet Branch &copy; 2026 - 2027
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchImagesData();
-        });
+        document.addEventListener('DOMContentLoaded', fetchImagesData);
 
         async function fetchImagesData() {
             try {
-                // Adjust to your actual vercel API path if needed
                 const response = await fetch('/api/images');
                 const data = await response.json();
                 renderCommittees(data.committees || {});
@@ -388,7 +432,7 @@
 
             const keys = Object.keys(committees);
             if (keys.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#888; padding:30px;">No committee images detected in folder.</p>';
+                container.innerHTML = '<p style="text-align:center; color:#888; padding:20px;">No committee images detected in folder.</p>';
                 return;
             }
 
