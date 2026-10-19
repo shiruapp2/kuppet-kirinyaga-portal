@@ -19,7 +19,7 @@ export default function handler(req, res) {
         name: "Maina Kamau Tom",
         role: "Chairperson",
         phone: "+254716443524",
-        email: "mfelix@gmail.com"
+        email: "mfelixnderitu@gmail.com"
       },
       "B.E.C_Secretary_2": {
         name: "Jane Wanjiku",
