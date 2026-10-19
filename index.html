@@ -37,7 +37,7 @@
             min-height: 100vh; 
         }
 
-        /* --- MOTHER HEADER NAVIGATION --- */
+        /* --- MOTHER HEADER NAVIGATION (From Original index_2.html) --- */
         header.mother-header {
             background: var(--white);
             border-bottom: 3px solid var(--gold);
@@ -50,7 +50,7 @@
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 12px 20px;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -61,27 +61,22 @@
         .brand-logo-title {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             text-decoration: none;
             user-select: none;
             -webkit-user-select: none;
         }
 
         .brand-logo-title img {
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: 2px solid var(--gold);
             cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .brand-logo-title img:active {
-            transform: scale(0.95);
         }
 
         .brand-text h1 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--green-dark);
             font-weight: 700;
             line-height: 1.2;
@@ -96,12 +91,12 @@
         nav.nav-links {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .nav-btn {
-            padding: 7px 15px;
+            padding: 8px 16px;
             background: #fafbfc;
             border: 1px solid var(--border-color);
             border-radius: 20px;
@@ -110,13 +105,16 @@
             font-size: 0.85rem;
             font-weight: 600;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-btn:hover, .nav-btn.active {
-            background: var(--green-dark);
+            background: var(--green);
             color: var(--white);
-            border-color: var(--green-dark);
-            box-shadow: 0 4px 10px rgba(27, 94, 32, 0.2);
+            border-color: var(--green);
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2);
         }
 
         .app-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 30px 20px; flex-grow: 1; }
@@ -125,7 +123,7 @@
         .hero-banner {
             background: var(--white);
             border-radius: 20px;
-            padding: 35px 25px;
+            padding: 40px 30px;
             text-align: center;
             border: 1px solid var(--border-color);
             border-top: 5px solid var(--gold);
@@ -133,7 +131,7 @@
             margin-bottom: 40px;
         }
 
-        .hero-banner h2 { font-size: 2rem; color: var(--green-dark); font-weight: 700; margin-bottom: 8px; }
+        .hero-banner h2 { font-size: 2rem; color: var(--green-dark); font-weight: 700; margin-bottom: 10px; }
         .hero-banner p { font-size: 1rem; color: var(--text-muted); max-width: 800px; margin: 0 auto; }
 
         /* --- WHAT IS NEW SECTION --- */
@@ -195,7 +193,7 @@
         .btn-visit { background: #fafbfc; border: 1px solid var(--border-color); color: var(--green-dark); padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.3s; }
         .card:hover .btn-visit { background: var(--green); color: var(--white); border-color: var(--green); }
 
-        /* --- EXECUTIVE ADMIN DASHBOARD MODAL --- */
+        /* --- FORMAL EXECUTIVE ADMIN DASHBOARD --- */
         .admin-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px);
@@ -203,7 +201,7 @@
         }
 
         .admin-card {
-            background: #ffffff; border-radius: 16px; width: 100%; max-width: 650px;
+            background: #ffffff; border-radius: 12px; width: 100%; max-width: 650px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.25); border-top: 5px solid var(--gold);
             overflow: hidden; max-height: 90vh; display: flex; flex-direction: column;
         }
@@ -213,7 +211,7 @@
             padding: 18px 25px; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .admin-header-bar h3 { font-size: 1.2rem; font-weight: 700; color: var(--gold-light); display: flex; align-items: center; gap: 10px; }
+        .admin-header-bar h3 { font-size: 1.2rem; font-weight: 700; margin:0; display: flex; align-items: center; gap: 10px; }
         
         .admin-close-btn {
             background: transparent; border: none; color: white;
@@ -221,12 +219,12 @@
         }
         .admin-close-btn:hover { opacity: 1; color: var(--gold); }
 
-        .admin-body { padding: 25px; overflow-y: auto; flex-grow: 1; }
+        .admin-body { padding: 30px; overflow-y: auto; flex-grow: 1; }
 
         .admin-form label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--green-dark); margin-bottom: 5px; }
         .admin-form input, .admin-form textarea, .admin-form select { 
-            width: 100%; padding: 11px 14px; margin-bottom: 16px; border: 1px solid var(--border-color); 
-            border-radius: 8px; font-family: 'Poppins'; font-size: 0.9rem; outline: none; background: #fafbfc;
+            width: 100%; padding: 11px 14px; margin-bottom: 18px; border: 1px solid var(--border-color); 
+            border-radius: 6px; font-family: 'Poppins'; font-size: 0.95rem; outline: none; background: #fafbfc;
         }
         .admin-form input:focus, .admin-form textarea:focus, .admin-form select:focus {
             border-color: var(--green-dark); background: #ffffff; box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
@@ -234,25 +232,24 @@
         .admin-form textarea { height: 110px; resize: vertical; }
 
         .admin-action-row { display: flex; gap: 12px; margin-top: 10px; }
-        .btn-admin-primary { background: var(--green-dark); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; flex: 1; transition: 0.2s; }
+        .btn-admin-primary { background: var(--green-dark); color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; flex: 1; transition: 0.2s; font-size:0.95rem;}
         .btn-admin-primary:hover { background: var(--green); }
-        .btn-admin-secondary { background: #e2e8f0; color: #334155; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .btn-admin-secondary { background: #e2e8f0; color: #334155; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; font-size:0.95rem; }
         .btn-admin-secondary:hover { background: #cbd5e1; }
 
         .admin-post-list-item { 
-            border: 1px solid var(--border-color); padding: 14px; border-radius: 10px; 
-            margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; background: #fafbfc;
+            border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; 
+            margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; background: #fafbfc;
         }
-        .admin-post-list-item strong { color: var(--green-dark); font-size: 0.95rem; }
+        .admin-post-list-item strong { color: var(--text-main); font-size: 1rem; }
         
         .admin-item-btns button { 
-            margin-left: 6px; padding: 6px 14px; cursor: pointer; border: none; 
-            border-radius: 6px; font-weight: 600; font-size: 0.82rem; transition: 0.2s;
+            margin-left: 8px; padding: 8px 16px; cursor: pointer; border: 1px solid var(--border-color); 
+            border-radius: 6px; font-weight: 600; font-size: 0.85rem; transition: 0.2s; background: white; color: var(--text-main);
         }
-        .btn-edit-post { background: #2563eb; color: white; }
-        .btn-edit-post:hover { background: #1d4ed8; }
-        .btn-del-post { background: #dc2626; color: white; }
-        .btn-del-post:hover { background: #b91c1c; }
+        .btn-edit-post:hover { background: #f1f5f9; border-color:#cbd5e1; }
+        .btn-del-post { color: #dc2626 !important; }
+        .btn-del-post:hover { background: #fef2f2; border-color:#fca5a5; }
 
         /* Universal Footer */
         footer.universal-footer {
@@ -268,11 +265,11 @@
 </head>
 <body>
 
-    <!-- Mother Navigation Header -->
+    <!-- Standard Nav Links (No Iframe Logic) -->
     <header class="mother-header">
         <div class="header-container">
             <a href="index.html" class="brand-logo-title" id="logo-trigger-area">
-                <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="KUPPET Logo" id="brand-logo-img">
+                <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="KUPPET Logo">
                 <div class="brand-text">
                     <h1>KUPPET Kirinyaga</h1>
                     <p>Kenya Union of Post Primary Education Teachers</p>
@@ -391,14 +388,14 @@
             <div class="admin-body">
                 <!-- Manage Posts List View -->
                 <div id="admin-view-list">
-                    <button onclick="showAdminForm()" class="btn-admin-primary" style="margin-bottom: 20px;">+ Create New Announcement</button>
+                    <button onclick="showAdminForm()" class="btn-admin-primary" style="margin-bottom: 20px; width:100%;">+ Create New Announcement</button>
                     <div id="admin-posts-list"></div>
                     <button onclick="closeAdmin()" class="btn-admin-secondary" style="width: 100%; margin-top: 15px;">Exit Dashboard</button>
                 </div>
 
                 <!-- Create/Edit Form View -->
                 <div id="admin-view-form" style="display: none;" class="admin-form">
-                    <h4 id="form-title" style="font-size: 1.1rem; color: var(--green-dark); margin-bottom: 15px;">Add Announcement</h4>
+                    <h4 id="form-title" style="font-size: 1.1rem; color: var(--green-dark); margin-bottom: 20px; text-transform: uppercase;">Add Announcement</h4>
                     
                     <input type="hidden" id="edit-id">
                     
@@ -421,7 +418,7 @@
                     </select>
 
                     <div class="admin-action-row">
-                        <button onclick="savePost()" class="btn-admin-primary">Publish Announcement</button>
+                        <button onclick="savePost()" class="btn-admin-primary">Publish</button>
                         <button onclick="hideAdminForm()" class="btn-admin-secondary">Cancel</button>
                     </div>
                 </div>
@@ -473,12 +470,11 @@
                 
                 const shortText = isLong ? bodyText.substring(0, limit) + '...' : bodyText;
 
-                // FIX: Build author output string safely without template literals escaping
+                // FIX: Bug where ${post.editor} was rendering instead of the actual name.
                 const editorHtml = (post.editor && post.editor.trim() !== '') 
-                    ? `<div class="post-author">Posted by: <em>${escapeHtml(post.editor)}</em></div>` 
+                    ? `<div class="post-author">Posted by: <strong>${escapeHtml(post.editor)}</strong></div>` 
                     : '';
 
-                // Comments Block
                 let commentsHtml = '';
                 if (post.commentsAllowed === 'Y') {
                     let cList = '';
@@ -498,7 +494,7 @@
                             <div class="add-comment-form">
                                 <input type="text" id="cname-${post.id}" placeholder="Your Name">
                                 <textarea id="ctext-${post.id}" placeholder="Write a comment..."></textarea>
-                                <button onclick="submitComment(${post.id})">Submit</button>
+                                <button onclick="submitComment(${post.id})">Post</button>
                             </div>
                         </div>
                     `;
@@ -546,10 +542,11 @@
                 .replace(/'/g, "&#039;");
         }
 
+        // FIX: Solves the "NaN week(s) ago" bug by gracefully falling back if Sheets gives an empty date.
         function timeAgo(dateString) {
             if (!dateString) return "Recently";
             const date = new Date(dateString);
-            if (isNaN(date.getTime())) return "Recently";
+            if (isNaN(date.getTime())) return "Recently"; 
             
             const seconds = Math.round((new Date() - date) / 1000);
             if (seconds < 60) return "Just now";
@@ -590,7 +587,7 @@
         function cancelPress(e) { clearTimeout(pressTimer); }
 
         async function openAdminPrompt() {
-            adminPassword = prompt("Enter Admin Password:");
+            adminPassword = prompt("Enter KUPPET Admin Password:");
             if (!adminPassword) return;
             
             try {
@@ -612,7 +609,7 @@
             list.innerHTML = '';
             
             if (allPosts.length === 0) {
-                list.innerHTML = '<p style="color:#888; font-size:0.9rem;">No existing posts.</p>';
+                list.innerHTML = '<p style="color:#888; font-size:0.95rem; text-align:center; padding:15px;">No existing posts.</p>';
                 return;
             }
 
@@ -623,7 +620,7 @@
                     <strong>${escapeHtml(p.subject)}</strong>
                     <div class="admin-item-btns">
                         <button class="btn-edit-post" onclick="editPost(${p.id})">Edit</button>
-                        <button class="btn-del-post" onclick="deletePost(${p.id})">Del</button>
+                        <button class="btn-del-post" onclick="deletePost(${p.id})">Delete</button>
                     </div>
                 `;
                 list.appendChild(item);
