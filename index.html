@@ -37,11 +37,11 @@
             min-height: 100vh; 
         }
 
-        /* --- MOTHER HEADER NAVIGATION --- */
+        /* --- COMPACT MOTHER HEADER NAVIGATION (Custom Background & Slim Profile) --- */
         header.mother-header {
-            background: var(--white);
+            background: #faf9f5; /* Soft warm ivory tone instead of stark white */
             border-bottom: 3px solid var(--gold);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -50,40 +50,40 @@
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 15px 20px;
+            padding: 10px 15px; /* Slimmer padding */
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
 
         .brand-logo-title {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             text-decoration: none;
             user-select: none;
             -webkit-user-select: none;
         }
 
         .brand-logo-title img {
-            width: 60px;
-            height: 60px;
+            width: 48px; /* Slightly compact */
+            height: 48px;
             border-radius: 50%;
             border: 2px solid var(--gold);
             cursor: pointer;
         }
 
         .brand-text h1 {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: var(--green-dark);
             font-weight: 700;
             line-height: 1.2;
         }
 
         .brand-text p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             font-weight: 500;
         }
@@ -91,23 +91,23 @@
         nav.nav-links {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             flex-wrap: wrap;
         }
 
         .nav-btn {
-            padding: 8px 16px;
-            background: #fafbfc;
+            padding: 6px 14px; /* More compact buttons */
+            background: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: 20px;
             color: var(--green-dark);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             cursor: pointer;
         }
 
@@ -115,7 +115,7 @@
             background: var(--green);
             color: var(--white);
             border-color: var(--green);
-            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2);
+            box-shadow: 0 3px 8px rgba(46, 125, 50, 0.2);
         }
 
         /* --- LAYOUT CONTAINERS --- */
@@ -167,7 +167,7 @@
         .post-time { font-size: 0.8rem; color: var(--green-dark); background: #f0fdf4; padding: 4px 12px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
         
         .post-body { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 12px; }
-        .post-image { width: 100%; max-height: 420px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .post-image { width: 100%; max-height: 420px; object-fit: cover; object-position: center top; border-radius: 10px; margin-bottom: 15px; }
         .post-author { font-size: 0.85rem; font-style: italic; color: #666; margin-bottom: 15px; border-top: 1px dashed var(--border-color); padding-top: 10px; }
         
         .read-more-btn { color: var(--green-dark); cursor: pointer; font-weight: 700; text-decoration: underline; border: none; background: none; font-size: 0.9rem; margin-top: 5px; }
@@ -187,7 +187,7 @@
         .add-comment-form button { background: var(--green-dark); color: white; border: none; padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.88rem; transition: 0.2s; }
         .add-comment-form button:hover { background: var(--green); }
 
-        /* --- GRID LINKS --- */
+        /* --- GRID LINKS (Uncropped Face Safety via object-position) --- */
         .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .card { 
             background: var(--card-bg); border-radius: 16px; overflow: hidden;
@@ -197,7 +197,13 @@
         }
         .card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2); border-color: var(--gold); }
         .card-preview { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #e0e0e0; border-bottom: 3px solid var(--green); }
-        .card-preview img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .card-preview img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center 25%; /* Keeps faces centered and prevents head-cropping */
+            transition: transform 0.5s ease; 
+        }
         .card:hover .card-preview img { transform: scale(1.05); }
         
         .card-content { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; }
@@ -271,7 +277,7 @@
         }
 
         @media (max-width: 768px) {
-            .header-container { flex-direction: column; text-align: center; }
+            .header-container { flex-direction: column; text-align: center; padding: 12px; }
             nav.nav-links { justify-content: center; }
         }
     </style>
@@ -325,11 +331,11 @@
                 </div>
             </div>
 
-            <!-- Links Grid Navigation Cards (Routing via Iframe) -->
+            <!-- Links Grid Navigation Cards (Black African Teacher / Educator Imagery) -->
             <div class="links-grid">
                 <a onclick="loadSubPage(event, 'about.html')" class="card">
                     <div class="card-preview">
-                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="About Us">
+                        <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=600" alt="About Us" referrerpolicy="no-referrer">
                     </div>
                     <div class="card-content">
                         <div class="card-title">About Us & Leadership</div>
@@ -340,7 +346,7 @@
 
                 <a onclick="loadSubPage(event, 'case-reporting.html')" class="card">
                     <div class="card-preview">
-                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Case Reporting">
+                        <img src="https://images.pexels.com/photos/5212687/pexels-photo-5212687.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Case Reporting" referrerpolicy="no-referrer">
                     </div>
                     <div class="card-content">
                         <div class="card-title">BBF Case Portal</div>
@@ -351,7 +357,7 @@
 
                 <a onclick="loadSubPage(event, 'wellness.html')" class="card">
                     <div class="card-preview">
-                        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" alt="Teacher Wellness">
+                        <img src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Teacher Wellness" referrerpolicy="no-referrer">
                     </div>
                     <div class="card-content">
                         <div class="card-title">Teacher Wellness</div>
@@ -362,7 +368,7 @@
 
                 <a onclick="loadSubPage(event, 'anonymous.html')" class="card">
                     <div class="card-preview">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Anonymous Reporting">
+                        <img src="https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Anonymous Reporting" referrerpolicy="no-referrer">
                     </div>
                     <div class="card-content">
                         <div class="card-title">Anonymous Reporting</div>
@@ -373,7 +379,7 @@
 
                 <a onclick="loadSubPage(event, 'quick-links.html')" class="card">
                     <div class="card-preview">
-                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="Quick Links">
+                        <img src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Quick Links" referrerpolicy="no-referrer">
                     </div>
                     <div class="card-content">
                         <div class="card-title">Teacher Quick Links</div>
@@ -384,7 +390,7 @@
 
                 <a onclick="loadSubPage(event, 'contact.html')" class="card">
                     <div class="card-preview">
-                       <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Contact" referrerpolicy="no-referrer">
+                        <img src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Contact" referrerpolicy="no-referrer">
                     </div>
                     <div class="card-content">
                         <div class="card-title">Contact & Directions</div>
@@ -518,7 +524,6 @@
                 const isLong = bodyText.length > limit;
                 const shortText = isLong ? bodyText.substring(0, limit) + '...' : bodyText;
 
-                // Safely extract HTML strings to prevent nested template literal parsing bugs
                 const editorHtml = (post.editor && post.editor.trim() !== '') 
                     ? '<div class="post-author">Posted by: <strong>' + escapeHtml(post.editor) + '</strong></div>' 
                     : '';
