@@ -18,8 +18,6 @@ export default function handler(req, res) {
       const ext = path.extname(rawFile);
       const nameWithoutExt = path.basename(rawFile, ext);
       
-      // CRITICAL FIX: encodeURIComponent safely encodes '+' and '@' symbols 
-      // so Vercel doesn't mistake them for spaces or commands.
       const webPath = `/images/${encodeURIComponent(rawFile)}`;
 
       if (nameWithoutExt.toLowerCase().startsWith('display_photo_')) {
@@ -38,14 +36,33 @@ export default function handler(req, res) {
 
           if (!committees[rawCommittee]) committees[rawCommittee] = [];
 
+          const committeeKey = parts[0].trim();
+          const role = parts[1] ? parts[1].trim() : '';
+          
+          // Check for a corresponding .txt file for long messages (e.g. B.E.C_Chairperson.txt)
+          let message = '';
+          const txtFilename = `${committeeKey}_${role}.txt`;
+          const txtPath = path.join(imagesDir, txtFilename);
+          
+          if (fs.existsSync(txtPath)) {
+            try {
+              message = fs.readFileSync(txtPath, 'utf8').trim();
+            } catch (txtErr) {
+              console.error(`Error reading text file ${txtFilename}:`, txtErr);
+            }
+          } else {
+            // Fallback to filename-based message if no text file exists
+            message = parts.slice(6).join(' ').trim() || '';
+          }
+
           committees[rawCommittee].push({
             src: webPath,
-            role: parts[1] ? parts[1].trim() : '',
+            role: role,
             hierarchy: parseInt(parts[2], 10) || 99,
             name: parts[3] ? parts[3].trim() : '',
             phone: parts[4] ? parts[4].trim() : '',
             email: parts[5] ? parts[5].trim() : '',
-            message: parts.slice(6).join(' ').trim() || ''
+            message: message
           });
         }
       }
