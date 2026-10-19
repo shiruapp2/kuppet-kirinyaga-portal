@@ -50,124 +50,110 @@
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 10px 15px;
+            padding: 8px 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
+            position: relative;
         }
 
         .brand-logo-title {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
             user-select: none;
             -webkit-user-select: none;
         }
 
         .brand-logo-title img {
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 2px solid var(--gold);
             cursor: pointer;
         }
 
         .brand-text h1 {
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             color: var(--green-dark);
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .brand-text p {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             font-weight: 500;
         }
 
-        /* Hamburger Menu Toggle Button (Hidden on Desktop, Visible on Mobiles) */
+        /* Universal Hamburger Menu Button (Enabled for All Views) */
         .mobile-menu-toggle {
-            display: none;
             background: var(--green-dark);
             color: var(--white);
             border: none;
-            font-size: 1.5rem;
-            padding: 6px 14px;
+            font-size: 1.3rem;
+            padding: 6px 12px;
             border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .mobile-menu-toggle:hover {
             background: var(--green);
         }
 
-        /* Nav Links */
+        /* Dropdown Nav Links (Hidden by default, toggled via Hamburger) */
         nav.nav-links {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 15px;
+            width: 280px;
+            flex-direction: column;
+            align-items: stretch;
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            margin-top: 8px;
+            z-index: 1100;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        nav.nav-links.mobile-open {
             display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
         }
 
         .nav-btn {
-            padding: 6px 14px;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+            padding: 10px 14px;
+            background: #fafbfc;
+            border: 1px solid #edf2f7;
+            border-radius: 8px;
             color: var(--green-dark);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             cursor: pointer;
+            margin-bottom: 6px;
+        }
+
+        .nav-btn:last-child {
+            margin-bottom: 0;
         }
 
         .nav-btn:hover, .nav-btn.active {
             background: var(--green);
             color: var(--white);
             border-color: var(--green);
-            box-shadow: 0 3px 8px rgba(46, 125, 50, 0.2);
-        }
-
-        /* --- RESPONSIVE MOBILE DROPDOWN STYLING --- */
-        @media (max-width: 850px) {
-            .mobile-menu-toggle {
-                display: block; /* Explicitly reveals the 3-lines button on phones */
-            }
-
-            nav.nav-links {
-                display: none; /* Hidden by default until toggled */
-                width: 100%;
-                flex-direction: column;
-                align-items: stretch;
-                background: #ffffff;
-                padding: 15px;
-                border-radius: 12px;
-                border: 1px solid var(--border-color);
-                box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-                margin-top: 10px;
-                animation: fadeIn 0.2s ease-in-out;
-            }
-
-            nav.nav-links.mobile-open {
-                display: flex; /* Displays dropdown items when active */
-            }
-
-            .nav-btn {
-                border-radius: 8px;
-                padding: 10px 15px;
-                justify-content: flex-start;
-                font-size: 0.95rem;
-                background: #fafbfc;
-                border: 1px solid #edf2f7;
-            }
         }
 
         @keyframes fadeIn {
@@ -204,12 +190,18 @@
         .hero-banner h2 { font-size: 2rem; color: var(--green-dark); font-weight: 700; margin-bottom: 10px; }
         .hero-banner p { font-size: 1rem; color: var(--text-muted); max-width: 800px; margin: 0 auto; }
 
-        /* --- WHAT IS NEW SECTION --- */
-        .whats-new-container { margin-bottom: 50px; }
+        /* --- NEWS SECTION (Styled with Theme Green Background & Separation) --- */
+        .whats-new-container { 
+            background: rgba(27, 94, 32, 0.05); 
+            border: 1px solid rgba(27, 94, 32, 0.15); 
+            border-radius: 20px; 
+            padding: 30px 20px; 
+            margin-bottom: 50px; 
+        }
         
         .section-header { 
-            font-size: 1.5rem; color: var(--green-dark); font-weight: 700; 
-            margin-bottom: 20px; display: flex; align-items: center; gap: 10px; 
+            font-size: 1.6rem; color: var(--green-dark); font-weight: 700; 
+            margin-bottom: 25px; display: flex; align-items: center; gap: 10px; 
             border-bottom: 2px solid var(--gold); padding-bottom: 10px; 
         }
 
@@ -237,19 +229,54 @@
         .post-author { font-size: 0.85rem; font-style: italic; color: #666; margin-bottom: 15px; border-top: 1px dashed var(--border-color); padding-top: 10px; }
         .read-more-btn { color: var(--green-dark); cursor: pointer; font-weight: 700; text-decoration: underline; border: none; background: none; font-size: 0.9rem; margin-top: 5px; }
         
-        /* Comments Area */
-        .comments-section { border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 15px; }
-        .comments-title { font-size: 0.9rem; font-weight: 700; color: var(--green-dark); margin-bottom: 10px; }
-        .comment-list { margin-bottom: 15px; max-height: 220px; overflow-y: auto; }
-        .comment-item { background: #f8fafc; padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; font-size: 0.88rem; border: 1px solid var(--border-color); }
-        .comment-item strong { color: var(--green-dark); display: block; margin-bottom: 2px; font-size: 0.82rem; }
+        /* --- PROFESSIONAL CHAT-STYLE MEMBER COMMENTS --- */
+        .comments-toggle-btn {
+            background: #f0fdf4;
+            color: var(--green-dark);
+            border: 1px solid #c6f6d5;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+        .comments-toggle-btn:hover {
+            background: #dcfce7;
+        }
+
+        .comments-section { 
+            border-top: 1px solid var(--border-color); 
+            padding-top: 15px; 
+            margin-top: 15px; 
+            display: none; /* Hidden by default; user clicks to reveal */
+            animation: fadeIn 0.2s ease-in-out;
+        }
         
-        .add-comment-form { display: flex; gap: 10px; flex-wrap: wrap; }
-        .add-comment-form input, .add-comment-form textarea { padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.88rem; outline: none; }
-        .add-comment-form input:focus, .add-comment-form textarea:focus { border-color: var(--green); }
-        .add-comment-form input { flex: 1; min-width: 150px; }
-        .add-comment-form textarea { flex: 3; min-width: 220px; resize: none; height: 40px; }
-        .add-comment-form button { background: var(--green-dark); color: white; border: none; padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.88rem; transition: 0.2s; }
+        .comments-title { font-size: 0.9rem; font-weight: 700; color: var(--green-dark); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        
+        .comment-list { margin-bottom: 15px; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        
+        /* Professional Chat Bubble Styling */
+        .comment-item { 
+            background: #f1f5f9; 
+            padding: 10px 14px; 
+            border-radius: 12px 12px 12px 2px; 
+            font-size: 0.88rem; 
+            border: 1px solid #e2e8f0; 
+            max-width: 85%;
+        }
+        .comment-item strong { color: var(--green-dark); display: block; margin-bottom: 2px; font-size: 0.8rem; font-weight: 700; }
+        
+        .add-comment-form { display: flex; flex-direction: column; gap: 8px; background: #f8fafc; padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); }
+        .add-comment-form input, .add-comment-form textarea { padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.85rem; outline: none; background: #ffffff; }
+        .add-comment-form input:focus, .add-comment-form textarea:focus { border-color: var(--green); box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1); }
+        .add-comment-form textarea { resize: none; height: 55px; }
+        .add-comment-form button { background: var(--green-dark); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; align-self: flex-end; transition: 0.2s; }
         .add-comment-form button:hover { background: var(--green); }
 
         /* --- GRID LINKS --- */
@@ -340,15 +367,11 @@
             background: var(--green-dark); color: var(--white); text-align: center;
             padding: 20px; font-size: 0.9rem; font-weight: 500; border-top: 3px solid var(--gold); margin-top: auto;
         }
-
-        @media (max-width: 850px) {
-            .header-container { flex-direction: row; justify-content: space-between; padding: 12px 15px; }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Mother Header with Hamburger Dropdown Toggle -->
+    <!-- Mother Header with Universal Hamburger Menu -->
     <header class="mother-header">
         <div class="header-container">
             <a href="#" class="brand-logo-title" onclick="showMainHome(event)" id="logo-trigger-area">
@@ -359,12 +382,12 @@
                 </div>
             </a>
 
-            <!-- Three Lines Hamburger Toggle Button (Restored) -->
+            <!-- Universal Hamburger Toggle Button on Far Right -->
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
                 ☰
             </button>
 
-            <!-- Navigation Links Container -->
+            <!-- Dropdown Navigation Links -->
             <nav class="nav-links" id="navLinksMenu">
                 <a href="#" class="nav-btn active" onclick="loadSubPageWrapper(event, 'home')">Home</a>
                 <a href="#" class="nav-btn" onclick="loadSubPageWrapper(event, 'about.html')">About Us</a>
@@ -390,14 +413,14 @@
                 <p>Promoting teacher welfare, professional dignity, unity, justice, and solidarity across Kirinyaga County.</p>
             </div>
 
-            <!-- What Is New Section -->
+            <!-- News Section (Renamed & Styled with Theme Green Shade) -->
             <div class="whats-new-container">
                 <h2 class="section-header">
                     <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" stroke-width="2" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                    What Is New
+                    News
                 </h2>
                 <div id="posts-feed">
-                    <p style="text-align: center; color: #888; padding: 20px;">Loading updates...</p>
+                    <p style="text-align: center; color: var(--green-dark); padding: 20px; font-weight: 500;">Loading news updates...</p>
                 </div>
             </div>
 
@@ -524,14 +547,13 @@
     </footer>
 
     <script>
-        // --- Mobile Hamburger Toggle Logic ---
+        // --- Hamburger Menu Toggle Logic ---
         function toggleMobileMenu() {
             const menu = document.getElementById('navLinksMenu');
             menu.classList.toggle('mobile-open');
         }
 
         function loadSubPageWrapper(e, pageUrl) {
-            // Close mobile dropdown automatically upon clicking a link
             document.getElementById('navLinksMenu').classList.remove('mobile-open');
 
             if (pageUrl === 'home') {
@@ -586,7 +608,7 @@
                 allPosts = await res.json();
                 renderFeed();
             } catch (e) {
-                document.getElementById('posts-feed').innerHTML = '<p style="color:#c53030; text-align:center;">Failed to load announcements.</p>';
+                document.getElementById('posts-feed').innerHTML = '<p style="color:#c53030; text-align:center;">Failed to load news updates.</p>';
             }
         }
 
@@ -595,7 +617,7 @@
             feed.innerHTML = '';
             
             if (!Array.isArray(allPosts) || allPosts.length === 0) {
-                feed.innerHTML = '<p style="color:#888; text-align:center; padding: 20px;">No new announcements at the moment.</p>';
+                feed.innerHTML = '<p style="color:#666; text-align:center; padding: 20px;">No news announcements at the moment.</p>';
                 return;
             }
 
@@ -613,7 +635,7 @@
                     : '';
 
                 const imageHtml = (post.image && post.image.trim() !== '') 
-                    ? '<img src="' + escapeHtml(post.image.trim()) + '" class="post-image" alt="Post attachment" referrerpolicy="no-referrer">' 
+                    ? '<img src="' + escapeHtml(post.image.trim()) + '" class="post-image" alt="News attachment" referrerpolicy="no-referrer">' 
                     : '';
 
                 const readMoreHtml = isLong 
@@ -633,13 +655,16 @@
                         });
                     }
                     commentsHtml = `
-                        <div class="comments-section">
-                            <div class="comments-title">Member Comments</div>
-                            <div class="comment-list">${cList || '<span style="font-size:0.85rem;color:#888;">No comments yet.</span>'}</div>
+                        <button class="comments-toggle-btn" onclick="toggleComments(${post.id})">
+                            💬 View / Leave Member Comments
+                        </button>
+                        <div class="comments-section" id="comments-box-${post.id}">
+                            <div class="comments-title">💬 Member Discussion</div>
+                            <div class="comment-list">${cList || '<span style="font-size:0.85rem;color:#888; font-style:italic;">No comments yet. Be the first to chime in!</span>'}</div>
                             <div class="add-comment-form">
-                                <input type="text" id="cname-${post.id}" placeholder="Your Name">
-                                <textarea id="ctext-${post.id}" placeholder="Write a comment..."></textarea>
-                                <button onclick="submitComment(${post.id})">Post</button>
+                                <input type="text" id="cname-${post.id}" placeholder="Your Full Name">
+                                <textarea id="ctext-${post.id}" placeholder="Type your comment..."></textarea>
+                                <button onclick="submitComment(${post.id})">Post Comment</button>
                             </div>
                         </div>
                     `;
@@ -660,6 +685,15 @@
                 `;
                 feed.appendChild(card);
             });
+        }
+
+        function toggleComments(postId) {
+            const box = document.getElementById(`comments-box-${postId}`);
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+            } else {
+                box.style.display = 'block';
+            }
         }
 
         function toggleReadMore(btn, postId) {
