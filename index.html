@@ -144,7 +144,7 @@
             margin: 0 auto;
         }
 
-        /* Dynamic Auto-Scrolling Photo Marquee Collage */
+        /* Full-Screen Image Slider Design (Replaces White Marquee) */
         .section-title {
             font-size: 1.5rem;
             color: var(--green-dark);
@@ -157,77 +157,82 @@
             padding-bottom: 10px;
         }
 
-        .collage-marquee-wrapper {
-            width: 100%;
-            overflow: hidden;
+        .gallery-slider-container {
             position: relative;
-            background: var(--white);
-            border: 1px solid var(--border-color);
+            width: 100%;
+            background: transparent; /* No white background */
             border-radius: 16px;
-            padding: 15px 0;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 50px;
         }
 
-        .collage-track {
+        .gallery-track {
             display: flex;
-            gap: 20px;
-            width: max-content;
-            animation: scrollMarquee 35s linear infinite;
-        }
-
-        .collage-track:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollMarquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .collage-card {
-            position: relative;
-            width: 260px;
-            height: 180px;
-            border-radius: 12px;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .collage-card img {
+            transition: transform 0.5s ease-in-out;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
         }
 
-        .collage-card:hover img {
-            transform: scale(1.1);
+        .gallery-slide {
+            min-width: 100%;
+            position: relative;
         }
 
-        .collage-overlay {
+        .gallery-slide img {
+            width: 100%;
+            height: 60vh; /* Large full-width presentation */
+            max-height: 600px;
+            min-height: 350px;
+            object-fit: cover; /* Prevents stretching */
+            display: block;
+            background-color: #222; /* Fallback for slow loads */
+        }
+
+        .gallery-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(27, 94, 32, 0.95));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
             color: var(--white);
-            padding: 15px 12px 10px;
-            font-size: 0.9rem;
+            padding: 40px 20px 20px;
+            font-size: 1.2rem;
             font-weight: 600;
             text-align: center;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
         }
 
-        .collage-card:hover .collage-overlay, .collage-card:active .collage-overlay {
-            opacity: 1;
-            transform: translateY(0);
+        /* Slider Navigation Buttons */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: 2px solid transparent;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: var(--gold);
+            color: var(--text-main);
+            border-color: var(--white);
+        }
+
+        .slider-btn.prev { left: 15px; }
+        .slider-btn.next { right: 15px; }
+
+        .slider-btn svg {
+            width: 24px;
+            height: 24px;
         }
 
         /* Committee Showcase Grid */
@@ -472,16 +477,27 @@
                 <p>Promoting teacher welfare, professional dignity, unity, justice, and solidarity across Kirinyaga County.</p>
             </div>
 
-            <!-- Auto-Scrolling Marquee Collage -->
+            <!-- Full-Screen Interactive Gallery Slider -->
             <div id="collage-section" style="display: none;">
                 <h3 class="section-title">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                     Branch Activities Gallery
                 </h3>
-                <div class="collage-marquee-wrapper">
-                    <div class="collage-track" id="collage-track">
-                        <!-- Dynamic Collage Photos Loaded Here -->
+                
+                <div class="gallery-slider-container">
+                    <!-- Left Arrow -->
+                    <button class="slider-btn prev" onclick="moveSlide(-1)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+
+                    <div class="gallery-track" id="gallery-track">
+                        <!-- Dynamic Full-Screen Photos Loaded Here -->
                     </div>
+
+                    <!-- Right Arrow -->
+                    <button class="slider-btn next" onclick="moveSlide(1)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
                 </div>
             </div>
 
@@ -509,11 +525,9 @@
         function loadSubPage(e, pageUrl) {
             if(e) e.preventDefault();
             
-            // Update Active Tab UI
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             if(e && e.currentTarget) e.currentTarget.classList.add('active');
 
-            // Hide Homepage, Show Subpage Frame
             document.getElementById('homepage-view').style.display = 'none';
             const frame = document.getElementById('frame-container');
             frame.src = pageUrl;
@@ -540,7 +554,7 @@
                 const response = await fetch('/api/images');
                 const data = await response.json();
 
-                renderCollage(data.displayPhotos || []);
+                renderSlider(data.displayPhotos || []);
                 renderCommittees(data.committees || {});
             } catch (err) {
                 console.error('Error fetching dynamic images:', err);
@@ -548,27 +562,58 @@
             }
         }
 
-        // Render Infinite Auto-Scrolling Collage Track
-        function renderCollage(photos) {
+        // Slider State & Logic
+        let currentSlideIndex = 0;
+        let slideInterval;
+
+        function renderSlider(photos) {
             if (!photos || photos.length === 0) return;
 
             const section = document.getElementById('collage-section');
-            const track = document.getElementById('collage-track');
+            const track = document.getElementById('gallery-track');
             track.innerHTML = '';
 
-            // Duplicate array items to create seamless infinite loop effect
-            const marqueeList = [...photos, ...photos];
-
-            marqueeList.forEach(photo => {
+            photos.forEach(photo => {
                 track.innerHTML += `
-                    <div class="collage-card">
+                    <div class="gallery-slide">
                         <img src="${photo.src}" alt="${photo.title}" loading="lazy">
-                        <div class="collage-overlay">${photo.title}</div>
+                        <div class="gallery-overlay">${photo.title}</div>
                     </div>
                 `;
             });
 
             section.style.display = 'block';
+            
+            // Start Auto-Play (Advances every 5 seconds)
+            startSlideShow();
+        }
+
+        function moveSlide(step) {
+            const track = document.getElementById('gallery-track');
+            const slides = document.querySelectorAll('.gallery-slide');
+            
+            if(slides.length === 0) return;
+
+            currentSlideIndex += step;
+
+            // Loop back to start/end
+            if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+            if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+
+            // Shift the track container horizontally based on the slide index
+            track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+
+            // Reset the auto-play timer when manual buttons are clicked
+            resetSlideShow();
+        }
+
+        function startSlideShow() {
+            slideInterval = setInterval(() => moveSlide(1), 5000);
+        }
+
+        function resetSlideShow() {
+            clearInterval(slideInterval);
+            startSlideShow();
         }
 
         // Render Smart Committees Grid
@@ -584,7 +629,7 @@
 
             keys.forEach(commKey => {
                 const members = committees[commKey];
-                if (!members || members.length === 0) return; // Smart skip empty committees
+                if (!members || members.length === 0) return; 
 
                 let committeeHtml = `
                     <div class="committee-group">
