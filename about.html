@@ -59,7 +59,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
         
-        /* Rotating Theme Backgrounds per Committee Block Index */
         .committee-group:nth-child(1) { background: #f0fdf4; border-color: #bbf7d0; } /* Soft Green Shade */
         .committee-group:nth-child(2) { background: #fdf8e2; border-color: #fef08a; } /* Warm Gold Shade */
         .committee-group:nth-child(3) { background: #ffffff; border-color: #e2e8f0; } /* Clean White Shade */
@@ -73,37 +72,41 @@
 
         .committee-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)); gap: 25px; }
         
-        /* Smart Interactive Member Card */
+        /* Standard Member Card */
         .member-card {
             background: var(--white); border-radius: 16px; border: 1px solid var(--border-color);
             box-shadow: 0 6px 20px rgba(0,0,0,0.04); overflow: hidden; display: flex; flex-direction: column;
             transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative;
         }
         .member-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-color: var(--gold); }
-        .member-card.rank-hero { grid-column: 1 / -1; display: flex; flex-direction: row; border-top: 5px solid var(--gold); background: linear-gradient(to right, #ffffff, #f8fafc); }
-        @media (max-width: 768px) { .member-card.rank-hero { flex-direction: column; } }
         
-        .rank-hero .member-img-wrapper { width: 280px; height: 280px; flex-shrink: 0; }
-        @media (max-width: 768px) { .rank-hero .member-img-wrapper { width: 100%; height: 260px; } }
+        /* Optimized Hero Layout (Rank 1) filling desktop space cleanly */
+        .member-card.rank-hero { 
+            grid-column: 1 / -1; 
+            display: grid; 
+            grid-template-columns: 320px 1fr; 
+            border-top: 5px solid var(--gold); 
+            background: linear-gradient(to right, #ffffff, #f8fafc); 
+        }
+        @media (max-width: 850px) { 
+            .member-card.rank-hero { display: flex; flex-direction: column; } 
+            .rank-hero .member-img-wrapper { width: 100%; height: 280px; }
+        }
         
         .member-img-wrapper { 
-            width: 100%; height: 230px; position: relative; background: #fafbfc; overflow: hidden; 
-            cursor: pointer; border-bottom: 3px solid var(--green);
+            width: 100%; height: 240px; position: relative; background: #fafbfc; overflow: hidden; 
+            border-bottom: 3px solid var(--green);
         }
-        .member-img-wrapper img { width: 100%; height: 100%; object-fit: contain; object-position: center; transition: transform 0.4s ease; }
-        .member-img-wrapper:hover img { transform: scale(1.03); }
-        
-        .img-click-hint {
-            position: absolute; bottom: 10px; right: 10px; background: rgba(27, 94, 32, 0.85); color: #fff;
-            font-size: 0.7rem; padding: 4px 8px; border-radius: 12px; font-weight: 500; pointer-events: none;
-            display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
+        .rank-hero .member-img-wrapper { height: 100%; min-height: 320px; border-bottom: none; border-right: 3px solid var(--green); }
+        @media (max-width: 850px) { .rank-hero .member-img-wrapper { border-right: none; border-bottom: 3px solid var(--green); } }
 
-        .member-details { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .member-img-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+
+        .member-details { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
         .member-role { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--gold); background: var(--green-dark); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px; width: max-content; }
-        .member-name { font-size: 1.2rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; }
+        .member-name { font-size: 1.25rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; }
         
-        /* Chairperson Message Dropdown Trigger */
+        /* Chairperson Message Dropdown */
         .msg-toggle-btn {
             background: #f0fdf4; color: var(--green-dark); border: 1px solid #bbf7d0;
             padding: 6px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 600;
@@ -118,17 +121,15 @@
         }
         .chairman-message-box.msg-open { max-height: 180px; padding: 12px; margin-top: 10px; }
         
-        /* Smart Hidden Drawer for Contacts */
-        .smart-contact-drawer {
-            max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, padding 0.3s ease;
-            background: #f8fafc; border-top: 1px dashed transparent; margin-top: 0; padding: 0 15px; border-radius: 0 0 16px 16px;
+        /* Permanent Contact Action Bar */
+        .contact-actions { 
+            display: flex; gap: 8px; margin-top: 18px; padding-top: 15px; border-top: 1px solid var(--border-color); 
         }
-        .member-card.drawer-open .smart-contact-drawer {
-            max-height: 220px; padding: 15px; border-top-color: var(--border-color); margin-top: 12px;
+        .action-icon-btn { 
+            flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); 
+            background: #ffffff; color: var(--green-dark); text-decoration: none; font-size: 0.82rem; 
+            font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s; 
         }
-
-        .contact-actions { display: flex; gap: 8px; }
-        .action-icon-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; color: var(--green-dark); text-decoration: none; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.3s; }
         .action-icon-btn:hover { background: var(--green); color: var(--white); border-color: var(--green); }
         .action-icon-btn.whatsapp-btn:hover { background: #25D366; color: var(--white); border-color: #25D366; }
         .action-icon-btn svg { width: 16px; height: 16px; }
@@ -372,12 +373,8 @@
             }
         }
 
-        function toggleMemberDrawer(cardElement) {
-            cardElement.classList.toggle('drawer-open');
-        }
-
         function toggleChairMessage(btn, event) {
-            event.stopPropagation(); // Prevent card drawer from triggering simultaneously
+            event.stopPropagation();
             const msgBox = btn.nextElementSibling;
             if (msgBox.classList.contains('msg-open')) {
                 msgBox.classList.remove('msg-open');
@@ -442,12 +439,9 @@
                     }
 
                     committeeHtml += `
-                        <div class="member-card ${heroClass}" onclick="toggleMemberDrawer(this)">
+                        <div class="member-card ${heroClass}">
                             <div class="member-img-wrapper">
                                 <img src="${member.src}" alt="${member.name}" loading="lazy">
-                                <div class="img-click-hint">
-                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Tap for Contact
-                                </div>
                             </div>
                             <div class="member-details">
                                 <div>
@@ -455,8 +449,6 @@
                                     <h4 class="member-name">${member.name}</h4>
                                     ${messageHtml}
                                 </div>
-                            </div>
-                            <div class="smart-contact-drawer">
                                 ${actionsHtml}
                             </div>
                         </div>`;
