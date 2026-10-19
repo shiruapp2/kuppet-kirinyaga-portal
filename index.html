@@ -37,7 +37,7 @@
             min-height: 100vh; 
         }
 
-        /* --- MOTHER HEADER NAVIGATION (From Original index_2.html) --- */
+        /* --- MOTHER HEADER NAVIGATION --- */
         header.mother-header {
             background: var(--white);
             border-bottom: 3px solid var(--gold);
@@ -108,6 +108,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            cursor: pointer;
         }
 
         .nav-btn:hover, .nav-btn.active {
@@ -117,7 +118,19 @@
             box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2);
         }
 
-        .app-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 30px 20px; flex-grow: 1; }
+        /* --- LAYOUT CONTAINERS --- */
+        .main-content { max-width: 1200px; margin: 0 auto; padding: 30px 20px; width: 100%; flex-grow: 1; }
+        
+        #frame-container {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            border: none;
+            border-radius: 16px;
+            background: var(--white);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+        }
 
         /* --- HERO BANNER --- */
         .hero-banner {
@@ -180,7 +193,7 @@
             background: var(--card-bg); border-radius: 16px; overflow: hidden;
             border: 1px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.04); 
             display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none; color: var(--text-main);
+            text-decoration: none; color: var(--text-main); cursor: pointer;
         }
         .card:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.2); border-color: var(--gold); }
         .card-preview { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #e0e0e0; border-bottom: 3px solid var(--green); }
@@ -265,10 +278,10 @@
 </head>
 <body>
 
-    <!-- Standard Nav Links (No Iframe Logic) -->
+    <!-- Mother Header with Iframe Onclick Routing -->
     <header class="mother-header">
         <div class="header-container">
-            <a href="index.html" class="brand-logo-title" id="logo-trigger-area">
+            <a href="#" class="brand-logo-title" onclick="showMainHome(event)" id="logo-trigger-area">
                 <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="KUPPET Logo">
                 <div class="brand-text">
                     <h1>KUPPET Kirinyaga</h1>
@@ -277,103 +290,109 @@
             </a>
 
             <nav class="nav-links">
-                <a href="index.html" class="nav-btn active">Home</a>
-                <a href="about.html" class="nav-btn">About Us</a>
-                <a href="quick-links.html" class="nav-btn">Quick Links</a>
-                <a href="wellness.html" class="nav-btn">Wellness Portal</a>
-                <a href="case-reporting.html" class="nav-btn">BBF Case Portal</a>
-                <a href="anonymous.html" class="nav-btn">Anonymous Report</a>
-                <a href="contact.html" class="nav-btn">Contact Us</a>
+                <a href="#" class="nav-btn active" onclick="showMainHome(event)">Home</a>
+                <a href="#" class="nav-btn" onclick="loadSubPage(event, 'about.html')">About Us</a>
+                <a href="#" class="nav-btn" onclick="loadSubPage(event, 'quick-links.html')">Quick Links</a>
+                <a href="#" class="nav-btn" onclick="loadSubPage(event, 'wellness.html')">Wellness Portal</a>
+                <a href="#" class="nav-btn" onclick="loadSubPage(event, 'case-reporting.html')">BBF Case Portal</a>
+                <a href="#" class="nav-btn" onclick="loadSubPage(event, 'anonymous.html')">Anonymous Report</a>
+                <a href="#" class="nav-btn" onclick="loadSubPage(event, 'contact.html')">Contact Us</a>
             </nav>
         </div>
     </header>
 
-    <div class="app-container">
+    <div class="main-content">
         
-        <!-- Hero Welcome Banner -->
-        <div class="hero-banner">
-            <h2>Welcome to Kirinyaga KUPPET Branch</h2>
-            <p>Promoting teacher welfare, professional dignity, unity, justice, and solidarity across Kirinyaga County.</p>
-        </div>
+        <!-- Standalone Page Viewer Iframe -->
+        <iframe id="frame-container" src=""></iframe>
 
-        <!-- What Is New Section -->
-        <div class="whats-new-container">
-            <h2 class="section-header">
-                <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" stroke-width="2" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                What Is New
-            </h2>
-            <div id="posts-feed">
-                <p style="text-align: center; color: #888; padding: 20px;">Loading updates...</p>
+        <!-- Main Homepage View Container -->
+        <div id="homepage-view">
+            <!-- Hero Welcome Banner -->
+            <div class="hero-banner">
+                <h2>Welcome to Kirinyaga KUPPET Branch</h2>
+                <p>Promoting teacher welfare, professional dignity, unity, justice, and solidarity across Kirinyaga County.</p>
             </div>
-        </div>
 
-        <!-- Links Grid Navigation Cards -->
-        <div class="links-grid">
-            <a href="about.html" class="card">
-                <div class="card-preview">
-                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="About Us">
+            <!-- What Is New Section -->
+            <div class="whats-new-container">
+                <h2 class="section-header">
+                    <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" stroke-width="2" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    What Is New
+                </h2>
+                <div id="posts-feed">
+                    <p style="text-align: center; color: #888; padding: 20px;">Loading updates...</p>
                 </div>
-                <div class="card-content">
-                    <div class="card-title">About Us & Leadership</div>
-                    <div class="card-desc">Learn about our vision, mission, leadership committees, core values, and read the official KUPPET constitution.</div>
-                    <div class="btn-visit">Learn More</div>
-                </div>
-            </a>
+            </div>
 
-            <a href="case-reporting.html" class="card">
-                <div class="card-preview">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Case Reporting">
-                </div>
-                <div class="card-content">
-                    <div class="card-title">BBF Case Portal</div>
-                    <div class="card-desc">File confidential welfare support claims securely and track your processing status online.</div>
-                    <div class="btn-visit">Report a Case</div>
-                </div>
-            </a>
+            <!-- Links Grid Navigation Cards (Routing via Iframe) -->
+            <div class="links-grid">
+                <a onclick="loadSubPage(event, 'about.html')" class="card">
+                    <div class="card-preview">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="About Us">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">About Us & Leadership</div>
+                        <div class="card-desc">Learn about our vision, mission, leadership committees, core values, and read the official KUPPET constitution.</div>
+                        <div class="btn-visit">Learn More</div>
+                    </div>
+                </a>
 
-            <a href="wellness.html" class="card">
-                <div class="card-preview">
-                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" alt="Teacher Wellness">
-                </div>
-                <div class="card-content">
-                    <div class="card-title">Teacher Wellness</div>
-                    <div class="card-desc">Access psychological helplines, decompression videos, AI support, and relaxation tools.</div>
-                    <div class="btn-visit">Open Wellness</div>
-                </div>
-            </a>
+                <a onclick="loadSubPage(event, 'case-reporting.html')" class="card">
+                    <div class="card-preview">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Case Reporting">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">BBF Case Portal</div>
+                        <div class="card-desc">File confidential welfare support claims securely and track your processing status online.</div>
+                        <div class="btn-visit">Report a Case</div>
+                    </div>
+                </a>
 
-            <a href="anonymous.html" class="card">
-                <div class="card-preview">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Anonymous Reporting">
-                </div>
-                <div class="card-content">
-                    <div class="card-title">Anonymous Reporting</div>
-                    <div class="card-desc">Submit encrypted, untracked feedback and check for official response codes.</div>
-                    <div class="btn-visit">Submit Securely</div>
-                </div>
-            </a>
+                <a onclick="loadSubPage(event, 'wellness.html')" class="card">
+                    <div class="card-preview">
+                        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" alt="Teacher Wellness">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Teacher Wellness</div>
+                        <div class="card-desc">Access psychological helplines, decompression videos, AI support, and relaxation tools.</div>
+                        <div class="btn-visit">Open Wellness</div>
+                    </div>
+                </a>
 
-            <a href="quick-links.html" class="card">
-                <div class="card-preview">
-                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="Quick Links">
-                </div>
-                <div class="card-content">
-                    <div class="card-title">Teacher Quick Links</div>
-                    <div class="card-desc">Direct access to TPAD, T-PAY, SHA, KRA, KNEC, and official TSC portals.</div>
-                    <div class="btn-visit">Explore Links</div>
-                </div>
-            </a>
+                <a onclick="loadSubPage(event, 'anonymous.html')" class="card">
+                    <div class="card-preview">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Anonymous Reporting">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Anonymous Reporting</div>
+                        <div class="card-desc">Submit encrypted, untracked feedback and check for official response codes.</div>
+                        <div class="btn-visit">Submit Securely</div>
+                    </div>
+                </a>
 
-            <a href="contact.html" class="card">
-                <div class="card-preview">
-                    <img src="https://images.unsplash.com/photo-1423766864167-4c0fb029d32f?auto=format&fit=crop&w=600&q=80" alt="Contact">
-                </div>
-                <div class="card-content">
-                    <div class="card-title">Contact & Directions</div>
-                    <div class="card-desc">Reach out via phone, WhatsApp support, or get directions to the branch office.</div>
-                    <div class="btn-visit">Get in Touch</div>
-                </div>
-            </a>
+                <a onclick="loadSubPage(event, 'quick-links.html')" class="card">
+                    <div class="card-preview">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="Quick Links">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Teacher Quick Links</div>
+                        <div class="card-desc">Direct access to TPAD, T-PAY, SHA, KRA, KNEC, and official TSC portals.</div>
+                        <div class="btn-visit">Explore Links</div>
+                    </div>
+                </a>
+
+                <a onclick="loadSubPage(event, 'contact.html')" class="card">
+                    <div class="card-preview">
+                        <img src="https://images.unsplash.com/photo-1423766864167-4c0fb029d32f?auto=format&fit=crop&w=600&q=80" alt="Contact">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Contact & Directions</div>
+                        <div class="card-desc">Reach out via phone, WhatsApp support, or get directions to the branch office.</div>
+                        <div class="btn-visit">Get in Touch</div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -386,19 +405,16 @@
             </div>
 
             <div class="admin-body">
-                <!-- Manage Posts List View -->
                 <div id="admin-view-list">
                     <button onclick="showAdminForm()" class="btn-admin-primary" style="margin-bottom: 20px; width:100%;">+ Create New Announcement</button>
                     <div id="admin-posts-list"></div>
                     <button onclick="closeAdmin()" class="btn-admin-secondary" style="width: 100%; margin-top: 15px;">Exit Dashboard</button>
                 </div>
 
-                <!-- Create/Edit Form View -->
                 <div id="admin-view-form" style="display: none;" class="admin-form">
                     <h4 id="form-title" style="font-size: 1.1rem; color: var(--green-dark); margin-bottom: 20px; text-transform: uppercase;">Add Announcement</h4>
                     
                     <input type="hidden" id="edit-id">
-                    
                     <label for="p-title">Subject / Title</label>
                     <input type="text" id="p-title" placeholder="Enter post title" required>
                     
@@ -432,6 +448,39 @@
     </footer>
 
     <script>
+        // --- Iframe Navigation Router ---
+        function loadSubPage(e, pageUrl) {
+            if(e) e.preventDefault();
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            if(e && e.currentTarget && e.currentTarget.classList.contains('nav-btn')) {
+                e.currentTarget.classList.add('active');
+            }
+
+            document.getElementById('homepage-view').style.display = 'none';
+            const frame = document.getElementById('frame-container');
+            frame.src = pageUrl;
+            frame.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showMainHome(e) {
+            if(e) e.preventDefault();
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            if(e && e.currentTarget && e.currentTarget.classList.contains('nav-btn')) {
+                e.currentTarget.classList.add('active');
+            } else {
+                document.querySelector('.nav-btn').classList.add('active'); // Defaults to first btn (Home)
+            }
+
+            const frame = document.getElementById('frame-container');
+            frame.style.display = 'none';
+            frame.src = '';
+            document.getElementById('homepage-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // --- REPLACE WITH YOUR DEPLOYED APPS SCRIPT URL ---
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_lFbiVB0TIjrPNpodeuEWwYVoyyYE6pNCHROFCNUKuFpR3r7MJ0_F57cxRp36-j4Kjw/exec'; 
         // --------------------------------------------------
@@ -467,10 +516,8 @@
                 const bodyText = post.body || '';
                 const limit = 220;
                 const isLong = bodyText.length > limit;
-                
                 const shortText = isLong ? bodyText.substring(0, limit) + '...' : bodyText;
 
-                // FIX: Bug where ${post.editor} was rendering instead of the actual name.
                 const editorHtml = (post.editor && post.editor.trim() !== '') 
                     ? `<div class="post-author">Posted by: <strong>${escapeHtml(post.editor)}</strong></div>` 
                     : '';
@@ -520,7 +567,6 @@
         function toggleReadMore(btn, postId) {
             const post = allPosts.find(p => p.id === postId);
             if (!post) return;
-
             const textSpan = btn.parentElement.querySelector('.text-content');
             if (btn.innerText === 'Read more') {
                 textSpan.innerHTML = escapeHtml(post.body).replace(/\n/g, '<br>');
@@ -534,15 +580,9 @@
 
         function escapeHtml(str) {
             if (!str) return '';
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
 
-        // FIX: Solves the "NaN week(s) ago" bug by gracefully falling back if Sheets gives an empty date.
         function timeAgo(dateString) {
             if (!dateString) return "Recently";
             const date = new Date(dateString);
