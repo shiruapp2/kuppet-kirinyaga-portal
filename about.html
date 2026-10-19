@@ -25,10 +25,53 @@
         body { 
             background: linear-gradient(rgba(245, 246, 250, 0.96), rgba(245, 246, 250, 0.96)), 
                         url('https://i.ibb.co/TqdTXZvh/logo.jpg') center/cover fixed;
-            color: var(--text-main); display: flex; justify-content: center; min-height: 100vh; 
+            color: var(--text-main); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+
+        /* --- NAVIGATION HEADER --- */
+        nav {
+            background: var(--green-dark);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+        .nav-brand {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--gold);
         }
         
-        .app-container { width: 100%; max-width: 1100px; padding: 40px 20px; position: relative; }
+        .app-container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 40px 20px; flex-grow: 1; }
 
         /* --- ENLARGED HEADER --- */
         header { text-align: center; margin-bottom: 45px; animation: fadeIn 0.5s ease; }
@@ -38,18 +81,43 @@
             margin-bottom: 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
             background: var(--white); padding: 4px;
         }
-        .header-title { 
-            color: var(--green-dark); font-size: 2.4rem; font-weight: 700; margin-top: 5px; letter-spacing: -0.5px;
-        }
+        .header-title { color: var(--green-dark); font-size: 2.4rem; font-weight: 700; margin-top: 5px; letter-spacing: -0.5px; }
         .subtitle { font-size: 1.1rem; color: var(--text-muted); margin-top: 8px; font-weight: 500; }
+
+        /* --- COMMITTEES CSS --- */
+        .committee-group { margin-bottom: 50px; }
+        .committee-title-badge {
+            display: inline-block; background: var(--green-dark); color: var(--white);
+            padding: 8px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: 700;
+            margin-bottom: 25px; border-left: 4px solid var(--gold); box-shadow: 0 4px 12px rgba(27, 94, 32, 0.2);
+        }
+        .committee-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .member-card {
+            background: var(--white); border-radius: 16px; border: 1px solid var(--border-color);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04); overflow: hidden; display: flex; flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative;
+        }
+        .member-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-color: var(--gold); }
+        .member-card.rank-hero { grid-column: 1 / -1; display: flex; flex-direction: row; border-top: 5px solid var(--gold); background: linear-gradient(to right, #ffffff, #f0fdf4); }
+        @media (max-width: 768px) { .member-card.rank-hero { flex-direction: column; } }
+        .rank-hero .member-img-wrapper { width: 280px; height: 280px; flex-shrink: 0; }
+        @media (max-width: 768px) { .rank-hero .member-img-wrapper { width: 100%; height: 260px; } }
+        .member-img-wrapper { width: 100%; height: 220px; position: relative; background: #ffffff; overflow: hidden; }
+        .member-img-wrapper img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+        .member-details { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .member-role { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--gold); background: var(--green-dark); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px; width: max-content; }
+        .member-name { font-size: 1.2rem; font-weight: 700; color: var(--green-dark); margin-bottom: 12px; }
+        .chairman-message-box { background: #f0fdf4; border-left: 4px solid var(--green); padding: 15px; border-radius: 8px; margin-top: 10px; margin-bottom: 15px; font-size: 0.9rem; font-style: italic; color: #1b5e20; line-height: 1.5; }
+        .contact-actions { display: flex; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); }
+        .action-icon-btn { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: #fafbfc; color: var(--green-dark); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s; }
+        .action-icon-btn:hover { background: var(--green); color: var(--white); border-color: var(--green); }
+        .action-icon-btn.whatsapp-btn:hover { background: #25D366; color: var(--white); border-color: #25D366; }
+        .action-icon-btn svg { width: 18px; height: 18px; }
 
         /* --- DESKTOP GRID LAYOUT --- */
         .vision-mission-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-bottom: 30px; }
-        @media (min-width: 850px) {
-            .vision-mission-grid { grid-template-columns: 1fr 1fr; }
-        }
+        @media (min-width: 850px) { .vision-mission-grid { grid-template-columns: 1fr 1fr; } }
 
-        /* Structural Cards */
         .card { 
             background: var(--card-bg); padding: 30px; border-radius: 16px; 
             border: 1px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.04); 
@@ -57,49 +125,66 @@
             animation: slideUp 0.5s ease;
         }
         .card-green-top { border-top-color: var(--green); }
-        
         .card-title { 
             font-size: 1.4rem; color: var(--green-dark); font-weight: 700; 
             margin-bottom: 20px; display: flex; align-items: center; gap: 12px; 
             padding-bottom: 15px; border-bottom: 1px solid var(--border-color);
         }
         .card-title svg { color: var(--gold); width: 28px; height: 28px; flex-shrink: 0; }
-        
         .card-text { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); text-align: justify; }
 
-        /* Core Values Badges */
-        .values-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
-        .value-badge {
-            background: var(--light-green); color: var(--green-dark);
-            padding: 10px 18px; border-radius: 30px; font-weight: 600; font-size: 0.95rem;
-            border: 1px solid rgba(46, 125, 50, 0.2); display: flex; align-items: center; gap: 8px;
-            transition: 0.3s;
+        /* Core Values Creative Boxes */
+        .core-values-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; margin-top: 10px; }
+        .value-box {
+            background: var(--white); border: 1px solid var(--border-color); padding: 20px 15px;
+            border-radius: 12px; text-align: center; transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02); display: flex; flex-direction: column; align-items: center; gap: 12px;
         }
-        .value-badge:hover { background: var(--green); color: var(--white); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2); }
-        .value-badge svg { width: 16px; height: 16px; }
+        .value-box:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15); }
+        .value-icon { 
+            width: 50px; height: 50px; border-radius: 50%; background: var(--light-green); 
+            display: flex; align-items: center; justify-content: center; color: var(--green-dark);
+            transition: 0.3s ease;
+        }
+        .value-box:hover .value-icon { background: var(--green-dark); color: var(--white); }
+        .value-icon svg { width: 24px; height: 24px; }
+        .value-name { font-weight: 600; color: var(--green-dark); font-size: 1rem; }
 
-        /* --- CONSTITUTION ACCORDION (NATIVE DETAILS TAG) --- */
-        .constitution-wrapper { margin-top: 20px; }
+        /* --- CONSTITUTION ACCORDION --- */
+        .master-constitution-wrapper { margin-top: 40px; }
+        .master-details {
+            background: var(--white); border: 2px solid var(--gold);
+            border-radius: 16px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+        .master-summary {
+            padding: 25px; font-weight: 700; font-size: 1.4rem; color: var(--green-dark);
+            cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+            background: #fafbfc; user-select: none;
+        }
+        .master-summary::-webkit-details-marker { display: none; }
+        .master-summary::after {
+            content: '▼'; font-size: 1.2rem; color: var(--gold); transition: transform 0.3s ease;
+        }
+        .master-details[open] .master-summary::after { transform: rotate(180deg); }
+        .master-details[open] .master-summary { border-bottom: 2px solid var(--gold); background: var(--white); }
         
-        details {
+        .master-inner { padding: 30px; background: var(--bg-color); }
+        
+        details.sub-details {
             background: var(--white); border: 1px solid var(--border-color);
             border-radius: 10px; margin-bottom: 15px; overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.3s;
         }
-        details:hover { border-color: var(--gold); }
-        
-        summary {
+        details.sub-details:hover { border-color: var(--green); }
+        details.sub-details summary {
             padding: 18px 20px; font-weight: 600; font-size: 1.05rem; color: var(--green-dark);
             cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
-            background: #fafbfc; user-select: none;
+            background: var(--white); user-select: none;
         }
-        summary::-webkit-details-marker { display: none; }
-        summary::after {
-            content: '+'; font-size: 1.5rem; color: var(--gold); font-weight: 400;
-            transition: transform 0.3s ease;
-        }
-        details[open] summary::after { content: '−'; transform: rotate(180deg); }
-        details[open] summary { border-bottom: 1px solid var(--border-color); background: var(--white); }
+        details.sub-details summary::-webkit-details-marker { display: none; }
+        details.sub-details summary::after { content: '+'; font-size: 1.5rem; color: var(--green); transition: transform 0.3s ease; }
+        details.sub-details[open] summary::after { content: '−'; transform: rotate(180deg); }
+        details.sub-details[open] summary { border-bottom: 1px solid var(--border-color); background: #fafbfc; }
         
         .details-content {
             padding: 25px; font-size: 0.9rem; line-height: 1.7; color: var(--text-muted);
@@ -109,17 +194,35 @@
         .details-content h4:first-child { margin-top: 0; }
         .details-content ul { padding-left: 20px; margin-bottom: 15px; }
         .details-content li { margin-bottom: 8px; }
+        .details-content::-webkit-scrollbar { width: 6px; }
+        .details-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
 
-        /* Animations */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Scrollbar for details content */
-        .details-content::-webkit-scrollbar { width: 6px; }
-        .details-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
+        /* Footer */
+        footer { background: var(--green-dark); color: var(--white); text-align: center; padding: 20px; font-size: 0.9rem; margin-top: 60px; border-top: 3px solid var(--gold); }
+        @media (max-width: 768px) { nav { flex-direction: column; gap: 10px; text-align: center; } .nav-links { justify-content: center; } }
     </style>
 </head>
 <body>
+
+    <!-- Navigation Header -->
+    <nav>
+        <a href="index.html" class="nav-brand">
+            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="Logo" style="width:30px; height:30px; border-radius:50%; border:1px solid #D4AF37;">
+            KUPPET Kirinyaga
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="case-reporting.html">BBF Portal</a>
+            <a href="wellness.html">Wellness</a>
+            <a href="anonymous.html">Anonymous</a>
+            <a href="quick-links.html">Quick Links</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
 
     <div class="app-container">
         
@@ -128,6 +231,11 @@
             <h1 class="header-title">About Us</h1>
             <p class="subtitle">Kenya Union of Post Primary Education Teachers (KUPPET) - Kirinyaga Branch</p>
         </header>
+
+        <!-- Committee Showcase (Moved from Homepage) -->
+        <div id="committees-container">
+            <div style="text-align: center; padding: 40px; color: var(--text-muted);">Fetching committee leadership data...</div>
+        </div>
 
         <!-- Vision & Mission Grid -->
         <div class="vision-mission-grid">
@@ -152,274 +260,192 @@
             </div>
         </div>
 
-        <!-- Core Values Section -->
+        <!-- Core Values Section (Redesigned as Boxes) -->
         <div class="card" style="margin-bottom: 40px;">
             <div class="card-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                 Our Core Values
             </div>
-            <div class="values-container">
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Integrity</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Accountability</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Unity</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Justice</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Service</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Solidarity</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Professionalism</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Inclusivity</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Transparency</div>
-                <div class="value-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Trustworthiness</div>
+            <div class="core-values-grid">
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div><div class="value-name">Integrity</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><div class="value-name">Accountability</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><div class="value-name">Unity</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div><div class="value-name">Justice</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg></div><div class="value-name">Service</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg></div><div class="value-name">Solidarity</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div><div class="value-name">Professionalism</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg></div><div class="value-name">Inclusivity</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l2-9 5 18 3-9h6"></path></svg></div><div class="value-name">Transparency</div></div>
+                <div class="value-box"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div><div class="value-name">Trustworthiness</div></div>
             </div>
         </div>
 
-        <!-- KUPPET CONSTITUTION SECTION -->
-        <h2 style="color: var(--green-dark); font-size: 1.8rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="30" height="30"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-            KUPPET Constitution & Rules
-        </h2>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">Explore the guiding principles, structures, and regulations of the Kenya Union of Post Primary Education Teachers.</p>
+        <!-- EXTENDABLE MASTER CONSTITUTION SECTION -->
+        <div class="master-constitution-wrapper">
+            <details class="master-details">
+                <summary class="master-summary">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" width="30" height="30"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        KUPPET Constitution & Rules
+                    </div>
+                </summary>
+                
+                <div class="master-inner">
+                    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">Explore the guiding principles, structures, and regulations of the Kenya Union of Post Primary Education Teachers.</p>
 
-        <div class="constitution-wrapper">
-            
-            <!-- Accordion 1 -->
-            <details>
-                <summary>Articles 1.0 - 3.0: Preamble, Interpretation, Name & Motto</summary>
-                <div class="details-content">
-                    <h4>ARTICLE 1.0: PREAMBLE</h4>
-                    <p>The trade union constituted by this constitution shall be called the KENYA UNION OF POST PRIMARY EDUCATION TEACHERS (KUPPET), with the headquarters in Nairobi.</p>
-                    <p>WHEREAS the Kenya Union of Post Primary Education Teachers has been founded upon principles of social justice and professionalism and is dedicated to the achievement of greater unity among her members for the purpose of improving their standards of living, bringing justice and dignity at the workplace and securing social equity for all;</p>
-                    <p>WHEREAS the union has formulated and adopted the following rules to regulate relationship between members and between members and employers and to organise collective bargaining for the purposes of meeting her objectives;</p>
-                    <p>AND WHEREAS to these ends the KENYA UNION OF POST-PRIMARY EDUCATION TEACHERS shall be an honourable institution in which membership shall be a source of pride.</p>
+                    <!-- Accordion 1 -->
+                    <details class="sub-details">
+                        <summary>Articles 1.0 - 3.0: Preamble, Interpretation, Name & Motto</summary>
+                        <div class="details-content">
+                            <h4>ARTICLE 1.0: PREAMBLE</h4>
+                            <p>The trade union constituted by this constitution shall be called the KENYA UNION OF POST PRIMARY EDUCATION TEACHERS (KUPPET), with the headquarters in Nairobi.</p>
+                            <p>WHEREAS the Kenya Union of Post Primary Education Teachers has been founded upon principles of social justice and professionalism...</p>
+                            
+                            <h4>ARTICLE 1.0.1: INTERPRETATION</h4>
+                            <ul>
+                                <li><strong>“Delegate”</strong> means registered officials and members of KUPPET...</li>
+                                <li><strong>“Member”</strong> means a teacher/lecturer/trainer who is a fully paid up member.</li>
+                            </ul>
+
+                            <h4>ARTICLE 2.0: NAME</h4>
+                            <p>The organisation shall be called; Kenya Union of Post-Primary Education Teachers (KUPPET)...</p>
+
+                            <h4>ARTICLE 3.0: MOTTO</h4>
+                            <p>Service, Justice and Solidarity.</p>
+                        </div>
+                    </details>
+
+                    <!-- Accordion 2 -->
+                    <details class="sub-details">
+                        <summary>Articles 4.0 - 6.0: Aims, Mission & Vision</summary>
+                        <div class="details-content">
+                            <h4>ARTICLE 4.0: THE AIMS/OBJECTIVES</h4>
+                            <ul>
+                                <li>To advocate for the establishment of sound, ethical and professional policies...</li>
+                                <li>To make every endeavor to organise all the teachers...</li>
+                                <li>To promote, improve and develop ethical principles...</li>
+                            </ul>
+                            <h4>ARTICLE 5.0: MISSION</h4>
+                            <p>To unite all teachers in post primary institutions in Kenya...</p>
+                            <h4>ARTICLE 6.0: VISION</h4>
+                            <p>To be a strong National progressive post primary teachers’ union...</p>
+                        </div>
+                    </details>
                     
-                    <h4>ARTICLE 1.0.1: INTERPRETATION</h4>
-                    <ul>
-                        <li><strong>“Delegate”</strong> means registered officials and members of KUPPET entitled to attend the Annual and Special Delegates Conferences.</li>
-                        <li><strong>“Member”</strong> means a teacher/lecturer/trainer who is a fully paid up member of KUPPET.</li>
-                        <li><strong>“Trade Union”</strong> means Kenya Union of Post Primary Education Teachers or the meaning assigned to it under Labour Relations Act, 2007.</li>
-                        <li><strong>“County”</strong> is a geographical location within which KUPPET branch is confined.</li>
-                    </ul>
-
-                    <h4>ARTICLE 2.0: NAME</h4>
-                    <p>The organisation shall be called; Kenya Union of Post-Primary Education Teachers (KUPPET), hereinafter referred to as the UNION. The registered office of the union shall be Lower Hill Duplex Apartment, Lower Hill Road, Suite 51/P. O. Box 30412- 00100, NAIROBI or as may be determined from time to time by the Union.</p>
-
-                    <h4>ARTICLE 3.0: MOTTO</h4>
-                    <p>Service, Justice and Solidarity.</p>
+                    <!-- Include other Accordions similarly using class="sub-details" -->
+                    <details class="sub-details">
+                        <summary>Article 7.0: Membership</summary>
+                        <div class="details-content">
+                            <h4>ARTICLE 7.0: MEMBERSHIP</h4>
+                            <ul>
+                                <li>Teachers/ Trainers in secondary and tertiary institutions of good conduct...</li>
+                                <li>Entry membership fee of KShs.50...</li>
+                            </ul>
+                        </div>
+                    </details>
+                    
+                     <details class="sub-details">
+                        <summary>Article 8.0: Organs of the Union</summary>
+                        <div class="details-content">
+                            <h4>8.0 There is established the organs of the UNION namely:</h4>
+                            <ul>
+                                <li>Annual Delegates’ Conference (ADC)</li>
+                                <li>National Advisory Council (NAC)</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
             </details>
-
-            <!-- Accordion 2 -->
-            <details>
-                <summary>Articles 4.0 - 6.0: Aims, Mission & Vision</summary>
-                <div class="details-content">
-                    <h4>ARTICLE 4.0: THE AIMS/OBJECTIVES</h4>
-                    <ul>
-                        <li>To advocate for the establishment of sound, ethical and professional policies that guarantee job security and fair solution to the members’ grievances.</li>
-                        <li>To make every endeavor to organise all the teachers in the post primary institutions and to ensure absolute unity of the members for effective and efficient representation.</li>
-                        <li>To promote, improve and develop ethical principles to inculcate responsibility among the teachers to guarantee their health, professional, social and economic well-being.</li>
-                        <li>To develop the capacity of members through seminars, symposiums and workshops locally and internationally.</li>
-                        <li>To organise lawful processions or demonstrations to promote the members’ freedom of expression and collective rights.</li>
-                        <li>To participate in all matters aimed at providing quality education and formulation of sound policies towards common system of education.</li>
-                        <li>To make every endeavour to promote effective representation locally, nationally and internationally in collaboration with such other related organisations and/or agencies to protect the teachers’ interest and education generally.</li>
-                        <li>To negotiate with the government of Kenya/its agencies, any public or private institutions offering education or related services better terms and conditions of employment and thereby formulate clear representation and negotiation procedures including promotion and its packages.</li>
-                        <li>To join or to be joined in any research by the government of Kenya (its agency / department / Ministry) any public or private organisation/ institution on matters related to teaching as a profession.</li>
-                        <li>To co-operate in or take part in research together with other societies, bodies, associations, unions or organisations within or outside the country having similar aims and objectives.</li>
-                        <li>To engage in/take part in education related projects with other societies/ bodies/organisations within and outside the country.</li>
-                        <li>To promote and protect the rights of teachers serving in education industry.</li>
-                        <li>To articulate the members’ interests in the formulation of education ordinances, policies and propagate the same to the members for smooth administration and dispensation of education.</li>
-                        <li>To offer assistance and encourage teachers to form saving and credit societies, Burial and Benevolent Funds, academic institutions, land buying companies and/or any amenities.</li>
-                        <li>To acquire any deeds, loans or “by purchase or lease” any movable or immovable objects.</li>
-                        <li>To seek and obtain legal advice/protection on matters affecting the union and member(s) whether directly or indirectly arising out of relations between the union /members and the employer(s) to improve the members’ social and economic status.</li>
-                        <li>To establish KUPPET branch offices based on County demarcations.</li>
-                        <li>To establish at National level sub-committees such as: Finance and administration committee, Constitution and by-laws committee, Industrial relations and research committee, and any other committees decided upon by the delegates conference.</li>
-                        <li>To affiliate to workers organisations locally/internationally for a united front to champion the rights of Teachers and promote education for all.</li>
-                        <li>To sensitise members on HIV/AIDS/Drugs/Substance abuse at the work place.</li>
-                        <li>To advocate against child labour/abuse/trafficking.</li>
-                        <li>To provide a conducive environment for arbitration of disputes at workplace and to liaise with other organisations/agencies to enhance cohesion and conciliation at the workplace.</li>
-                        <li>To create/advocate for gender equity and mainstreaming at the workplace.</li>
-                        <li>To buttress gender equity and equal opportunities without any form of discrimination on basis of, inter alia, sex, race, tribe, age or religion.</li>
-                    </ul>
-
-                    <h4>ARTICLE 5.0: MISSION</h4>
-                    <p>To unite all teachers in post primary institutions in Kenya by advocating for the establishment of sound ethical and professional policies that guarantee job security and fair solutions to members’ grievances through lawful union activities, affiliation, negotiation and research.</p>
-
-                    <h4>ARTICLE 6.0: VISION</h4>
-                    <p>To be a strong National progressive post primary teachers’ union in Kenya where justice, service and integrity are upheld to enhance cohesion and conciliation.</p>
-                </div>
-            </details>
-
-            <!-- Accordion 3 -->
-            <details>
-                <summary>Article 7.0: Membership</summary>
-                <div class="details-content">
-                    <h4>ARTICLE 7.0: MEMBERSHIP</h4>
-                    <ul>
-                        <li>Teachers/ Trainers in secondary and tertiary institutions of good conduct and reputation, certified, licensed or authorised to teach, shall have the right of admission to any of the branches of the Union upon payment of the entrance fee as provided in the rules of the union.</li>
-                        <li>A member may retain his membership in the Union even after retirement or resignation from the service of TSC or any relevant Teachers employer provided that he or she is fully subscribed.</li>
-                        <li>If in the opinion of any Branch the applicant’s professional conduct makes it undesirable that his/her name should not be on the Roll of Members, the matter shall be referred to the National Governing Council for enquiry by the Professional and Standards Committee of the union.</li>
-                        <li>Upon admission, the teacher’s full name shall be written in the Union’s register showing the member’s name in the Teachers’ Register kept by the Teachers Service Commission and where possible the name of school/institution to which the member is assigned at the time of admission.</li>
-                        <li>The member shall be provided with membership card bearing his/her name in full, address and such further particulars that may be necessary to afford easy identification of the member.</li>
-                        <li>No person shall be admitted to the union or to any of its Branches, unless he/she previously agrees to abide by the rules of the union contained in this constitution.</li>
-                        <li>Entry membership fee of KShs.50 (fifty shillings only) to the Union shall be paid once and monthly subscription fee for all members shall be at a rate of 1.8% (one point eight per cent) of a member’s basic pay.</li>
-                        <li>Monthly subscription shall in as far as possible be collected through the check-off system.</li>
-                        <li>If at any time the National Governing Council is of the opinion that the allocation of the subscription should be revised they shall seek authority from National Delegates Conference.</li>
-                        <li>KUPPET shall operate on a closed shop system.</li>
-                        <li>Any member of a Branch of the union who is transferred from one County branch to another, shall on payment of all dues, be entitled to a “DEEM IT” which shall make him/her eligible for enrolment in the branch.</li>
-                        <li>Every member shall be at liberty to withdraw his/her membership from the union by clearly addressing his/her resignation to the employer and a copy to the Branch Executive Secretary in which case the party withdrawing will cease to be entitled to enjoy any benefits or privileges of the union or any of its Branches. Under no circumstances shall any subscriptions or other donations paid to the union by a withdrawing member be refunded.</li>
-                        <li>Honorary/Associate Membership may be conferred on any person who in the opinion of the Delegates Conference has rendered outstanding service to the cause of the Union/Education or other persons not eligible for ordinary membership. Such honorary membership shall not carry any right to vote on any matter.</li>
-                        <li>No Honorary Member shall be eligible to hold any office in the union.</li>
-                        <li>Any teacher having been declared ineligible by the National Governing Council (NGC) shall remain ineligible until such a time as the Delegates Conference may decide to admit his/her membership.</li>
-                        <li>Associate/honorary members shall not be obliged to pay any fees or subscription.</li>
-                        <li>Members of the Union shall be at liberty to join other Educational Organisations, so long as the rules and regulations of such organisations are not contrary to the rules and regulations of Kenya Union of Post-Primary Education Teachers (KUPPET).</li>
-                    </ul>
-                </div>
-            </details>
-
-            <!-- Accordion 4 -->
-            <details>
-                <summary>Article 8.0: Organs of the Union</summary>
-                <div class="details-content">
-                    <h4>8.0 There is established the organs of the UNION namely:</h4>
-                    <ol>
-                        <li>Annual Delegates’ Conference (ADC)</li>
-                        <li>National Advisory Council (NAC)</li>
-                        <li>National Governing Council (NGC)</li>
-                        <li>National Executive Board (NEB)</li>
-                        <li>Regional Council (RC)</li>
-                        <li>Branch General Assembly (BGA)</li>
-                        <li>Branch Governing Council (BGC)</li>
-                        <li>Branch Executive Committee (BEC)</li>
-                        <li>Trustees</li>
-                        <li>School/Institutions Representative (SR/IR)</li>
-                    </ol>
-
-                    <h4>8.1.0 The Annual Delegates’ Conference (ADC)</h4>
-                    <p>There shall be convened annually in the month of November/December, at such date and place as may be fixed by National Governing Council (NGC) an annual delegates’ conference of the UNION. The notice to the ADC shall be issued by the Secretary General as directed by the NGC, within four weeks before the conference.</p>
-
-                    <h4>8.4.0 National Advisory Council (NAC)</h4>
-                    <p>Comprises elected national officials, Branch Chairpersons, Branch secretaries and Branch Treasurers from all counties. Chaired by the Union's National chairperson. Meets once a year or as determined to render advice on strategic direction, policy, and alignment to the legitimate interests of members.</p>
-
-                    <h4>8.5.0 National Governing Council (NGC)</h4>
-                    <p>Comprises Elected National Officials together with Branch Secretaries from the counties and sixteen (16) nominee women representatives. Meets twice a year to ensure business is properly transacted between the Annual Delegates’ Conferences, execute decisions, enforce rules, discipline members/branches, and solicit funds.</p>
-
-                    <h4>8.6.0 The National Executive Board (NEB)</h4>
-                    <p>Comprises fourteen elected national officials reflecting regional and gender balance. This board is responsible for the day-to-day affairs of the union, exercising delegated authority, negotiating Collective Bargaining Agreements (CBA), and implementing the policies of the Union.</p>
-
-                    <h4>8.7.1 Regional Councils</h4>
-                    <p>Established across 8 Regions (Coast, North Eastern, Eastern, Central, Rift Valley, Western, Nyanza, Nairobi). They meet at least twice a year to consider union and educational matters within the region.</p>
-
-                    <h4>8.8.0 The Branch General Assembly (BGA)</h4>
-                    <p>Convened at least once annually to elect members of the Branch Governing Council and Branch Executive Committee, approve financial statements, and manage branch financial affairs.</p>
-
-                    <h4>8.9.0 & 8.11.0 Branch Councils and Committees</h4>
-                    <p>The Branch Governing Council coordinates union activities in the branch, initiates discipline, and employs branch staff. The Branch Executive Committee carries out mobilisation, organisation, and recruitment of members at the grassroots.</p>
-
-                    <h4>8.13.0 Trustees</h4>
-                    <p>Nine (9) Trustees, eight elected at the Delegates’ Conference (four of whom must be of the opposite gender) and one slot for the founder Secretary General. They hold custody of the union’s property, oversee bank accounts, and maintain asset inventories.</p>
-                </div>
-            </details>
-
-            <!-- Accordion 5 -->
-            <details>
-                <summary>Articles 9.0 - 12.0: Meetings, Officers & Terms</summary>
-                <div class="details-content">
-                    <h4>ARTICLE 9.0: NOTICE FOR MEETINGS</h4>
-                    <p>All union meetings shall be convened through the issuance of a notice by the Secretary General for national organs, or the Executive Secretary for county branch structures.</p>
-
-                    <h4>NATIONAL OFFICE ROLES</h4>
-                    <ul>
-                        <li><strong>The National Chairperson:</strong> Presides at all conferences/meetings, leads Union delegations, and enforces the constitution.</li>
-                        <li><strong>The Secretary General:</strong> Chief Executive Officer and spokesperson of the Union. Authorises all expenditure, maintains liaison with branches, and ensures compliance with the Union constitution and Labour Relations Act.</li>
-                        <li><strong>The National Treasurer:</strong> Accountable for Union funds. Ensures no payment is made without a voucher, pays branches their 65% due, and deposits 5% for gratuity.</li>
-                        <li><strong>Other National Roles:</strong> Includes Deputy Secretary General, Assistant National Treasurer, National Secretaries for Gender, Tertiary, Secondary, and Organising Secretaries, each handling specialized mandates.</li>
-                    </ul>
-
-                    <h4>BRANCH OFFICES ROLES</h4>
-                    <ul>
-                        <li><strong>Branch Chairperson:</strong> Presides at all branch meetings.</li>
-                        <li><strong>Branch Executive Secretary:</strong> Executive officer/spokesperson of the branch, submits reports, and coordinates local activities.</li>
-                        <li><strong>Branch Treasurer:</strong> Maintains clear records of branch funds and ensures proper payment procedures.</li>
-                    </ul>
-
-                    <h4>ARTICLE 12.0: TERM OF OFFICE BEARERS</h4>
-                    <p>All office-bearers shall be elected to serve for a term of five (5) years, but eligible for re-election. The retirement age of the union officials shall be Sixty-Five (65) years.</p>
-                </div>
-            </details>
-
-            <!-- Accordion 6 -->
-            <details>
-                <summary>Articles 13.0 - 14.0: Elections & Nomination Fees</summary>
-                <div class="details-content">
-                    <h4>NATIONAL AND BRANCH ELECTIONS</h4>
-                    <p>Except as otherwise expressly provided for, all officers shall be elected every five years by secret ballot at a special delegates’ conference (for National officials) and at Branch General Assembly (for branches). Only members not in arrears for more than 13 weeks are eligible to vote.</p>
-
-                    <h4>BY-ELECTIONS</h4>
-                    <p>In the event of resignation, transfer, deployment, death, or expulsion of any union official, the assistant shall act until the next branch assembly/delegates conference is convened.</p>
-
-                    <h4>ARTICLE 14.0: NOMINATION FEES</h4>
-                    <ul>
-                        <li>Secretary General / National Chairman / National Treasurer: Kshs 500,000</li>
-                        <li>Deputy Secretary General / National Vice Chairman / National Organising Secretary / National Gender Secretary / National Secretary Secondary & Tertiary / Assistant National Treasurer / Assistant National Secretaries: Kshs 300,000</li>
-                        <li>Branch Executive Secretary: Kshs 200,000</li>
-                        <li>Branch Chairman / Branch Treasurer: Kshs 100,000</li>
-                        <li>Branch Vice Chairman / Assistant Secretary / Vice Treasurer / Organising Secretary / Branch Gender & Sector Secretaries: Kshs 50,000</li>
-                    </ul>
-                </div>
-            </details>
-
-            <!-- Accordion 7 -->
-            <details>
-                <summary>Articles 15.0 - 19.0: Committees, Funds, Gratuity & Audit</summary>
-                <div class="details-content">
-                    <h4>ARTICLE 15.0: COMMITTEES</h4>
-                    <p>Established at the secretariat by the NGC: Finance Committee (7 members), Professional and Standards Committee (5 members), and Constitutional and By-laws Committee (5 members).</p>
-
-                    <h4>ARTICLE 16.0: GRATUITY</h4>
-                    <p>The National and Branch Governing Council formulates by-laws to regulate gratuity schemes. 5% of the Union monthly income shall be deposited to an account specifically created to facilitate gratuity for registered union officials upon the end of their service.</p>
-
-                    <h4>ARTICLE 17.0: UNION FUNDS</h4>
-                    <p>The Treasurer maintains bank accounts where funds are deposited within seven days. Expenditures are governed by financial regulations within an annual budget. The National Treasurer pays branches 65% of total monthly dues collected, subject to deductions for salaries of full-time branch employees.</p>
-
-                    <h4>ARTICLE 18.0 & 19.0: AUDITORS & INSPECTION</h4>
-                    <p>Qualified Accountants audit the accounts annually by March 31st. Paid-up members have the right to request inspections of certified books, and audited accounts shall be available on the website.</p>
-                </div>
-            </details>
-
-            <!-- Accordion 8 -->
-            <details>
-                <summary>Articles 20.0 - 22.0: Meeting Rules, Discipline & Industrial Action</summary>
-                <div class="details-content">
-                    <h4>ARTICLE 20.0: THE CHAIR & MEETINGS</h4>
-                    <p>The Chairperson ensures a quorum before proceeding and maintains order. Resolutions require a simple majority. Minutes must be recorded by the Secretary General or Branch Executive Secretaries.</p>
-
-                    <h4>ARTICLE 21.0: DISCIPLINARY COMMITTEE</h4>
-                    <p>A Standing disciplinary committee of the NEB handles cases of misconduct, misuse of funds, bribery, sexual harassment, or criminal convictions. Sanctions range from cautions and fines to suspension and expulsion. Members retain the right to be heard and to appeal to the National Governing Council.</p>
-
-                    <h4>ARTICLE 22.0: INDUSTRIAL ACTION/DISPUTE</h4>
-                    <p>No cessation of work shall be threatened or take place without the sanctioning by the National Governing Council. No official or branch shall move to court on any matter committing the Union without authorisation from the Secretary General.</p>
-                </div>
-            </details>
-
-            <!-- Accordion 9 -->
-            <details>
-                <summary>Articles 23.0 - 27.0: By-laws, Amendments & Dissolution</summary>
-                <div class="details-content">
-                    <h4>ARTICLE 23.0 & 24.0: BY-LAWS & INTERPRETATION</h4>
-                    <p>By-laws regulate the conduct of meetings. The registered Constitution is supreme, and its interpretation lies within the purview of the NEB and the Constitution and By-laws Committee.</p>
-
-                    <h4>ARTICLE 25.0: AMENDMENTS</h4>
-                    <p>Alterations require a resolution supported by not less than two-thirds of the total votes cast at the Annual or Special Delegates’ Conference. Proposals must be submitted 6 months prior.</p>
-
-                    <h4>ARTICLE 26.0: DISSOLUTION</h4>
-                    <p>Dissolution requires a two-thirds majority vote at a Delegates Conference. Any remaining assets, after discharging liabilities, shall be transferred to a body with judicial powers in accordance with the Constitution of Kenya.</p>
-
-                    <h4>ARTICLE 27.0: AUTHORITY</h4>
-                    <p>Authenticated by the Acting Secretary General, Moses Nthurima, and National Chairperson, Omboko Milemba (2024).</p>
-                </div>
-            </details>
-
         </div>
 
     </div>
 
+    <!-- Footer -->
+    <footer>
+        <p>Mwalimu Productions &copy; 2026 - 2027. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchImagesData();
+        });
+
+        async function fetchImagesData() {
+            try {
+                // Adjust to your actual vercel API path if needed
+                const response = await fetch('/api/images');
+                const data = await response.json();
+                renderCommittees(data.committees || {});
+            } catch (err) {
+                console.error('Error fetching dynamic images:', err);
+                document.getElementById('committees-container').innerHTML = '<p style="text-align:center; color:#888;">Add image files to the /images/ folder to populate committees dynamically.</p>';
+            }
+        }
+
+        function renderCommittees(committees) {
+            const container = document.getElementById('committees-container');
+            container.innerHTML = '';
+
+            const keys = Object.keys(committees);
+            if (keys.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888; padding:30px;">No committee images detected in folder.</p>';
+                return;
+            }
+
+            keys.forEach(commKey => {
+                const members = committees[commKey];
+                if (!members || members.length === 0) return; 
+
+                let committeeHtml = `<div class="committee-group"><div class="committee-title-badge">${commKey}</div><div class="committee-cards-grid">`;
+
+                members.forEach(member => {
+                    const isRankHero = member.hierarchy === 1;
+                    const heroClass = isRankHero ? 'rank-hero' : '';
+                    let messageHtml = '';
+                    if (member.message && member.message.trim().length > 0) {
+                        messageHtml = `<div class="chairman-message-box">"${member.message}"</div>`;
+                    }
+
+                    let actionsHtml = '';
+                    if (member.phone || member.email) {
+                        actionsHtml = '<div class="contact-actions">';
+                        if (member.phone) {
+                            const cleanPhone = member.phone.replace(/[^0-9+]/g, '');
+                            actionsHtml += `
+                                <a href="tel:${cleanPhone}" class="action-icon-btn" title="Call ${member.name}">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> Call
+                                </a>
+                                <a href="https://wa.me/${cleanPhone.replace('+', '')}" target="_blank" class="action-icon-btn whatsapp-btn" title="WhatsApp ${member.name}">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg> WhatsApp
+                                </a>`;
+                        }
+                        if (member.email) {
+                            actionsHtml += `
+                                <a href="mailto:${member.email}" class="action-icon-btn" title="Email ${member.name}">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> Email
+                                </a>`;
+                        }
+                        actionsHtml += '</div>';
+                    }
+
+                    committeeHtml += `
+                        <div class="member-card ${heroClass}">
+                            <div class="member-img-wrapper"><img src="${member.src}" alt="${member.name}" loading="lazy"></div>
+                            <div class="member-details">
+                                <div>
+                                    <span class="member-role">${member.role}</span>
+                                    <h4 class="member-name">${member.name}</h4>
+                                    ${messageHtml}
+                                </div>
+                                ${actionsHtml}
+                            </div>
+                        </div>`;
+                });
+
+                committeeHtml += `</div></div>`;
+                container.innerHTML += committeeHtml;
+            });
+        }
+    </script>
 </body>
 </html>
