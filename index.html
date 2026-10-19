@@ -192,6 +192,7 @@
         .gallery-slide {
             min-width: 100%;
             position: relative;
+            background-color: #111111; /* Dark background so uncropped photos look cinematic */
         }
 
         .gallery-slide img {
@@ -199,10 +200,9 @@
             height: 60vh;
             max-height: 600px;
             min-height: 350px;
-            object-fit: cover;
-            object-position: top; /* Prevents head-cropping */
+            object-fit: contain; /* Ensures 100% of the image is always visible */
+            object-position: center; 
             display: block;
-            background-color: #222; 
         }
 
         .gallery-overlay {
@@ -327,15 +327,15 @@
             width: 100%;
             height: 220px;
             position: relative;
-            background: #e0e0e0;
+            background: #ffffff; /* Clean white background so uncropped photos blend in */
             overflow: hidden;
         }
 
         .member-img-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            object-position: top; /* Prevents head-cropping */
+            object-fit: contain; /* Ensures 100% of the portrait is visible without cropping */
+            object-position: center; 
         }
 
         .member-details {
