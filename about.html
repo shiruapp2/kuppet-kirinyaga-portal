@@ -25,7 +25,6 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
-        /* Background set to transparent because the index.html iframe wrapper provides the white background */
         body { 
             background: transparent;
             color: var(--text-main); 
@@ -37,6 +36,19 @@
         .app-container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 30px 20px; flex-grow: 1; }
 
         .page-header { text-align: center; margin-bottom: 40px; }
+        
+        /* Restored Logo Badge Style */
+        .page-header-logo {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            object-fit: cover;
+            margin-bottom: 15px;
+            background: var(--white);
+        }
+
         .page-header h2 { font-size: 2.2rem; color: var(--green-dark); font-weight: 700; }
         .page-header p { font-size: 1rem; color: var(--text-muted); margin-top: 5px; }
 
@@ -48,8 +60,9 @@
             margin-bottom: 25px; border-left: 4px solid var(--gold); box-shadow: 0 4px 12px rgba(27, 94, 32, 0.2);
         }
 
-        .committee-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .committee-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)); gap: 25px; }
         
+        /* Smart Interactive Member Card */
         .member-card {
             background: var(--white); border-radius: 16px; border: 1px solid var(--border-color);
             box-shadow: 0 6px 20px rgba(0,0,0,0.04); overflow: hidden; display: flex; flex-direction: column;
@@ -62,19 +75,40 @@
         .rank-hero .member-img-wrapper { width: 280px; height: 280px; flex-shrink: 0; }
         @media (max-width: 768px) { .rank-hero .member-img-wrapper { width: 100%; height: 260px; } }
         
-        .member-img-wrapper { width: 100%; height: 220px; position: relative; background: #ffffff; overflow: hidden; }
-        .member-img-wrapper img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+        .member-img-wrapper { 
+            width: 100%; height: 230px; position: relative; background: #fafbfc; overflow: hidden; 
+            cursor: pointer; border-bottom: 3px solid var(--green);
+        }
+        .member-img-wrapper img { width: 100%; height: 100%; object-fit: contain; object-position: center; transition: transform 0.4s ease; }
+        .member-img-wrapper:hover img { transform: scale(1.03); }
         
+        /* Click prompt badge on image */
+        .img-click-hint {
+            position: absolute; bottom: 10px; right: 10px; background: rgba(27, 94, 32, 0.85); color: #fff;
+            font-size: 0.7rem; padding: 4px 8px; border-radius: 12px; font-weight: 500; pointer-events: none;
+            display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
         .member-details { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
         .member-role { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--gold); background: var(--green-dark); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px; width: max-content; }
-        .member-name { font-size: 1.2rem; font-weight: 700; color: var(--green-dark); margin-bottom: 12px; }
-        .chairman-message-box { background: #f0fdf4; border-left: 4px solid var(--green); padding: 15px; border-radius: 8px; margin-top: 10px; margin-bottom: 15px; font-size: 0.9rem; font-style: italic; color: #1b5e20; line-height: 1.5; }
+        .member-name { font-size: 1.2rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; }
         
-        .contact-actions { display: flex; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color); }
-        .action-icon-btn { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: #fafbfc; color: var(--green-dark); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.3s; }
+        .chairman-message-box { background: #f0fdf4; border-left: 4px solid var(--green); padding: 12px; border-radius: 8px; margin-top: 8px; margin-bottom: 12px; font-size: 0.88rem; font-style: italic; color: #1b5e20; line-height: 1.4; }
+        
+        /* Smart Hidden Drawer for Contacts & Messages */
+        .smart-contact-drawer {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, padding 0.3s ease;
+            background: #f8fafc; border-top: 1px dashed transparent; margin-top: 0; padding: 0 15px; border-radius: 0 0 16px 16px;
+        }
+        .member-card.drawer-open .smart-contact-drawer {
+            max-height: 220px; padding: 15px; border-top-color: var(--border-color); margin-top: 12px;
+        }
+
+        .contact-actions { display: flex; gap: 8px; }
+        .action-icon-btn { flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border-color); background: #ffffff; color: var(--green-dark); text-decoration: none; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.3s; }
         .action-icon-btn:hover { background: var(--green); color: var(--white); border-color: var(--green); }
         .action-icon-btn.whatsapp-btn:hover { background: #25D366; color: var(--white); border-color: #25D366; }
-        .action-icon-btn svg { width: 18px; height: 18px; }
+        .action-icon-btn svg { width: 16px; height: 16px; }
 
         /* --- VISION & MISSION --- */
         .vision-mission-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin-bottom: 35px; }
@@ -167,6 +201,8 @@
     <div class="app-container">
         
         <div class="page-header">
+            <!-- Restored Branch Logo Badge -->
+            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="KUPPET Kirinyaga Logo" class="page-header-logo">
             <h2>About Us</h2>
             <p>Kenya Union of Post Primary Education Teachers (KUPPET) - Kirinyaga Branch</p>
         </div>
@@ -238,7 +274,6 @@
                         <div class="details-content">
                             <h4>ARTICLE 1.0: PREAMBLE</h4>
                             <p>The trade union constituted by this constitution shall be called the KENYA UNION OF POST PRIMARY EDUCATION TEACHERS (KUPPET), with the headquarters in Nairobi.</p>
-                            <p>WHEREAS the Kenya Union of Post Primary Education Teachers has been founded upon principles of social justice and professionalism...</p>
                             
                             <h4>ARTICLE 1.0.1: INTERPRETATION</h4>
                             <ul>
@@ -312,8 +347,12 @@
                 renderCommittees(data.committees || {});
             } catch (err) {
                 console.error('Error fetching dynamic images:', err);
-                document.getElementById('committees-container').innerHTML = '<p style="text-align:center; color:#888;">Add image files to the /images/ folder to populate committees dynamically.</p>';
+                document.getElementById('committees-container').innerHTML = '<p style="text-align:center; color:#888;">Add image files to populate committees dynamically.</p>';
             }
+        }
+
+        function toggleMemberDrawer(cardElement) {
+            cardElement.classList.toggle('drawer-open');
         }
 
         function renderCommittees(committees) {
@@ -335,6 +374,7 @@
                 members.forEach(member => {
                     const isRankHero = member.hierarchy === 1;
                     const heroClass = isRankHero ? 'rank-hero' : '';
+                    
                     let messageHtml = '';
                     if (member.message && member.message.trim().length > 0) {
                         messageHtml = `<div class="chairman-message-box">"${member.message}"</div>`;
@@ -363,14 +403,21 @@
                     }
 
                     committeeHtml += `
-                        <div class="member-card ${heroClass}">
-                            <div class="member-img-wrapper"><img src="${member.src}" alt="${member.name}" loading="lazy"></div>
+                        <div class="member-card ${heroClass}" onclick="toggleMemberDrawer(this)">
+                            <div class="member-img-wrapper">
+                                <img src="${member.src}" alt="${member.name}" loading="lazy">
+                                <div class="img-click-hint">
+                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Tap for Contact
+                                </div>
+                            </div>
                             <div class="member-details">
                                 <div>
                                     <span class="member-role">${member.role}</span>
                                     <h4 class="member-name">${member.name}</h4>
                                     ${messageHtml}
                                 </div>
+                            </div>
+                            <div class="smart-contact-drawer">
                                 ${actionsHtml}
                             </div>
                         </div>`;
