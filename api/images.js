@@ -13,14 +13,14 @@ export default function handler(req, res) {
     const committees = {};
 
     files.forEach((rawFile) => {
-      // Forgiving extension check that ignores hidden trailing characters
       if (!/\.(jpg|jpeg|png|webp|gif|svg)/i.test(rawFile)) return;
 
       const ext = path.extname(rawFile);
       const nameWithoutExt = path.basename(rawFile, ext);
       
-      // Clean the web path so spaces and symbols load correctly in HTML
-      const webPath = encodeURI(`/images/${rawFile}`);
+      // CRITICAL FIX: encodeURIComponent safely encodes '+' and '@' symbols 
+      // so Vercel doesn't mistake them for spaces or commands.
+      const webPath = `/images/${encodeURIComponent(rawFile)}`;
 
       if (nameWithoutExt.toLowerCase().startsWith('display_photo_')) {
         const parts = nameWithoutExt.split('_');
@@ -51,7 +51,6 @@ export default function handler(req, res) {
       }
     });
 
-    // Sort leadership hierarchy (1 = Chairman, 2 = Vice, etc.)
     Object.keys(committees).forEach((key) => {
       committees[key].sort((a, b) => a.hierarchy - b.hierarchy);
     });
