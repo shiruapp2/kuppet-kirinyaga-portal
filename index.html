@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KUPPET Kirinyaga Branch Portal</title>
+    
+    <!-- Favicon & Open Graph -->
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/TqdTXZvh/logo.jpg">
+    <meta property="og:title" content="KUPPET Kirinyaga Branch Portal">
+    <meta property="og:description" content="Official Service & Welfare Hub for Post-Primary Education Teachers in Kirinyaga County.">
+    <meta property="og:image" content="https://i.ibb.co/TqdTXZvh/logo.jpg">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
         :root {
             --gold: #D4AF37;
+            --gold-light: #F4E29F;
             --green: #2E7D32;
             --green-dark: #1B5E20;
             --white: #FFFFFF;
@@ -21,7 +29,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
 
         body { 
-            background: linear-gradient(rgba(245, 246, 250, 0.95), rgba(245, 246, 250, 0.95)), 
+            background: linear-gradient(rgba(245, 246, 250, 0.96), rgba(245, 246, 250, 0.96)), 
                         url('https://i.ibb.co/TqdTXZvh/logo.jpg') center/cover fixed;
             color: var(--text-main); 
             display: flex; 
@@ -29,77 +37,147 @@
             min-height: 100vh; 
         }
 
-        /* --- NAVIGATION HEADER --- */
-        nav {
-            background: var(--green-dark);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        /* --- MOTHER HEADER NAVIGATION --- */
+        header.mother-header {
+            background: var(--white);
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-        .nav-brand {
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
         }
-        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
-        .nav-links a { color: var(--white); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
-        
-        .app-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 40px 20px; flex-grow: 1; }
 
-        /* --- MAIN HEADER --- */
-        header { text-align: center; margin-bottom: 40px; animation: fadeIn 0.5s ease; }
-        .logo { 
-            width: 110px; height: 110px; 
-            border-radius: 50%; border: 3px solid var(--gold); 
-            margin-bottom: 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            background: var(--white); padding: 4px;
-            cursor: pointer; /* Hint for long press */
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
             user-select: none;
             -webkit-user-select: none;
         }
-        .header-title { color: var(--green-dark); font-size: 2.3rem; font-weight: 700; margin-top: 5px; letter-spacing: -0.5px; }
-        .subtitle { font-size: 1.1rem; color: var(--text-muted); margin-top: 8px; font-weight: 500; }
+
+        .brand-logo-title img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .brand-logo-title img:active {
+            transform: scale(0.95);
+        }
+
+        .brand-text h1 {
+            font-size: 1.3rem;
+            color: var(--green-dark);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        nav.nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 7px 15px;
+            background: #fafbfc;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--green-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--green-dark);
+            color: var(--white);
+            border-color: var(--green-dark);
+            box-shadow: 0 4px 10px rgba(27, 94, 32, 0.2);
+        }
+
+        .app-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 30px 20px; flex-grow: 1; }
+
+        /* --- HERO BANNER --- */
+        .hero-banner {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            border-top: 5px solid var(--gold);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .hero-banner h2 { font-size: 2rem; color: var(--green-dark); font-weight: 700; margin-bottom: 8px; }
+        .hero-banner p { font-size: 1rem; color: var(--text-muted); max-width: 800px; margin: 0 auto; }
 
         /* --- WHAT IS NEW SECTION --- */
-        .whats-new-container { margin-bottom: 50px; background: transparent; }
-        .section-header { font-size: 1.6rem; color: var(--green-dark); font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        .whats-new-container { margin-bottom: 50px; }
         
-        .post-card {
-            background: var(--white); border-radius: 12px; padding: 25px; margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border-color); border-left: 4px solid var(--green);
+        .section-header { 
+            font-size: 1.5rem; color: var(--green-dark); font-weight: 700; 
+            margin-bottom: 20px; display: flex; align-items: center; gap: 10px; 
+            border-bottom: 2px solid var(--gold); padding-bottom: 10px; 
         }
-        .post-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
-        .post-title { font-size: 1.3rem; color: var(--green-dark); font-weight: 700; }
-        .post-time { font-size: 0.85rem; color: #888; background: #f0f0f0; padding: 4px 10px; border-radius: 12px; }
-        .post-body { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 15px; }
-        .post-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; display: none; }
-        .post-author { font-size: 0.85rem; font-style: italic; color: #777; margin-bottom: 15px; }
+
+        .post-card {
+            background: var(--white); border-radius: 14px; padding: 25px; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04); border: 1px solid var(--border-color); 
+            border-left: 5px solid var(--green-dark);
+        }
         
-        .read-more-btn { color: var(--green); cursor: pointer; font-weight: 600; text-decoration: underline; border: none; background: none; font-size: 0.95rem; }
+        .post-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 10px; }
+        .post-title { font-size: 1.25rem; color: var(--green-dark); font-weight: 700; line-height: 1.3; }
+        .post-time { font-size: 0.8rem; color: var(--green-dark); background: #f0fdf4; padding: 4px 12px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+        
+        .post-body { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 12px; }
+        .post-image { width: 100%; max-height: 420px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .post-author { font-size: 0.85rem; font-style: italic; color: #666; margin-bottom: 15px; border-top: 1px dashed var(--border-color); padding-top: 10px; }
+        
+        .read-more-btn { color: var(--green-dark); cursor: pointer; font-weight: 700; text-decoration: underline; border: none; background: none; font-size: 0.9rem; margin-top: 5px; }
         
         /* Comments Area */
-        .comments-section { border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 10px; }
-        .comment-list { margin-bottom: 15px; max-height: 200px; overflow-y: auto; }
-        .comment-item { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.9rem; }
-        .comment-item strong { color: var(--green-dark); display: block; margin-bottom: 3px; font-size: 0.85rem; }
-        .add-comment-form { display: flex; gap: 10px; flex-wrap: wrap; }
-        .add-comment-form input, .add-comment-form textarea { padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-family: 'Poppins', sans-serif; }
-        .add-comment-form input { flex: 1; min-width: 150px; }
-        .add-comment-form textarea { flex: 3; min-width: 200px; resize: none; height: 38px; }
-        .add-comment-form button { background: var(--green-dark); color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .comments-section { border-top: 1px solid var(--border-color); padding-top: 15px; margin-top: 15px; }
+        .comments-title { font-size: 0.9rem; font-weight: 700; color: var(--green-dark); margin-bottom: 10px; }
+        .comment-list { margin-bottom: 15px; max-height: 220px; overflow-y: auto; }
+        .comment-item { background: #f8fafc; padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; font-size: 0.88rem; border: 1px solid var(--border-color); }
+        .comment-item strong { color: var(--green-dark); display: block; margin-bottom: 2px; font-size: 0.82rem; }
         
-        /* --- GRID LAYOUT --- */
-        .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .add-comment-form { display: flex; gap: 10px; flex-wrap: wrap; }
+        .add-comment-form input, .add-comment-form textarea { padding: 9px 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.88rem; outline: none; }
+        .add-comment-form input:focus, .add-comment-form textarea:focus { border-color: var(--green); }
+        .add-comment-form input { flex: 1; min-width: 150px; }
+        .add-comment-form textarea { flex: 3; min-width: 220px; resize: none; height: 40px; }
+        .add-comment-form button { background: var(--green-dark); color: white; border: none; padding: 9px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.88rem; transition: 0.2s; }
+        .add-comment-form button:hover { background: var(--green); }
+
+        /* --- GRID LINKS --- */
+        .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
         .card { 
             background: var(--card-bg); border-radius: 16px; overflow: hidden;
             border: 1px solid var(--border-color); box-shadow: 0 6px 20px rgba(0,0,0,0.04); 
@@ -110,116 +188,189 @@
         .card-preview { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; background: #e0e0e0; border-bottom: 3px solid var(--green); }
         .card-preview img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
         .card:hover .card-preview img { transform: scale(1.05); }
-        .card-preview::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.02), rgba(27, 94, 32, 0.2)); }
-        .card-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-title { font-size: 1.3rem; font-weight: 700; color: var(--green-dark); margin-bottom: 10px; }
-        .card-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px; flex-grow: 1; }
-        .btn-visit { background: #f8fafc; border: 1px solid var(--border-color); color: var(--green-dark); padding: 12px 15px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.3s; }
+        
+        .card-content { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 1.25rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; }
+        .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+        .btn-visit { background: #fafbfc; border: 1px solid var(--border-color); color: var(--green-dark); padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.3s; }
         .card:hover .btn-visit { background: var(--green); color: var(--white); border-color: var(--green); }
 
-        /* --- ADMIN OVERLAY --- */
+        /* --- EXECUTIVE ADMIN DASHBOARD MODAL --- */
         .admin-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px);
             display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px;
         }
-        .admin-content { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
-        .admin-content h2 { color: var(--green-dark); margin-bottom: 20px; }
-        .admin-form input, .admin-form textarea, .admin-form select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; font-family: 'Poppins'; }
-        .admin-form textarea { height: 100px; resize: vertical; }
-        .admin-btns { display: flex; gap: 10px; }
-        .admin-btns button { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; color: white; }
-        .btn-save { background: var(--green); }
-        .btn-cancel { background: #dc3545; }
-        .admin-post-item { border: 1px solid #eee; padding: 10px; border-radius: 6px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .admin-post-actions button { margin-left: 5px; padding: 5px 10px; cursor: pointer; border: none; border-radius: 4px; color: white; }
-        .btn-edit { background: #007bff; }
-        .btn-del { background: #dc3545; }
 
-        footer { background: var(--green-dark); color: var(--white); text-align: center; padding: 20px; font-size: 0.9rem; margin-top: 60px; border-top: 3px solid var(--gold); }
-        @media (max-width: 768px) { nav { flex-direction: column; gap: 10px; text-align: center; } .nav-links { justify-content: center; } }
+        .admin-card {
+            background: #ffffff; border-radius: 16px; width: 100%; max-width: 650px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25); border-top: 5px solid var(--gold);
+            overflow: hidden; max-height: 90vh; display: flex; flex-direction: column;
+        }
+
+        .admin-header-bar {
+            background: var(--green-dark); color: var(--white);
+            padding: 18px 25px; display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .admin-header-bar h3 { font-size: 1.2rem; font-weight: 700; color: var(--gold-light); display: flex; align-items: center; gap: 10px; }
+        
+        .admin-close-btn {
+            background: transparent; border: none; color: white;
+            font-size: 1.5rem; cursor: pointer; line-height: 1; opacity: 0.8; transition: 0.2s;
+        }
+        .admin-close-btn:hover { opacity: 1; color: var(--gold); }
+
+        .admin-body { padding: 25px; overflow-y: auto; flex-grow: 1; }
+
+        .admin-form label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--green-dark); margin-bottom: 5px; }
+        .admin-form input, .admin-form textarea, .admin-form select { 
+            width: 100%; padding: 11px 14px; margin-bottom: 16px; border: 1px solid var(--border-color); 
+            border-radius: 8px; font-family: 'Poppins'; font-size: 0.9rem; outline: none; background: #fafbfc;
+        }
+        .admin-form input:focus, .admin-form textarea:focus, .admin-form select:focus {
+            border-color: var(--green-dark); background: #ffffff; box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        .admin-form textarea { height: 110px; resize: vertical; }
+
+        .admin-action-row { display: flex; gap: 12px; margin-top: 10px; }
+        .btn-admin-primary { background: var(--green-dark); color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; flex: 1; transition: 0.2s; }
+        .btn-admin-primary:hover { background: var(--green); }
+        .btn-admin-secondary { background: #e2e8f0; color: #334155; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .btn-admin-secondary:hover { background: #cbd5e1; }
+
+        .admin-post-list-item { 
+            border: 1px solid var(--border-color); padding: 14px; border-radius: 10px; 
+            margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; background: #fafbfc;
+        }
+        .admin-post-list-item strong { color: var(--green-dark); font-size: 0.95rem; }
+        
+        .admin-item-btns button { 
+            margin-left: 6px; padding: 6px 14px; cursor: pointer; border: none; 
+            border-radius: 6px; font-weight: 600; font-size: 0.82rem; transition: 0.2s;
+        }
+        .btn-edit-post { background: #2563eb; color: white; }
+        .btn-edit-post:hover { background: #1d4ed8; }
+        .btn-del-post { background: #dc2626; color: white; }
+        .btn-del-post:hover { background: #b91c1c; }
+
+        /* Universal Footer */
+        footer.universal-footer {
+            background: var(--green-dark); color: var(--white); text-align: center;
+            padding: 20px; font-size: 0.9rem; font-weight: 500; border-top: 3px solid var(--gold); margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; text-align: center; }
+            nav.nav-links { justify-content: center; }
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-brand">
-            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="Logo" style="width:30px; height:30px; border-radius:50%; border:1px solid var(--gold);">
-            KUPPET Kirinyaga
-        </a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About Us</a>
-            <a href="case-reporting.html">BBF Portal</a>
-            <a href="wellness.html">Wellness</a>
-            <a href="anonymous.html">Anonymous</a>
-            <a href="quick-links.html">Quick Links</a>
-            <a href="contact.html">Contact</a>
+    <!-- Mother Navigation Header -->
+    <header class="mother-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo-title" id="logo-trigger-area">
+                <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="KUPPET Logo" id="brand-logo-img">
+                <div class="brand-text">
+                    <h1>KUPPET Kirinyaga</h1>
+                    <p>Kenya Union of Post Primary Education Teachers</p>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-btn active">Home</a>
+                <a href="about.html" class="nav-btn">About Us</a>
+                <a href="quick-links.html" class="nav-btn">Quick Links</a>
+                <a href="wellness.html" class="nav-btn">Wellness Portal</a>
+                <a href="case-reporting.html" class="nav-btn">BBF Case Portal</a>
+                <a href="anonymous.html" class="nav-btn">Anonymous Report</a>
+                <a href="contact.html" class="nav-btn">Contact Us</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <div class="app-container">
         
-        <header>
-            <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="Logo" class="logo" id="brand-logo-img">
-            <h1 class="header-title">KUPPET Kirinyaga Branch</h1>
-            <p class="subtitle">Official Service & Welfare Hub for Post-Primary Education Teachers</p>
-        </header>
+        <!-- Hero Welcome Banner -->
+        <div class="hero-banner">
+            <h2>Welcome to Kirinyaga KUPPET Branch</h2>
+            <p>Promoting teacher welfare, professional dignity, unity, justice, and solidarity across Kirinyaga County.</p>
+        </div>
 
         <!-- What Is New Section -->
         <div class="whats-new-container">
             <h2 class="section-header">
-                <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"></path></svg>
+                <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" stroke-width="2" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                 What Is New
             </h2>
             <div id="posts-feed">
-                <p style="text-align: center; color: #888;">Loading updates...</p>
+                <p style="text-align: center; color: #888; padding: 20px;">Loading updates...</p>
             </div>
         </div>
 
-        <!-- Links Grid -->
+        <!-- Links Grid Navigation Cards -->
         <div class="links-grid">
             <a href="about.html" class="card">
-                <div class="card-preview"><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="About Us"></div>
+                <div class="card-preview">
+                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" alt="About Us">
+                </div>
                 <div class="card-content">
-                    <div class="card-title">About Us & Constitution</div>
-                    <div class="card-desc">Learn about our vision, mission, core values, and read the official KUPPET constitution.</div>
+                    <div class="card-title">About Us & Leadership</div>
+                    <div class="card-desc">Learn about our vision, mission, leadership committees, core values, and read the official KUPPET constitution.</div>
                     <div class="btn-visit">Learn More</div>
                 </div>
             </a>
+
             <a href="case-reporting.html" class="card">
-                <div class="card-preview"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Case Reporting"></div>
+                <div class="card-preview">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="Case Reporting">
+                </div>
                 <div class="card-content">
                     <div class="card-title">BBF Case Portal</div>
-                    <div class="card-desc">File confidential welfare support claims securely and track your processing status.</div>
+                    <div class="card-desc">File confidential welfare support claims securely and track your processing status online.</div>
                     <div class="btn-visit">Report a Case</div>
                 </div>
             </a>
+
             <a href="wellness.html" class="card">
-                <div class="card-preview"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" alt="Teacher Wellness"></div>
+                <div class="card-preview">
+                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80" alt="Teacher Wellness">
+                </div>
                 <div class="card-content">
                     <div class="card-title">Teacher Wellness</div>
-                    <div class="card-desc">Access psychological helplines, decompression videos, Ask Gemini, and sensory activities.</div>
+                    <div class="card-desc">Access psychological helplines, decompression videos, AI support, and relaxation tools.</div>
                     <div class="btn-visit">Open Wellness</div>
                 </div>
             </a>
+
             <a href="anonymous.html" class="card">
-                <div class="card-preview"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Anonymous Reporting"></div>
+                <div class="card-preview">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80" alt="Anonymous Reporting">
+                </div>
                 <div class="card-content">
                     <div class="card-title">Anonymous Reporting</div>
                     <div class="card-desc">Submit encrypted, untracked feedback and check for official response codes.</div>
                     <div class="btn-visit">Submit Securely</div>
                 </div>
             </a>
+
             <a href="quick-links.html" class="card">
-                <div class="card-preview"><img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="Quick Links"></div>
+                <div class="card-preview">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="Quick Links">
+                </div>
                 <div class="card-content">
                     <div class="card-title">Teacher Quick Links</div>
                     <div class="card-desc">Direct access to TPAD, T-PAY, SHA, KRA, KNEC, and official TSC portals.</div>
                     <div class="btn-visit">Explore Links</div>
                 </div>
             </a>
+
             <a href="contact.html" class="card">
-                <div class="card-preview"><img src="https://images.unsplash.com/photo-1423766864167-4c0fb029d32f?auto=format&fit=crop&w=600&q=80" alt="Contact"></div>
+                <div class="card-preview">
+                    <img src="https://images.unsplash.com/photo-1423766864167-4c0fb029d32f?auto=format&fit=crop&w=600&q=80" alt="Contact">
+                </div>
                 <div class="card-content">
                     <div class="card-title">Contact & Directions</div>
                     <div class="card-desc">Reach out via phone, WhatsApp support, or get directions to the branch office.</div>
@@ -229,48 +380,68 @@
         </div>
     </div>
 
-    <!-- Admin Panel Modal -->
+    <!-- Executive Admin Dashboard Modal -->
     <div class="admin-modal" id="adminModal">
-        <div class="admin-content">
-            <h2>Admin Dashboard</h2>
-            <div id="admin-view-list">
-                <button onclick="showAdminForm()" style="margin-bottom: 15px; padding: 8px 15px; background: var(--gold); border:none; border-radius: 4px; cursor:pointer; font-weight:bold;">+ Create New Post</button>
-                <div id="admin-posts-list"></div>
-                <button onclick="closeAdmin()" class="btn-cancel" style="margin-top: 15px;">Close Dashboard</button>
+        <div class="admin-card">
+            <div class="admin-header-bar">
+                <h3>Executive Admin Dashboard</h3>
+                <button class="admin-close-btn" onclick="closeAdmin()">✕</button>
             </div>
 
-            <div id="admin-view-form" style="display: none;" class="admin-form">
-                <h3 id="form-title">Add Post</h3>
-                <input type="hidden" id="edit-id">
-                <input type="text" id="p-title" placeholder="Post Title (Subject)" required>
-                <textarea id="p-body" placeholder="Message content..." required></textarea>
-                <input type="text" id="p-editor" placeholder="Editor's Name (e.g. Kamau)">
-                <input type="url" id="p-image" placeholder="Image URL Link (Optional)">
-                <select id="p-comments">
-                    <option value="N">Disable Comments</option>
-                    <option value="Y">Enable Comments</option>
-                </select>
-                <div class="admin-btns">
-                    <button onclick="savePost()" class="btn-save">Save Post</button>
-                    <button onclick="hideAdminForm()" class="btn-cancel">Cancel</button>
+            <div class="admin-body">
+                <!-- Manage Posts List View -->
+                <div id="admin-view-list">
+                    <button onclick="showAdminForm()" class="btn-admin-primary" style="margin-bottom: 20px;">+ Create New Announcement</button>
+                    <div id="admin-posts-list"></div>
+                    <button onclick="closeAdmin()" class="btn-admin-secondary" style="width: 100%; margin-top: 15px;">Exit Dashboard</button>
+                </div>
+
+                <!-- Create/Edit Form View -->
+                <div id="admin-view-form" style="display: none;" class="admin-form">
+                    <h4 id="form-title" style="font-size: 1.1rem; color: var(--green-dark); margin-bottom: 15px;">Add Announcement</h4>
+                    
+                    <input type="hidden" id="edit-id">
+                    
+                    <label for="p-title">Subject / Title</label>
+                    <input type="text" id="p-title" placeholder="Enter post title" required>
+                    
+                    <label for="p-body">Post Body / Message</label>
+                    <textarea id="p-body" placeholder="Write the announcement message..." required></textarea>
+                    
+                    <label for="p-editor">Editor's Name</label>
+                    <input type="text" id="p-editor" placeholder="e.g. Executive Secretary">
+                    
+                    <label for="p-image">Image URL Link (Optional)</label>
+                    <input type="url" id="p-image" placeholder="https://example.com/photo.jpg">
+                    
+                    <label for="p-comments">Member Comments</label>
+                    <select id="p-comments">
+                        <option value="N">Disable Comments</option>
+                        <option value="Y">Allow Member Comments</option>
+                    </select>
+
+                    <div class="admin-action-row">
+                        <button onclick="savePost()" class="btn-admin-primary">Publish Announcement</button>
+                        <button onclick="hideAdminForm()" class="btn-admin-secondary">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p>Mwalimu Productions &copy; 2026 - 2027. All Rights Reserved.</p>
+    <!-- Official Universal Footer -->
+    <footer class="universal-footer">
+        A product of Kirinyaga Kuppet Branch &copy; 2026 - 2027
     </footer>
 
     <script>
-        // --- REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT WEB APP URL ---
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_lFbiVB0TIjrPNpodeuEWwYVoyyYE6pNCHROFCNUKuFpR3r7MJ0_F57cxRp36-j4Kjw/exec';
-        // ----------------------------------------------------------------------
+        // --- REPLACE WITH YOUR DEPLOYED APPS SCRIPT URL ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_lFbiVB0TIjrPNpodeuEWwYVoyyYE6pNCHROFCNUKuFpR3r7MJ0_F57cxRp36-j4Kjw/exec'; 
+        // --------------------------------------------------
 
         let adminPassword = '';
         let allPosts = [];
 
-        // Fetch posts on load
         document.addEventListener('DOMContentLoaded', loadPosts);
 
         async function loadPosts() {
@@ -279,7 +450,7 @@
                 allPosts = await res.json();
                 renderFeed();
             } catch (e) {
-                document.getElementById('posts-feed').innerHTML = '<p style="color:red;">Failed to load posts.</p>';
+                document.getElementById('posts-feed').innerHTML = '<p style="color:#c53030; text-align:center;">Failed to load announcements.</p>';
             }
         }
 
@@ -287,8 +458,8 @@
             const feed = document.getElementById('posts-feed');
             feed.innerHTML = '';
             
-            if (allPosts.length === 0) {
-                feed.innerHTML = '<p style="color:#888;">No new updates at the moment.</p>';
+            if (!Array.isArray(allPosts) || allPosts.length === 0) {
+                feed.innerHTML = '<p style="color:#888; text-align:center; padding: 20px;">No new announcements at the moment.</p>';
                 return;
             }
 
@@ -296,32 +467,38 @@
                 const card = document.createElement('div');
                 card.className = 'post-card';
                 
-                // Truncate logic
-                let bodyHtml = post.body.replace(/\n/g, '<br>');
-                const limit = 200;
-                let isLong = post.body.length > limit;
-                let shortBody = isLong ? post.body.substring(0, limit) + '...' : bodyHtml;
+                const bodyText = post.body || '';
+                const limit = 220;
+                const isLong = bodyText.length > limit;
+                
+                const shortText = isLong ? bodyText.substring(0, limit) + '...' : bodyText;
 
-                // Comments Logic
+                // FIX: Build author output string safely without template literals escaping
+                const editorHtml = (post.editor && post.editor.trim() !== '') 
+                    ? `<div class="post-author">Posted by: <em>${escapeHtml(post.editor)}</em></div>` 
+                    : '';
+
+                // Comments Block
                 let commentsHtml = '';
                 if (post.commentsAllowed === 'Y') {
                     let cList = '';
                     if (post.comments) {
-                        const comms = post.comments.split('||'); // Separator
+                        const comms = post.comments.split('||'); 
                         comms.forEach(c => {
                             const parts = c.split('|');
                             if(parts.length >= 2) {
-                                cList += `<div class="comment-item"><strong>${parts[0]}</strong>${parts[1]}</div>`;
+                                cList += `<div class="comment-item"><strong>${escapeHtml(parts[0])}</strong>${escapeHtml(parts[1])}</div>`;
                             }
                         });
                     }
                     commentsHtml = `
                         <div class="comments-section">
+                            <div class="comments-title">Member Comments</div>
                             <div class="comment-list">${cList || '<span style="font-size:0.85rem;color:#888;">No comments yet.</span>'}</div>
                             <div class="add-comment-form">
                                 <input type="text" id="cname-${post.id}" placeholder="Your Name">
                                 <textarea id="ctext-${post.id}" placeholder="Write a comment..."></textarea>
-                                <button onclick="submitComment(${post.id})">Post</button>
+                                <button onclick="submitComment(${post.id})">Submit</button>
                             </div>
                         </div>
                     `;
@@ -329,34 +506,51 @@
 
                 card.innerHTML = `
                     <div class="post-header">
-                        <div class="post-title">${post.subject}</div>
+                        <div class="post-title">${escapeHtml(post.subject)}</div>
                         <div class="post-time">${timeAgo(post.timestamp)}</div>
                     </div>
-                    ${post.image ? `<img src="\${post.image}" class="post-image" style="display:block;">` : ''}
+                    ${post.image ? `<img src="\${escapeHtml(post.image)}" class="post-image" alt="Post attachment">` : ''}
                     <div class="post-body" id="pbody-${post.id}">
-                        <span class="text-content">${shortBody}</span>
-                        ${isLong ? `<br><button class="read-more-btn" onclick="toggleText(this, \`${bodyHtml.replace(/`/g, '\\`')}\`, \`${shortBody.replace(/`/g, '\\`')}\`)">Read more</button>` : ''}
+                        <span class="text-content">${escapeHtml(shortText).replace(/\n/g, '<br>')}</span>
+                        ${isLong ? `<br><button class="read-more-btn" onclick="toggleReadMore(this, \${post.id})">Read more</button>` : ''}
                     </div>
-                    ${post.editor ? `<div class="post-author">Posted by: \${post.editor}</div>` : ''}
+                    ${editorHtml}
                     ${commentsHtml}
                 `;
                 feed.appendChild(card);
             });
         }
 
-        function toggleText(btn, fullText, shortText) {
-            const container = btn.previousElementSibling;
+        function toggleReadMore(btn, postId) {
+            const post = allPosts.find(p => p.id === postId);
+            if (!post) return;
+
+            const textSpan = btn.parentElement.querySelector('.text-content');
             if (btn.innerText === 'Read more') {
-                container.innerHTML = fullText;
+                textSpan.innerHTML = escapeHtml(post.body).replace(/\n/g, '<br>');
                 btn.innerText = 'Show less';
             } else {
-                container.innerHTML = shortText;
+                const shortText = post.body.substring(0, 220) + '...';
+                textSpan.innerHTML = escapeHtml(shortText).replace(/\n/g, '<br>');
                 btn.innerText = 'Read more';
             }
         }
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
         function timeAgo(dateString) {
+            if (!dateString) return "Recently";
             const date = new Date(dateString);
+            if (isNaN(date.getTime())) return "Recently";
+            
             const seconds = Math.round((new Date() - date) / 1000);
             if (seconds < 60) return "Just now";
             const mins = Math.floor(seconds / 60);
@@ -365,31 +559,32 @@
             if (hrs < 24) return `${hrs} hr ago`;
             const days = Math.floor(hrs / 24);
             if (days < 7) return `${days} day(s) ago`;
-            return `${Math.floor(days/7)} week(s) ago`;
+            const weeks = Math.floor(days / 7);
+            return `${weeks} week(s) ago`;
         }
 
         async function submitComment(id) {
             const name = document.getElementById(`cname-${id}`).value.trim();
             const text = document.getElementById(`ctext-${id}`).value.trim();
-            if(!name || !text) return alert("Name and comment are required.");
+            if(!name || !text) return alert("Please fill in both your name and comment.");
 
             const payload = { action: 'addComment', id: id, name: name, comment: text };
             try {
                 await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
-                alert("Comment added!");
-                loadPosts(); // Refresh
-            } catch(e) { alert("Error saving comment."); }
+                alert("Comment posted successfully!");
+                loadPosts();
+            } catch(e) { alert("Failed to submit comment."); }
         }
 
-        // --- ADMIN LOGIN & LONG PRESS ---
+        /* --- ADMIN LOGIN & LONG PRESS HANDLER --- */
         let pressTimer;
-        const logoBtn = document.getElementById('brand-logo-img');
+        const logoTrigger = document.getElementById('logo-trigger-area');
 
-        logoBtn.addEventListener('mousedown', startPress);
-        logoBtn.addEventListener('touchstart', startPress);
-        logoBtn.addEventListener('mouseup', cancelPress);
-        logoBtn.addEventListener('mouseleave', cancelPress);
-        logoBtn.addEventListener('touchend', cancelPress);
+        logoTrigger.addEventListener('mousedown', startPress);
+        logoTrigger.addEventListener('touchstart', startPress);
+        logoTrigger.addEventListener('mouseup', cancelPress);
+        logoTrigger.addEventListener('mouseleave', cancelPress);
+        logoTrigger.addEventListener('touchend', cancelPress);
 
         function startPress(e) { pressTimer = window.setTimeout(openAdminPrompt, 1500); }
         function cancelPress(e) { clearTimeout(pressTimer); }
@@ -399,13 +594,13 @@
             if (!adminPassword) return;
             
             try {
-                const res = await fetch(`${SCRIPT_URL}?action=verify&password=${adminPassword}`);
+                const res = await fetch(`${SCRIPT_URL}?action=verify&password=${encodeURIComponent(adminPassword)}`);
                 const data = await res.json();
                 if (data.success) {
                     renderAdminList();
                     document.getElementById('adminModal').style.display = 'flex';
                 } else {
-                    alert("Incorrect Password!");
+                    alert("Incorrect Admin Password.");
                 }
             } catch (e) { alert("Verification failed."); }
         }
@@ -415,22 +610,30 @@
         function renderAdminList() {
             const list = document.getElementById('admin-posts-list');
             list.innerHTML = '';
+            
+            if (allPosts.length === 0) {
+                list.innerHTML = '<p style="color:#888; font-size:0.9rem;">No existing posts.</p>';
+                return;
+            }
+
             allPosts.forEach(p => {
-                list.innerHTML += `
-                    <div class="admin-post-item">
-                        <strong>${p.subject}</strong>
-                        <div class="admin-post-actions">
-                            <button class="btn-edit" onclick='editPost(${JSON.stringify(p).replace(/'/g, "&#39;")})'>Edit</button>
-                            <button class="btn-del" onclick="deletePost(${p.id})">Del</button>
-                        </div>
-                    </div>`;
+                const item = document.createElement('div');
+                item.className = 'admin-post-list-item';
+                item.innerHTML = `
+                    <strong>${escapeHtml(p.subject)}</strong>
+                    <div class="admin-item-btns">
+                        <button class="btn-edit-post" onclick="editPost(${p.id})">Edit</button>
+                        <button class="btn-del-post" onclick="deletePost(${p.id})">Del</button>
+                    </div>
+                `;
+                list.appendChild(item);
             });
         }
 
         function showAdminForm() {
             document.getElementById('admin-view-list').style.display = 'none';
             document.getElementById('admin-view-form').style.display = 'block';
-            document.getElementById('form-title').innerText = "Add Post";
+            document.getElementById('form-title').innerText = "Create Announcement";
             document.getElementById('edit-id').value = "";
             document.getElementById('p-title').value = "";
             document.getElementById('p-body').value = "";
@@ -444,15 +647,18 @@
             document.getElementById('admin-view-form').style.display = 'none';
         }
 
-        function editPost(post) {
+        function editPost(postId) {
+            const post = allPosts.find(p => p.id === postId);
+            if (!post) return;
+
             showAdminForm();
-            document.getElementById('form-title').innerText = "Edit Post";
+            document.getElementById('form-title').innerText = "Edit Announcement";
             document.getElementById('edit-id').value = post.id;
-            document.getElementById('p-title').value = post.subject;
-            document.getElementById('p-body').value = post.body;
-            document.getElementById('p-editor').value = post.editor;
-            document.getElementById('p-image').value = post.image;
-            document.getElementById('p-comments').value = post.commentsAllowed;
+            document.getElementById('p-title').value = post.subject || '';
+            document.getElementById('p-body').value = post.body || '';
+            document.getElementById('p-editor').value = post.editor || '';
+            document.getElementById('p-image').value = post.image || '';
+            document.getElementById('p-comments').value = post.commentsAllowed || 'N';
         }
 
         async function savePost() {
@@ -461,32 +667,37 @@
                 action: id ? 'editPost' : 'addPost',
                 id: id,
                 password: adminPassword,
-                subject: document.getElementById('p-title').value,
-                body: document.getElementById('p-body').value,
-                editor: document.getElementById('p-editor').value,
-                image: document.getElementById('p-image').value,
+                subject: document.getElementById('p-title').value.trim(),
+                body: document.getElementById('p-body').value.trim(),
+                editor: document.getElementById('p-editor').value.trim(),
+                image: document.getElementById('p-image').value.trim(),
                 commentsAllowed: document.getElementById('p-comments').value
             };
 
-            if (!payload.subject || !payload.body) return alert("Subject and Body are required.");
+            if (!payload.subject || !payload.body) return alert("Title and Message are required.");
 
             try {
                 const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const result = await res.json();
                 if(result.success) {
-                    alert("Saved!");
+                    alert("Announcement saved successfully!");
                     hideAdminForm();
-                    loadPosts();
+                    await loadPosts();
+                    renderAdminList();
                 } else alert("Error: " + result.error);
-            } catch(e) { alert("Failed to save."); }
+            } catch(e) { alert("Failed to save announcement."); }
         }
 
         async function deletePost(id) {
-            if(!confirm("Are you sure you want to delete this post?")) return;
+            if(!confirm("Are you sure you want to delete this announcement?")) return;
             try {
                 const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({action: 'deletePost', id: id, password: adminPassword}) });
                 const result = await res.json();
-                if(result.success) { alert("Deleted."); loadPosts(); renderAdminList(); }
+                if(result.success) { 
+                    alert("Announcement deleted."); 
+                    await loadPosts(); 
+                    renderAdminList(); 
+                }
                 else alert("Error: " + result.error);
             } catch(e) { alert("Failed to delete."); }
         }
