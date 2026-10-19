@@ -36,8 +36,6 @@
         .app-container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 30px 20px; flex-grow: 1; }
 
         .page-header { text-align: center; margin-bottom: 40px; }
-        
-        /* Restored Logo Badge Style */
         .page-header-logo {
             width: 90px;
             height: 90px;
@@ -52,8 +50,21 @@
         .page-header h2 { font-size: 2.2rem; color: var(--green-dark); font-weight: 700; }
         .page-header p { font-size: 1rem; color: var(--text-muted); margin-top: 5px; }
 
-        /* --- COMMITTEES SHOWCASE --- */
-        .committee-group { margin-bottom: 45px; }
+        /* --- COMMITTEE GROUPS WITH DISTINCT THEME BACKGROUNDS --- */
+        .committee-group { 
+            margin-bottom: 45px; 
+            padding: 25px; 
+            border-radius: 20px; 
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        
+        /* Rotating Theme Backgrounds per Committee Block Index */
+        .committee-group:nth-child(1) { background: #f0fdf4; border-color: #bbf7d0; } /* Soft Green Shade */
+        .committee-group:nth-child(2) { background: #fdf8e2; border-color: #fef08a; } /* Warm Gold Shade */
+        .committee-group:nth-child(3) { background: #ffffff; border-color: #e2e8f0; } /* Clean White Shade */
+        .committee-group:nth-child(n+4) { background: #f8fafc; border-color: #cbd5e1; } /* Slate Grey Shade */
+
         .committee-title-badge {
             display: inline-block; background: var(--green-dark); color: var(--white);
             padding: 8px 22px; border-radius: 30px; font-size: 1.1rem; font-weight: 700;
@@ -69,7 +80,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative;
         }
         .member-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-color: var(--gold); }
-        .member-card.rank-hero { grid-column: 1 / -1; display: flex; flex-direction: row; border-top: 5px solid var(--gold); background: linear-gradient(to right, #ffffff, #f0fdf4); }
+        .member-card.rank-hero { grid-column: 1 / -1; display: flex; flex-direction: row; border-top: 5px solid var(--gold); background: linear-gradient(to right, #ffffff, #f8fafc); }
         @media (max-width: 768px) { .member-card.rank-hero { flex-direction: column; } }
         
         .rank-hero .member-img-wrapper { width: 280px; height: 280px; flex-shrink: 0; }
@@ -82,7 +93,6 @@
         .member-img-wrapper img { width: 100%; height: 100%; object-fit: contain; object-position: center; transition: transform 0.4s ease; }
         .member-img-wrapper:hover img { transform: scale(1.03); }
         
-        /* Click prompt badge on image */
         .img-click-hint {
             position: absolute; bottom: 10px; right: 10px; background: rgba(27, 94, 32, 0.85); color: #fff;
             font-size: 0.7rem; padding: 4px 8px; border-radius: 12px; font-weight: 500; pointer-events: none;
@@ -93,9 +103,22 @@
         .member-role { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--gold); background: var(--green-dark); padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px; width: max-content; }
         .member-name { font-size: 1.2rem; font-weight: 700; color: var(--green-dark); margin-bottom: 8px; }
         
-        .chairman-message-box { background: #f0fdf4; border-left: 4px solid var(--green); padding: 12px; border-radius: 8px; margin-top: 8px; margin-bottom: 12px; font-size: 0.88rem; font-style: italic; color: #1b5e20; line-height: 1.4; }
+        /* Chairperson Message Dropdown Trigger */
+        .msg-toggle-btn {
+            background: #f0fdf4; color: var(--green-dark); border: 1px solid #bbf7d0;
+            padding: 6px 12px; border-radius: 16px; font-size: 0.78rem; font-weight: 600;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; transition: 0.2s;
+        }
+        .msg-toggle-btn:hover { background: #dcfce7; }
+
+        .chairman-message-box { 
+            max-height: 0; overflow: hidden; transition: max-height 0.35s ease-in-out, padding 0.3s ease;
+            background: #f0fdf4; border-left: 4px solid var(--green); padding: 0 12px; border-radius: 8px; 
+            font-size: 0.85rem; font-style: italic; color: #1b5e20; line-height: 1.5; margin-top: 0;
+        }
+        .chairman-message-box.msg-open { max-height: 180px; padding: 12px; margin-top: 10px; }
         
-        /* Smart Hidden Drawer for Contacts & Messages */
+        /* Smart Hidden Drawer for Contacts */
         .smart-contact-drawer {
             max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, padding 0.3s ease;
             background: #f8fafc; border-top: 1px dashed transparent; margin-top: 0; padding: 0 15px; border-radius: 0 0 16px 16px;
@@ -190,7 +213,6 @@
         .details-content ul { padding-left: 20px; margin-bottom: 15px; }
         .details-content li { margin-bottom: 6px; }
 
-        /* Scrollbar for details content */
         .details-content::-webkit-scrollbar { width: 6px; }
         .details-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; }
 
@@ -201,7 +223,6 @@
     <div class="app-container">
         
         <div class="page-header">
-            <!-- Restored Branch Logo Badge -->
             <img src="https://i.ibb.co/TqdTXZvh/logo.jpg" alt="KUPPET Kirinyaga Logo" class="page-header-logo">
             <h2>About Us</h2>
             <p>Kenya Union of Post Primary Education Teachers (KUPPET) - Kirinyaga Branch</p>
@@ -355,6 +376,18 @@
             cardElement.classList.toggle('drawer-open');
         }
 
+        function toggleChairMessage(btn, event) {
+            event.stopPropagation(); // Prevent card drawer from triggering simultaneously
+            const msgBox = btn.nextElementSibling;
+            if (msgBox.classList.contains('msg-open')) {
+                msgBox.classList.remove('msg-open');
+                btn.innerHTML = `💬 View Message from ${btn.getAttribute('data-name')}`;
+            } else {
+                msgBox.classList.add('msg-open');
+                btn.innerHTML = `▲ Hide Message`;
+            }
+        }
+
         function renderCommittees(committees) {
             const container = document.getElementById('committees-container');
             container.innerHTML = '';
@@ -377,7 +410,13 @@
                     
                     let messageHtml = '';
                     if (member.message && member.message.trim().length > 0) {
-                        messageHtml = `<div class="chairman-message-box">"${member.message}"</div>`;
+                        const firstName = member.name.split(' ')[0];
+                        messageHtml = `
+                            <button class="msg-toggle-btn" data-name="${firstName}" onclick="toggleChairMessage(this, event)">
+                                💬 View Message from ${firstName}
+                            </button>
+                            <div class="chairman-message-box">"${member.message}"</div>
+                        `;
                     }
 
                     let actionsHtml = '';
