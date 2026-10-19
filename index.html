@@ -242,7 +242,7 @@
             text-align: center;
         }
 
-        /* --- NEWS SECTION (Styled with Theme Green Background & Separation) --- */
+        /* --- NEWS SECTION --- */
         .whats-new-container { 
             background: rgba(27, 94, 32, 0.05); 
             border: 1px solid rgba(27, 94, 32, 0.15); 
@@ -305,7 +305,7 @@
             border-top: 1px solid var(--border-color); 
             padding-top: 15px; 
             margin-top: 15px; 
-            display: none; /* Hidden by default; user clicks to reveal */
+            display: none; 
             animation: fadeIn 0.2s ease-in-out;
         }
         
@@ -313,7 +313,6 @@
         
         .comment-list { margin-bottom: 15px; max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
         
-        /* Professional Chat Bubble Styling */
         .comment-item { 
             background: #f1f5f9; 
             padding: 10px 14px; 
@@ -330,6 +329,15 @@
         .add-comment-form textarea { resize: none; height: 55px; }
         .add-comment-form button { background: var(--green-dark); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; align-self: flex-end; transition: 0.2s; }
         .add-comment-form button:hover { background: var(--green); }
+
+        /* --- QUICK LINKS & SERVICES SECTION --- */
+        .quick-links-section {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 20px;
+            padding: 30px 20px;
+            margin-bottom: 50px;
+        }
 
         /* --- GRID LINKS --- */
         .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
@@ -476,7 +484,7 @@
                 </div>
             </div>
 
-            <!-- News Section (Renamed & Styled with Theme Green Shade) -->
+            <!-- News Section -->
             <div class="whats-new-container">
                 <h2 class="section-header">
                     <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" stroke-width="2" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -487,73 +495,79 @@
                 </div>
             </div>
 
-            <!-- Links Grid Navigation Cards -->
-            <div class="links-grid">
-                <a onclick="loadSubPageWrapper(event, 'about.html')" class="card">
-                    <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=600" alt="About Us" referrerpolicy="no-referrer">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">About Us & Leadership</div>
-                        <div class="card-desc">Learn about our vision, mission, leadership committees, core values, and read the official KUPPET constitution.</div>
-                        <div class="btn-visit">Learn More</div>
-                    </div>
-                </a>
+            <!-- Quick Links and Services Section -->
+            <div class="quick-links-section">
+                <h2 class="section-header">
+                    <svg viewBox="0 0 24 24" width="26" height="26" stroke="var(--gold)" stroke-width="2" fill="none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                    Quick Links and Services
+                </h2>
+                <div class="links-grid">
+                    <a onclick="loadSubPageWrapper(event, 'about.html')" class="card">
+                        <div class="card-preview">
+                            <img src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=600" alt="About Us" referrerpolicy="no-referrer">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">About Us & Leadership</div>
+                            <div class="card-desc">Learn about our vision, mission, leadership committees, core values, and read the official KUPPET constitution.</div>
+                            <div class="btn-visit">Learn More</div>
+                        </div>
+                    </a>
 
-                <a onclick="loadSubPageWrapper(event, 'case-reporting.html')" class="card">
-                    <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/5212687/pexels-photo-5212687.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Case Reporting" referrerpolicy="no-referrer">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">BBF Case Portal</div>
-                        <div class="card-desc">File confidential welfare support claims securely and track your processing status online.</div>
-                        <div class="btn-visit">Report a Case</div>
-                    </div>
-                </a>
+                    <a onclick="loadSubPageWrapper(event, 'case-reporting.html')" class="card">
+                        <div class="card-preview">
+                            <img src="https://images.pexels.com/photos/5212687/pexels-photo-5212687.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Case Reporting" referrerpolicy="no-referrer">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">BBF Case Portal</div>
+                            <div class="card-desc">File confidential welfare support claims securely and track your processing status online.</div>
+                            <div class="btn-visit">Report a Case</div>
+                        </div>
+                    </a>
 
-                <a onclick="loadSubPageWrapper(event, 'wellness.html')" class="card">
-                    <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Teacher Wellness" referrerpolicy="no-referrer">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Teacher Wellness</div>
-                        <div class="card-desc">Access psychological helplines, decompression videos, AI support, and relaxation tools.</div>
-                        <div class="btn-visit">Open Wellness</div>
-                    </div>
-                </a>
+                    <a onclick="loadSubPageWrapper(event, 'wellness.html')" class="card">
+                        <div class="card-preview">
+                            <img src="https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Teacher Wellness" referrerpolicy="no-referrer">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">Teacher Wellness</div>
+                            <div class="card-desc">Access psychological helplines, decompression videos, AI support, and relaxation tools.</div>
+                            <div class="btn-visit">Open Wellness</div>
+                        </div>
+                    </a>
 
-                <a onclick="loadSubPageWrapper(event, 'anonymous.html')" class="card">
-                    <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Anonymous Reporting" referrerpolicy="no-referrer">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Anonymous Reporting</div>
-                        <div class="card-desc">Submit encrypted, untracked feedback and check for official response codes.</div>
-                        <div class="btn-visit">Submit Securely</div>
-                    </div>
-                </a>
+                    <a onclick="loadSubPageWrapper(event, 'anonymous.html')" class="card">
+                        <div class="card-preview">
+                            <img src="https://images.pexels.com/photos/5905709/pexels-photo-5905709.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Anonymous Reporting" referrerpolicy="no-referrer">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">Anonymous Reporting</div>
+                            <div class="card-desc">Submit encrypted, untracked feedback and check for official response codes.</div>
+                            <div class="btn-visit">Submit Securely</div>
+                        </div>
+                    </a>
 
-                <a onclick="loadSubPageWrapper(event, 'quick-links.html')" class="card">
-                    <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Quick Links" referrerpolicy="no-referrer">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Teacher Quick Links</div>
-                        <div class="card-desc">Direct access to TPAD, T-PAY, SHA, KRA, KNEC, and official TSC portals.</div>
-                        <div class="btn-visit">Explore Links</div>
-                    </div>
-                </a>
+                    <a onclick="loadSubPageWrapper(event, 'quick-links.html')" class="card">
+                        <div class="card-preview">
+                            <img src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Quick Links" referrerpolicy="no-referrer">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">Teacher Quick Links</div>
+                            <div class="card-desc">Direct access to TPAD, T-PAY, SHA, KRA, KNEC, and official TSC portals.</div>
+                            <div class="btn-visit">Explore Links</div>
+                        </div>
+                    </a>
 
-                <a onclick="loadSubPageWrapper(event, 'contact.html')" class="card">
-                    <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Contact" referrerpolicy="no-referrer">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-title">Contact & Directions</div>
-                        <div class="card-desc">Reach out via phone, WhatsApp support, or get directions to the branch office.</div>
-                        <div class="btn-visit">Get in Touch</div>
-                    </div>
-                </a>
+                    <a onclick="loadSubPageWrapper(event, 'contact.html')" class="card">
+                        <div class="card-preview">
+                            <img src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Contact" referrerpolicy="no-referrer">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">Contact & Directions</div>
+                            <div class="card-desc">Reach out via phone, WhatsApp support, or get directions to the branch office.</div>
+                            <div class="btn-visit">Get in Touch</div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
