@@ -547,12 +547,13 @@
                     `;
                 }
 
+                // FIX: Added 'referrerpolicy="no-referrer"' to bypass strict hotlink blocking from sites like Pexels
                 card.innerHTML = `
                     <div class="post-header">
                         <div class="post-title">${escapeHtml(post.subject)}</div>
                         <div class="post-time">${timeAgo(post.timestamp)}</div>
                     </div>
-                    ${post.image ? `<img src="\${escapeHtml(post.image)}" class="post-image" alt="Post attachment">` : ''}
+                    ${post.image ? `<img src="\${escapeHtml(post.image.trim())}" class="post-image" alt="Post attachment" referrerpolicy="no-referrer">` : ''}
                     <div class="post-body" id="pbody-${post.id}">
                         <span class="text-content">${escapeHtml(shortText).replace(/\n/g, '<br>')}</span>
                         ${isLong ? `<br><button class="read-more-btn" onclick="toggleReadMore(this, \${post.id})">Read more</button>` : ''}
