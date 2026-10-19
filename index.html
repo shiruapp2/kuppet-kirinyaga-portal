@@ -518,8 +518,17 @@
                 const isLong = bodyText.length > limit;
                 const shortText = isLong ? bodyText.substring(0, limit) + '...' : bodyText;
 
+                // Safely extract HTML strings to prevent nested template literal parsing bugs
                 const editorHtml = (post.editor && post.editor.trim() !== '') 
-                    ? `<div class="post-author">Posted by: <strong>${escapeHtml(post.editor)}</strong></div>` 
+                    ? '<div class="post-author">Posted by: <strong>' + escapeHtml(post.editor) + '</strong></div>' 
+                    : '';
+
+                const imageHtml = (post.image && post.image.trim() !== '') 
+                    ? '<img src="' + escapeHtml(post.image.trim()) + '" class="post-image" alt="Post attachment" referrerpolicy="no-referrer">' 
+                    : '';
+
+                const readMoreHtml = isLong 
+                    ? '<br><button class="read-more-btn" onclick="toggleReadMore(this, ' + post.id + ')">Read more</button>' 
                     : '';
 
                 let commentsHtml = '';
@@ -530,7 +539,7 @@
                         comms.forEach(c => {
                             const parts = c.split('|');
                             if(parts.length >= 2) {
-                                cList += `<div class="comment-item"><strong>${escapeHtml(parts[0])}</strong>${escapeHtml(parts[1])}</div>`;
+                                cList += '<div class="comment-item"><strong>' + escapeHtml(parts[0]) + '</strong>' + escapeHtml(parts[1]) + '</div>';
                             }
                         });
                     }
@@ -547,16 +556,15 @@
                     `;
                 }
 
-                // FIX: Added 'referrerpolicy="no-referrer"' to bypass strict hotlink blocking from sites like Pexels
                 card.innerHTML = `
                     <div class="post-header">
                         <div class="post-title">${escapeHtml(post.subject)}</div>
                         <div class="post-time">${timeAgo(post.timestamp)}</div>
                     </div>
-                    ${post.image ? `<img src="\${escapeHtml(post.image.trim())}" class="post-image" alt="Post attachment" referrerpolicy="no-referrer">` : ''}
+                    ${imageHtml}
                     <div class="post-body" id="pbody-${post.id}">
                         <span class="text-content">${escapeHtml(shortText).replace(/\n/g, '<br>')}</span>
-                        ${isLong ? `<br><button class="read-more-btn" onclick="toggleReadMore(this, \${post.id})">Read more</button>` : ''}
+                        ${readMoreHtml}
                     </div>
                     ${editorHtml}
                     ${commentsHtml}
