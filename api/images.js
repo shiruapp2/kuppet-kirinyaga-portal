@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 
 export default function handler(req, res) {
-  // Force Vercel and the browser to never cache this response
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
@@ -10,31 +9,37 @@ export default function handler(req, res) {
   try {
     const imagesDir = path.join(process.cwd(), 'images');
 
-    // Debugging output to see exactly what Vercel detects
     if (!fs.existsSync(imagesDir)) {
-      return res.status(200).json({ error: "Folder completely missing", searchedPath: imagesDir });
+      return res.status(200).json({ error: "Folder missing" });
     }
 
     const files = fs.readdirSync(imagesDir);
-    if (files.length === 0) {
-      return res.status(200).json({ error: "Folder exists but is empty", searchedPath: imagesDir });
-    }
-
+    
     const displayPhotos = [];
     const committees = {};
+    
+    // Diagnostic Arrays to see exactly what Vercel is rejecting
+    const extensionFails = []; 
+    const unparsedFiles = [];
 
     files.forEach((file) => {
-      if (!/\.(jpg|jpeg|png|webp|gif|svg)\$/i.test(file)) return;
+      // 1. Check if the file extension is recognized
+      if (!/\.(jpg|jpeg|png|webp|gif|svg)\$/i.test(file)) {
+         extensionFails.push({ file: file, reason: "Did not match allowed image extensions" });
+         return;
+      }
 
       const ext = path.extname(file);
       const nameWithoutExt = path.basename(file, ext);
 
-      if (file.startsWith('Display_photo_')) {
+      // 2. Check Display Photos (Made case-insensitive)
+      if (nameWithoutExt.toLowerCase().startsWith('display_photo_')) {
         const parts = nameWithoutExt.split('_');
         const title = parts.slice(3).join(' ') || parts.slice(2).join(' ') || 'Kirinyaga Kuppet Branch';
         displayPhotos.push({ src: `/images/${file}`, title: title });
       }
-      else if (file.includes('_')) {
+      // 3. Check Committees (Must have underscores)
+      else if (nameWithoutExt.includes('_')) {
         const parts = nameWithoutExt.split('_');
         if (parts.length >= 4) {
           let rawCommittee = parts[0].trim().toUpperCase();
@@ -54,7 +59,13 @@ export default function handler(req, res) {
             email: parts[5] ? parts[5].trim() : '',
             message: parts.slice(6).join(' ').trim() || ''
           });
+        } else {
+           unparsedFiles.push({ file: file, reason: "Filename has less than 4 parts separated by underscores", partsDetected: parts.length });
         }
+      } 
+      // 4. Catch anything else
+      else {
+         unparsedFiles.push({ file: file, reason: "Filename does not contain any underscores" });
       }
     });
 
@@ -62,7 +73,16 @@ export default function handler(req, res) {
       committees[key].sort((a, b) => a.hierarchy - b.hierarchy);
     });
 
-    res.status(200).json({ success: true, filesDetected: files.length, displayPhotos, committees });
+    // Output EVERYTHING to the screen so we can see the hidden issue
+    res.status(200).json({ 
+        success: true, 
+        filesDetectedCount: files.length, 
+        rawFileList: files,
+        extensionFails: extensionFails,
+        unparsedFiles: unparsedFiles,
+        displayPhotos, 
+        committees 
+    });
   } catch (error) {
     res.status(500).json({ error: 'Server crashed', details: error.message });
   }
